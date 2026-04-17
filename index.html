@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lucan Childcare Navigator: Find, Compare, Plan (2025/2026)</title>
+  <meta name="description" content="Explore, compare and plan childcare in Lucan & surrounds. 14 providers mapped, live subsidy calculator, ECE stress test, and Sept 2026 NCS changes." />
+
+  <!-- Fontshare: Satoshi -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Nav -->
+  <header class="nav" aria-label="Site navigation">
+    <div class="nav__inner container">
+      <a href="#top" class="brand" aria-label="Lucan Childcare Navigator: home">
+        <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+          <path d="M16 3 C10 3 5 8 5 15 c0 6 5 11 11 14 c6-3 11-8 11-14 c0-7-5-12-11-12 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <circle cx="16" cy="14" r="3.2" fill="currentColor"/>
+          <path d="M10 21 c2-2 4-3 6-3 s4 1 6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
+      </a>
+      <nav class="nav__links" aria-label="Section links">
+        <a href="#map">Map</a>
+        <a href="#providers">Providers</a>
+        <a href="#simulator">Cost</a>
+        <a href="#stress">Stability</a>
+        <a href="#subsidies">Subsidies</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <span class="hero__eyebrow">Lucan · Co. Dublin · 2025 / 2026</span>
+        <h1 class="hero__title">Lucan Childcare<br/><em>Navigator</em>.</h1>
+        <p class="hero__subtitle">Find, compare, and plan childcare in Lucan &amp; surrounds,
+          with live subsidy maths and a stability check for every provider.</p>
+
+        <div class="hero__stats" role="list">
+          <div class="stat" role="listitem">
+            <div class="stat__num">14</div>
+            <div class="stat__lbl">Providers mapped</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat__num">~€1,050</div>
+            <div class="stat__lbl">Avg monthly fee, pre-subsidy</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat__num">40,000+</div>
+            <div class="stat__lbl">On national waitlists</div>
+          </div>
+          <div class="stat" role="listitem">
+            <div class="stat__num">Sept 2026</div>
+            <div class="stat__lbl">NCS thresholds rise</div>
+          </div>
+        </div>
+
+        <div class="hero__cta">
+          <a href="#map" class="btn btn--primary">Explore the map</a>
+          <a href="#simulator" class="btn btn--ghost">Run the cost simulator</a>
+        </div>
+      </div>
+      <div class="hero__art" aria-hidden="true">
+        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="g1" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#8FB79E" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="#8FB79E" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="g2" cx="50%" cy="50%">
+              <stop offset="0%" stop-color="#E9C77A" stop-opacity=".45"/>
+              <stop offset="100%" stop-color="#E9C77A" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <circle cx="120" cy="90" r="180" fill="url(#g1)"/>
+          <circle cx="480" cy="320" r="200" fill="url(#g2)"/>
+          <circle cx="430" cy="120" r="140" fill="url(#g1)"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ MAP ============ -->
+    <section id="map" class="section">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">01 · Map</span>
+          <h2 class="section__title">Every provider, on one map.</h2>
+          <p class="section__lede">Pins are colour-coded by waitlist risk. Filter by what matters: budget, type, Montessori, ECCE.</p>
+        </header>
+
+        <div class="map-controls" role="region" aria-label="Map filters">
+          <div class="control">
+            <label for="f-type">Type</label>
+            <select id="f-type">
+              <option value="all">All types</option>
+              <option value="creche">Full Day Crèche</option>
+              <option value="montessori">Montessori / Sessional</option>
+              <option value="childminder">Childminder</option>
+              <option value="playschool">Playschool</option>
+            </select>
+          </div>
+          <div class="control control--wide">
+            <label for="f-budget">Max monthly fee <span id="f-budget-val">€1,400</span></label>
+            <input type="range" id="f-budget" min="400" max="1400" step="50" value="1400" />
+          </div>
+          <div class="control control--check">
+            <label><input type="checkbox" id="f-mont" /> Montessori only</label>
+            <label><input type="checkbox" id="f-ecce" /> ECCE participating</label>
+          </div>
+          <div class="control control--legend" aria-label="Legend">
+            <span class="legend"><i class="dot dot--low"></i> Low wait</span>
+            <span class="legend"><i class="dot dot--med"></i> Medium</span>
+            <span class="legend"><i class="dot dot--high"></i> High / Very high</span>
+          </div>
+        </div>
+
+        <div id="leaflet-map" class="leaflet-wrap" role="application" aria-label="Childcare provider map"></div>
+        <p class="map-footnote"><span id="map-count">14</span> providers matching your filters.</p>
+      </div>
+    </section>
+
+    <!-- ============ PROVIDERS ============ -->
+    <section id="providers" class="section section--alt">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">02 · Providers</span>
+          <h2 class="section__title">Compare, side by side.</h2>
+          <p class="section__lede">Search by name, sort by what matters, and spot the ones with space for your child.</p>
+        </header>
+
+        <div class="prov-controls">
+          <div class="control control--wide">
+            <label for="p-search">Search</label>
+            <input type="search" id="p-search" placeholder="Name, area, feature…" autocomplete="off" />
+          </div>
+          <div class="control">
+            <label for="p-sort">Sort by</label>
+            <select id="p-sort">
+              <option value="price">Price: low to high</option>
+              <option value="price-desc">Price: high to low</option>
+              <option value="stability">Stability: high to low</option>
+              <option value="waitlist">Waitlist: shortest first</option>
+              <option value="name">Name: A to Z</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="provider-grid" class="card-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ COST SIMULATOR ============ -->
+    <section id="simulator" class="section">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">03 · Cost Simulator</span>
+          <h2 class="section__title">What will it actually cost?</h2>
+          <p class="section__lede">Drag the sliders. The net monthly bill updates live, with subsidies applied in the right order.</p>
+        </header>
+
+        <div class="sim">
+          <div class="sim__inputs">
+            <div class="sim__field">
+              <label for="s-income">Household income <strong id="s-income-val">€50,000</strong></label>
+              <input type="range" id="s-income" min="20000" max="120000" step="1000" value="50000" />
+              <div class="range-scale"><span>€20k</span><span>€70k</span><span>€120k</span></div>
+            </div>
+
+            <div class="sim__field">
+              <label for="s-kids">Children <strong id="s-kids-val">1</strong></label>
+              <input type="range" id="s-kids" min="1" max="4" step="1" value="1" />
+              <div class="range-scale"><span>1</span><span>2</span><span>3</span><span>4</span></div>
+            </div>
+
+            <div class="sim__field">
+              <label for="s-days">Days per week <strong id="s-days-val">5</strong></label>
+              <input type="range" id="s-days" min="1" max="5" step="1" value="5" />
+              <div class="range-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+            </div>
+
+            <div class="sim__row">
+              <div class="sim__field sim__field--inline">
+                <label for="s-age">Child age</label>
+                <select id="s-age">
+                  <option value="baby">Baby (under 1)</option>
+                  <option value="toddler" selected>Toddler (1–2)</option>
+                  <option value="preschool">Preschool (3–5)</option>
+                  <option value="school">School age (6+)</option>
+                </select>
+              </div>
+              <div class="sim__field sim__field--inline">
+                <label for="s-prov">Provider</label>
+                <select id="s-prov"></select>
+              </div>
+            </div>
+
+            <div class="sim__toggles">
+              <label class="switch">
+                <input type="checkbox" id="s-ecce" />
+                <span>Apply ECCE (free preschool, age 2y8m+)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="sim__output">
+            <div class="sim__breakdown">
+              <div class="break"><span>Gross monthly fee</span><strong id="o-gross">€0</strong></div>
+              <div class="break break--sub"><span>− NCS Universal subsidy</span><strong id="o-ncsu">€0</strong></div>
+              <div class="break break--sub"><span>− Income-assessed top-up</span><strong id="o-ncsi">€0</strong></div>
+              <div class="break break--sub"><span>− ECCE saving</span><strong id="o-ecce">€0</strong></div>
+              <div class="break break--net">
+                <span>Net monthly</span>
+                <strong id="o-net">€0</strong>
+              </div>
+              <div class="break break--meta">
+                <span id="o-pct">% of household income</span>
+                <span id="o-annual">€0 per year</span>
+              </div>
+            </div>
+
+            <div class="sim__bars" aria-label="Cost before and after subsidies">
+              <div class="barrow">
+                <span class="barrow__lbl">Gross</span>
+                <div class="barrow__track"><div class="barrow__fill barrow__fill--gross" id="bar-gross"></div></div>
+                <span class="barrow__val" id="bar-gross-val">€0</span>
+              </div>
+              <div class="barrow">
+                <span class="barrow__lbl">After NCS</span>
+                <div class="barrow__track"><div class="barrow__fill barrow__fill--mid" id="bar-mid"></div></div>
+                <span class="barrow__val" id="bar-mid-val">€0</span>
+              </div>
+              <div class="barrow">
+                <span class="barrow__lbl">You pay</span>
+                <div class="barrow__track"><div class="barrow__fill barrow__fill--net" id="bar-net"></div></div>
+                <span class="barrow__val" id="bar-net-val">€0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What-if scenarios -->
+        <div class="scenarios">
+          <h3 class="scenarios__title">What if…</h3>
+          <div class="scenarios__grid" id="scenarios-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STRESS TEST ============ -->
+    <section id="stress" class="section section--alt">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">04 · Provider Checklist</span>
+          <h2 class="section__title">What to ask your provider.</h2>
+          <p class="section__lede">Ireland's early-years sector is under pressure. Here are the questions worth asking when you visit a provider in Lucan.</p>
+        </header>
+
+        <div class="stress-stats">
+          <div class="stress-stat"><div class="stress-stat__num">977</div><div class="stress-stat__lbl">Services closed 2019–2025</div></div>
+          <div class="stress-stat"><div class="stress-stat__num">33%</div><div class="stress-stat__lbl">Dublin staff turnover / yr</div></div>
+          <div class="stress-stat"><div class="stress-stat__num">30%</div><div class="stress-stat__lbl">Managers reporting closure risk</div></div>
+          <div class="stress-stat"><div class="stress-stat__num">49%</div><div class="stress-stat__lbl">Staff leaving within 5 yrs</div></div>
+        </div>
+
+        <div id="stress-grid" class="stress-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ SUBSIDIES ============ -->
+    <section id="subsidies" class="section">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">05 · Subsidy Guide</span>
+          <h2 class="section__title">Every scheme, in plain English.</h2>
+          <p class="section__lede">Four schemes interact. Use them in combination: that's how you get the bill down.</p>
+        </header>
+
+        <div class="subsidy-grid">
+          <article class="sub-card">
+            <div class="sub-card__tag">Universal · Free</div>
+            <h3>ECCE: Early Childhood Care &amp; Education</h3>
+            <p>Two years of <strong>free preschool</strong>, 3 hours/day, 5 days/week, 38 weeks/year.</p>
+            <ul>
+              <li>Eligibility: age 2y 8m – 5y 6m</li>
+              <li>Capitation to provider: €69–€82 / wk / child</li>
+              <li>Cost to parent: €0 (for the ECCE hours)</li>
+            </ul>
+          </article>
+
+          <article class="sub-card">
+            <div class="sub-card__tag">Universal · Not means-tested</div>
+            <h3>NCS Universal</h3>
+            <p><strong>€2.14/hour</strong> off your bill, for every child aged 24 weeks to 15 years.</p>
+            <ul>
+              <li>Max 45 hours/week</li>
+              <li>Worth up to <strong>€96.30/week</strong> per child</li>
+              <li>Stacks with ECCE for non-ECCE hours</li>
+            </ul>
+          </article>
+
+          <article class="sub-card">
+            <div class="sub-card__tag">Means-tested</div>
+            <h3>NCS Income-Assessed</h3>
+            <p>Bigger hourly subsidy based on household income.</p>
+            <ul>
+              <li><strong>Now:</strong> Full subsidy &lt; €26k · graduated to €60k</li>
+              <li><strong>Sept 2026:</strong> Full &lt; €34k · up to €68k</li>
+              <li>New €11k deduction per additional child</li>
+            </ul>
+          </article>
+
+          <article class="sub-card">
+            <div class="sub-card__tag">Provider-side cap</div>
+            <h3>Core Funding fee cap</h3>
+            <p>Partner providers can't raise fees above government caps.</p>
+            <ul>
+              <li>€295/wk max for full day (40–50 hrs)</li>
+              <li>€198.70/wk after Universal NCS</li>
+              <li>Government target: €200/month per child</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="birthyear">
+          <h3>ECCE birth-year eligibility: 2025/26</h3>
+          <table>
+            <thead>
+              <tr><th>Born</th><th>Status for 2025/26</th><th>Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Jan 2022 – Dec 2023</td><td class="pill pill--ok">Eligible</td><td>Two full ECCE years available</td></tr>
+              <tr><td>Jan 2024 onwards</td><td class="pill pill--wait">Wait</td><td>Eligible from 2026/27 onward</td></tr>
+              <tr><td>Before Jan 2022</td><td class="pill pill--past">Past</td><td>Likely exited; confirm school start</td></tr>
+            </tbody>
+          </table>
+          <a class="linkout" href="https://www.ncs.gov.ie" target="_blank" rel="noopener">Official NCS calculator →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__col">
+          <div class="brand">
+            <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+              <path d="M16 3 C10 3 5 8 5 15 c0 6 5 11 11 14 c6-3 11-8 11-14 c0-7-5-12-11-12 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+              <circle cx="16" cy="14" r="3.2" fill="currentColor"/>
+              <path d="M10 21 c2-2 4-3 6-3 s4 1 6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
+          </div>
+          <p>Built for parents in Lucan, Co. Dublin.</p>
+        </div>
+        <div class="footer__col">
+          <h4>Data &amp; sources</h4>
+          <ul>
+            <li><a href="https://www.gov.ie/en/service/60c745-national-childcare-scheme-ncs/" target="_blank" rel="noopener">gov.ie: National Childcare Scheme</a></li>
+            <li><a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">Tusla: Early Years Register</a></li>
+            <li><a href="https://www.earlychildhoodireland.ie/" target="_blank" rel="noopener">Early Childhood Ireland</a></li>
+            <li><a href="https://www.rte.ie/news/" target="_blank" rel="noopener">RTÉ News</a></li>
+            <li><a href="https://www.irishtimes.com/" target="_blank" rel="noopener">The Irish Times</a></li>
+            <li><a href="https://www.siptu.ie/" target="_blank" rel="noopener">SIPTU Early Years Survey 2024</a></li>
+            <li><a href="https://www.childcare.ie/county-dublin/lucan" target="_blank" rel="noopener">childcare.ie: Lucan</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Fine print</h4>
+          <p class="footer__note">Data gathered April 2026. Fees are estimates for comparison and should be confirmed directly with each provider. Subsidy amounts depend on household circumstances; see the official NCS calculator for a binding figure.</p>
+        </div>
+      </div>
+      <div class="footer__base container">
+        <span>© 2026 Lucan Childcare Navigator</span>
+        <span>Made with care for a town short on places.</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js" defer></script>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  var scrollRaf=0;
+  function emitScroll(){
+    scrollRaf=0;
+    var x=window.scrollX||window.pageXOffset||0;
+    var y=window.scrollY||window.pageYOffset||0;
+    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
+  }
+  window.addEventListener('scroll',function(){
+    if(scrollRaf)return;
+    scrollRaf=requestAnimationFrame(emitScroll);
+  },{passive:true,capture:true});
+  emitScroll();
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
+</html>
