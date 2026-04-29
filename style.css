@@ -1038,6 +1038,93 @@ input[type="range"]::-moz-range-thumb{
   .setting--wide{ grid-column: span 2; }
 }
 
+/* Price verified/estimate badge + inline edit form */
+.pcard__feerow{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.pcard__editwrap{ margin: 8px 0 12px; }
+.pcard__editwrap[hidden]{ display: none; }
+
+.vfy{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.vfy--ok{       background: var(--ok-50);   color: var(--sage-700); border: 1px solid var(--sage-300); }
+.vfy--est{      background: var(--cream-2); color: var(--muted);    border: 1px solid var(--line); }
+.vfy--ok-inline,
+.vfy--est-inline{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+.vfy--ok-inline{   background: var(--ok-50);   color: var(--sage-700); }
+.vfy--est-inline{  background: var(--cream-2); color: var(--muted); border: 1px solid var(--line); }
+
+.price-edit-btn{
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 2px 8px;
+  font-size: var(--fs-sm);
+  color: var(--sage-600);
+  cursor: pointer;
+  margin-left: 6px;
+}
+.price-edit-btn:hover{ background: var(--sage-100); border-color: var(--sage-500); }
+
+.price-edit{
+  background: var(--cream-2);
+  border: 1px solid var(--sage-200);
+  border-radius: var(--radius);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.price-edit label{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  font-weight: 600;
+}
+.price-edit input[type="number"]{
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+  font: inherit;
+  font-size: var(--fs-md);
+  color: var(--ink);
+  max-width: 160px;
+}
+.price-edit__hint{ font-size: var(--fs-xs); color: var(--muted); }
+.price-edit__btns{ display: flex; gap: 6px; flex-wrap: wrap; }
+
+.ico-cue{
+  display: inline-block;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--sage-100);
+  color: var(--sage-700);
+  font-weight: 700;
+}
+
 /* Price-source disclosure */
 .price-source{
   margin: 0 0 18px;
@@ -1080,7 +1167,14 @@ input[type="range"]::-moz-range-thumb{
   border-radius: 4px;
   font-size: 0.9em;
 }
-.price-source p{ margin: 8px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+.price-source p{ margin: 8px 0 0; font-size: var(--fs-sm); color: var(--ink-2); }
+.price-source__cta{
+  margin: 14px 0 0 !important;
+  padding: 10px 12px;
+  background: var(--cream);
+  border-left: 3px solid var(--sage-500);
+  border-radius: var(--radius-sm);
+}
 
 /* About / More resources */
 .resources-grid{

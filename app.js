@@ -20,6 +20,16 @@ const USER_PROFILE_DEFAULTS = {
 // Shortlist tracker (browser-only, localStorage). One entry per provider id.
 const TRACKER_KEY = "lucan-creche-tracker-v1";
 
+// Per-provider price overrides (browser-only, localStorage). Keyed by id.
+// Stores { monthly_fee, weekly, verified_date } when the user confirms a fee
+// directly with the provider. Absence = the dataset value is shown as
+// "Unconfirmed estimate". Presence = "✓ You verified".
+const PRICE_OVERRIDE_KEY = "lucan-creche-prices-v1";
+
+// NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
+// Used to recompute post_universal when the user edits the monthly fee.
+const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
+
 // ---------- DATA ----------
 const DATA = {
   metadata: {
@@ -78,6 +88,57 @@ const OPENING_LABELS = {
 function openingBadgeHTML(status){
   const o = OPENING_LABELS[status] || OPENING_LABELS.unknown;
   return `<span class="open-badge open-badge--${o.cls}">${o.icon} ${o.text}</span>`;
+}
+
+// ---------- PRICE OVERRIDES (localStorage-backed) ----------
+function loadPriceOverrides(){
+  try { return JSON.parse(localStorage.getItem(PRICE_OVERRIDE_KEY)) || {}; }
+  catch { return {}; }
+}
+function savePriceOverrides(map){
+  try { localStorage.setItem(PRICE_OVERRIDE_KEY, JSON.stringify(map)); } catch {}
+}
+function setPriceOverride(providerId, fields){
+  const map = loadPriceOverrides();
+  map[providerId] = { ...fields, verified_date: todayISO() };
+  savePriceOverrides(map);
+}
+function clearPriceOverride(providerId){
+  const map = loadPriceOverrides();
+  delete map[providerId];
+  savePriceOverrides(map);
+}
+// Returns { monthly_fee, weekly, post_universal, verified, verified_date }
+// blending dataset values with the user's override (if any).
+function effectivePrice(p){
+  const map = loadPriceOverrides();
+  const o = map[p.id];
+  if (!o){
+    return {
+      monthly_fee: p.monthly_fee,
+      weekly: p.weekly,
+      post_universal: p.post_universal,
+      verified: false,
+      verified_date: null
+    };
+  }
+  let monthly = o.monthly_fee != null ? o.monthly_fee : p.monthly_fee;
+  let weekly = o.weekly != null ? o.weekly : p.weekly;
+  // Recompute the missing one if only one was edited
+  if (o.monthly_fee != null && o.weekly == null){
+    weekly = Math.round(monthly / 4.33);
+  } else if (o.weekly != null && o.monthly_fee == null){
+    monthly = Math.round(weekly * 4.33);
+  }
+  // Auto-recalc post_universal (monthly minus full NCS Universal subsidy)
+  const post_universal = Math.max(0, monthly - NCS_UNIVERSAL_MONTHLY);
+  return {
+    monthly_fee: monthly,
+    weekly,
+    post_universal,
+    verified: true,
+    verified_date: o.verified_date || null
+  };
 }
 
 // ---------- USER PROFILE (localStorage-backed) ----------
@@ -239,9 +300,10 @@ function makeIcon(risk){
 }
 
 function popupHTML(p){
+  const ep = effectivePrice(p);
   const feeLine = p.sessional
-    ? `<strong>${fmtEUR(p.weekly)}/wk</strong> (sessional, free under ECCE)`
-    : `<strong>${fmtEUR(p.monthly_fee)}/mo</strong> pre-subsidy`;
+    ? `<strong>${fmtEUR(ep.weekly)}/wk</strong> ${ep.verified ? "✓" : "?"} (sessional, free under ECCE)`
+    : `<strong>${fmtEUR(ep.monthly_fee)}/mo</strong> ${ep.verified ? "✓" : "?"} pre-subsidy`;
   const mins = walkingMinutes(p);
   return `
     <div class="pop">
@@ -278,8 +340,9 @@ function applyMapFilters(){
 
   const filtered = DATA.providers.filter(p => {
     if (type !== "all" && p.typeKey !== type) return false;
-    // Use sessional weekly × 4.33 for budget check, else monthly
-    const monthly = p.sessional ? Math.round(p.weekly * 4.33) : p.monthly_fee;
+    // Use sessional weekly × 4.33 for budget check, else monthly (effective price)
+    const ep = effectivePrice(p);
+    const monthly = p.sessional ? Math.round(ep.weekly * 4.33) : ep.monthly_fee;
     if (monthly > budget) return false;
     if (mont && !p.montessori) return false;
     if (ecce && !p.ecce) return false;
@@ -300,10 +363,50 @@ const FEAT_ICONS = {
   ecce: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>`
 };
 
+function priceVerifyBadge(ep){
+  if (ep.verified){
+    return `<span class="vfy vfy--ok" title="You confirmed this fee with the provider on ${ep.verified_date || "—"}">✓ You verified${ep.verified_date ? " · " + ep.verified_date : ""}</span>`;
+  }
+  return `<span class="vfy vfy--est" title="Inherited estimate — call the provider and click ✎ to update">? Unconfirmed estimate</span>`;
+}
+
+function priceEditFormHTML(p, ep){
+  if (p.sessional){
+    return `
+      <form class="price-edit" data-action="price-form" data-id="${p.id}" data-mode="weekly">
+        <label>Weekly fee (€)
+          <input type="number" name="weekly" min="0" step="5" value="${ep.weekly}" />
+        </label>
+        <div class="price-edit__hint">Saving marks this as verified by you (today's date).</div>
+        <div class="price-edit__btns">
+          <button type="submit" class="act act--small">Save</button>
+          <button type="button" class="act act--small act--ghost" data-action="price-reset" data-id="${p.id}">Reset to default</button>
+          <button type="button" class="act act--small act--ghost" data-action="price-cancel" data-id="${p.id}">Cancel</button>
+        </div>
+      </form>`;
+  }
+  return `
+    <form class="price-edit" data-action="price-form" data-id="${p.id}" data-mode="monthly">
+      <label>Monthly fee (€)
+        <input type="number" name="monthly_fee" min="0" step="10" value="${ep.monthly_fee}" />
+      </label>
+      <div class="price-edit__hint">Saving marks this as verified by you (today's date). Post-NCS-Universal figure is recalculated automatically.</div>
+      <div class="price-edit__btns">
+        <button type="submit" class="act act--small">Save</button>
+        <button type="button" class="act act--small act--ghost" data-action="price-reset" data-id="${p.id}">Reset to default</button>
+        <button type="button" class="act act--small act--ghost" data-action="price-cancel" data-id="${p.id}">Cancel</button>
+      </div>
+    </form>`;
+}
+
 function providerCardHTML(p){
+  const ep = effectivePrice(p);
   const feeLabel = p.sessional
-    ? `<strong>${fmtEUR(p.weekly)}</strong><span>/week sessional · free via ECCE</span>`
-    : `<strong>${fmtEUR(p.monthly_fee)}</strong><span>/month · pre-subsidy</span>`;
+    ? `<strong>${fmtEUR(ep.weekly)}</strong><span>/week sessional · free via ECCE</span>`
+    : `<strong>${fmtEUR(ep.monthly_fee)}</strong><span>/month · pre-subsidy</span>`;
+  const editPriceBtn = `<button class="price-edit-btn" data-action="price-edit" data-id="${p.id}" title="Edit / verify this fee">✎</button>`;
+  const verifyBadge = priceVerifyBadge(ep);
+  const editForm = priceEditFormHTML(p, ep);
   const stabPct = p.stability * 10;
   const feats = [];
   if (p.montessori) feats.push(`<span class="feat">${FEAT_ICONS.mont} Montessori</span>`);
@@ -343,7 +446,11 @@ function providerCardHTML(p){
       </header>
       <div class="pcard__statusrow">${opening}${verified}</div>
       <div class="pcard__distrow">${distHTML}</div>
-      <div class="pcard__fee">${feeLabel}</div>
+      <div class="pcard__feerow">
+        <div class="pcard__fee">${feeLabel} ${editPriceBtn}</div>
+        ${verifyBadge}
+      </div>
+      <div class="pcard__editwrap" hidden>${editForm}</div>
       <div class="pcard__meta">
         <span><b>Hours</b><br/>${p.hours}</span>
         <span><b>Ages</b><br/>${p.age_range}</span>
@@ -383,8 +490,8 @@ function renderProviders(){
   const sortFns = {
     "distance":   (a,b) => walkingKm(a) - walkingKm(b),
     "open":       (a,b) => (openOrder[a.opening_status]||3) - (openOrder[b.opening_status]||3),
-    "price":      (a,b) => a.monthly_fee - b.monthly_fee,
-    "price-desc": (a,b) => b.monthly_fee - a.monthly_fee,
+    "price":      (a,b) => effectivePrice(a).monthly_fee - effectivePrice(b).monthly_fee,
+    "price-desc": (a,b) => effectivePrice(b).monthly_fee - effectivePrice(a).monthly_fee,
     "stability":  (a,b) => b.stability - a.stability,
     "waitlist":   (a,b) => waitOrder[a.waitlist] - waitOrder[b.waitlist],
     "name":       (a,b) => a.name.localeCompare(b.name)
@@ -441,6 +548,7 @@ function incomeAssessedRate2026(income, kids){
 
 function compute({ income, kids, days, age, ecce, providerId, rule2026=false }){
   const p = DATA.providers.find(x => x.id === providerId) || DATA.providers[0];
+  const ep = effectivePrice(p);
 
   const isSessional = !!p.sessional;
   const hoursPerDay = isSessional ? 3 : 9;
@@ -449,9 +557,9 @@ function compute({ income, kids, days, age, ecce, providerId, rule2026=false }){
   // Gross: scale provider's monthly fee (5 days) by days/5
   let grossMonthly;
   if (isSessional){
-    grossMonthly = p.weekly * (days / 5) * 4.33;
+    grossMonthly = ep.weekly * (days / 5) * 4.33;
   } else {
-    grossMonthly = p.monthly_fee * (days / 5);
+    grossMonthly = ep.monthly_fee * (days / 5);
   }
 
   // NCS Universal: €2.14/hr × weekly hours × 4.33
@@ -574,10 +682,12 @@ function renderScenarios(base){
 }
 
 function wireSim(){
-  // Populate provider dropdown
-  const opts = DATA.providers.map(p =>
-    `<option value="${p.id}">${p.name}${p.sessional ? " (sessional)" : ""}: ${fmtEUR(p.monthly_fee)}/mo</option>`
-  ).join("");
+  // Populate provider dropdown using effective (override or dataset) prices
+  const opts = DATA.providers.map(p => {
+    const ep = effectivePrice(p);
+    const tag = ep.verified ? " ✓" : "";
+    return `<option value="${p.id}">${p.name}${p.sessional ? " (sessional)" : ""}: ${fmtEUR(ep.monthly_fee)}/mo${tag}</option>`;
+  }).join("");
   $("#s-prov").innerHTML = opts;
 
   const income = $("#s-income"), kids = $("#s-kids"), days = $("#s-days"),
@@ -801,12 +911,42 @@ function downloadCSV(){
   URL.revokeObjectURL(url);
 }
 
+function togglePriceEditForm(card, show){
+  const wrap = card && card.querySelector(".pcard__editwrap");
+  if (!wrap) return;
+  wrap.hidden = !show;
+}
+
 function handleShortlistAction(e){
   const target = e.target.closest("[data-action]");
   if (!target) return;
   const action = target.dataset.action;
   const id = parseInt(target.dataset.id, 10);
   if (!id) return;
+
+  // Price-edit actions (cards section)
+  if (action === "price-edit"){
+    e.preventDefault();
+    const card = target.closest(".pcard");
+    const wrap = card && card.querySelector(".pcard__editwrap");
+    if (wrap) wrap.hidden = !wrap.hidden;
+    if (wrap && !wrap.hidden){
+      const input = wrap.querySelector("input[type='number']");
+      if (input) setTimeout(() => input.focus(), 0);
+    }
+    return;
+  }
+  if (action === "price-cancel"){
+    e.preventDefault();
+    togglePriceEditForm(target.closest(".pcard"), false);
+    return;
+  }
+  if (action === "price-reset"){
+    e.preventDefault();
+    clearPriceOverride(id);
+    refreshAfterPriceChange();
+    return;
+  }
 
   if (action === "add-shortlist"){
     addToShortlist(id);
@@ -883,6 +1023,45 @@ function handleShortlistChange(e){
   }
 }
 
+function handlePriceFormSubmit(e){
+  const form = e.target.closest("form[data-action='price-form']");
+  if (!form) return;
+  e.preventDefault();
+  const id = parseInt(form.dataset.id, 10);
+  const mode = form.dataset.mode;
+  const fields = {};
+  if (mode === "weekly"){
+    const v = parseInt(form.elements.weekly.value, 10);
+    if (!Number.isFinite(v) || v < 0) return;
+    fields.weekly = v;
+  } else {
+    const v = parseInt(form.elements.monthly_fee.value, 10);
+    if (!Number.isFinite(v) || v < 0) return;
+    fields.monthly_fee = v;
+  }
+  setPriceOverride(id, fields);
+  refreshAfterPriceChange();
+}
+
+function refreshAfterPriceChange(){
+  renderProviders();
+  renderShortlist();
+  // Refresh simulator dropdown labels and recompute
+  const provSel = $("#s-prov");
+  if (provSel){
+    const current = provSel.value;
+    provSel.innerHTML = DATA.providers.map(p => {
+      const ep = effectivePrice(p);
+      const tag = ep.verified ? " ✓" : "";
+      return `<option value="${p.id}">${p.name}${p.sessional ? " (sessional)" : ""}: ${fmtEUR(ep.monthly_fee)}/mo${tag}</option>`;
+    }).join("");
+    if (current) provSel.value = current;
+    if (typeof renderSim === "function") renderSim();
+  }
+  // Refresh map markers (budget filter may now match differently)
+  if (typeof applyMapFilters === "function") applyMapFilters();
+}
+
 // ---------- Settings panel (user profile) ----------
 function wireSettings(){
   const fields = ["parent_name", "parent_phone"];
@@ -928,6 +1107,7 @@ function init(){
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("click", handleShortlistAction);
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("change", handleShortlistChange);
   $("#provider-grid") && $("#provider-grid").addEventListener("click", handleShortlistAction);
+  $("#provider-grid") && $("#provider-grid").addEventListener("submit", handlePriceFormSubmit);
   $("#shortlist-export") && $("#shortlist-export").addEventListener("click", downloadCSV);
 
   // Settings
