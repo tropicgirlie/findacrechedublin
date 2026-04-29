@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lucan Childcare Navigator: Find, Compare, Plan (2025/2026)</title>
-  <meta name="description" content="Explore, compare and plan childcare in Lucan & surrounds. 14 providers mapped, live subsidy calculator, ECE stress test, and Sept 2026 NCS changes." />
+  <title>Lucan & Kildare Childcare Navigator: Find, Track, Contact</title>
+  <meta name="description" content="Find, track and contact childcare providers in Lucan and nearby Co. Kildare. 21 providers mapped, walking-time from your home, live subsidy calculator, contact tracker." />
 
   <!-- Fontshare: Satoshi -->
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
@@ -27,7 +27,7 @@
           <circle cx="16" cy="14" r="3.2" fill="currentColor"/>
           <path d="M10 21 c2-2 4-3 6-3 s4 1 6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
         </svg>
-        <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
+        <span class="brand__text">Lucan &amp; Kildare<span class="brand__text--muted"> Childcare Navigator</span></span>
       </a>
       <nav class="nav__links" aria-label="Section links">
         <a href="#shortlist">My shortlist</a>
@@ -46,14 +46,15 @@
     <!-- ============ HERO ============ -->
     <section class="hero">
       <div class="container hero__inner">
-        <span class="hero__eyebrow">Lucan · Co. Dublin · 2025 / 2026</span>
-        <h1 class="hero__title">Lucan Childcare<br/><em>Navigator</em>.</h1>
-        <p class="hero__subtitle">Find, compare, and plan childcare in Lucan &amp; surrounds,
-          with live subsidy maths and a stability check for every provider.</p>
+        <span class="hero__eyebrow">Lucan &amp; Co. Kildare · 2025 / 2026</span>
+        <h1 class="hero__title">Find. Track.<br/><em>Contact</em>.</h1>
+        <p class="hero__subtitle">Childcare in Lucan and nearby Co. Kildare —
+          walking time from your home on every card, an opening-status badge,
+          and a contact tracker that remembers who you've emailed.</p>
 
         <div class="hero__stats" role="list">
           <div class="stat" role="listitem">
-            <div class="stat__num">14</div>
+            <div class="stat__num">21</div>
             <div class="stat__lbl">Providers mapped</div>
           </div>
           <div class="stat" role="listitem">
@@ -160,7 +161,7 @@
         </div>
 
         <div id="leaflet-map" class="leaflet-wrap" role="application" aria-label="Childcare provider map"></div>
-        <p class="map-footnote"><span id="map-count">14</span> providers matching your filters.</p>
+        <p class="map-footnote"><span id="map-count">21</span> providers matching your filters.</p>
       </div>
     </section>
 
@@ -196,7 +197,7 @@
           </div>
         </div>
 
-        <p class="map-footnote"><span id="provider-count">14</span> providers shown.</p>
+        <p class="map-footnote"><span id="provider-count">21</span> providers shown.</p>
         <div id="provider-grid" class="card-grid" aria-live="polite"></div>
       </div>
     </section>
@@ -395,38 +396,18 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow">⚙ Settings</span>
-          <h2 class="section__title">Your details for emails &amp; calls.</h2>
-          <p class="section__lede">These details get plugged into the pre-filled enquiry and follow-up emails. Saved in your browser only — nothing leaves this page.</p>
+          <h2 class="section__title">Your sign-off for emails.</h2>
+          <p class="section__lede">The email template is intentionally short and generic — the mailto: opens in your mail client where you can add the specifics before sending. These two fields just sign the email for you. Saved in your browser only.</p>
         </header>
 
         <div class="settings-grid">
           <label class="setting">
             <span>Your name</span>
-            <input type="text" id="prof-parent_name" placeholder="Luana" />
+            <input type="text" id="prof-parent_name" placeholder="Your name" />
           </label>
           <label class="setting">
-            <span>Your phone</span>
+            <span>Your phone (optional)</span>
             <input type="tel" id="prof-parent_phone" placeholder="+353 …" />
-          </label>
-          <label class="setting">
-            <span>Your email (for sign-off)</span>
-            <input type="email" id="prof-parent_email" placeholder="you@example.com" />
-          </label>
-          <label class="setting">
-            <span>Child's name (optional)</span>
-            <input type="text" id="prof-child_name" placeholder="Used in email body if filled" />
-          </label>
-          <label class="setting">
-            <span>Child's age (months)</span>
-            <input type="number" id="prof-child_age_months" min="0" max="60" step="1" />
-          </label>
-          <label class="setting setting--wide">
-            <span>Start window phrase</span>
-            <input type="text" id="prof-start_window" placeholder="as soon as possible…" />
-          </label>
-          <label class="setting setting--wide">
-            <span>Schedule preference</span>
-            <input type="text" id="prof-schedule_pref" placeholder="full-time, 5 days/week" />
           </label>
         </div>
       </div>

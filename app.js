@@ -9,17 +9,12 @@
 // estimates only. Edit here to refine.
 const HOME = { eircode: "K78 EE02", lat: 53.3548, lng: -6.4485 };
 
-// Defaults for email templates. Override via the Settings panel; values
+// Defaults for the email sign-off. Override via the Settings panel; values
 // persist in localStorage under USER_PROFILE_KEY.
 const USER_PROFILE_KEY = "lucan-creche-profile-v1";
 const USER_PROFILE_DEFAULTS = {
-  parent_name: "Luana",
-  parent_phone: "",
-  parent_email: "",
-  child_name: "",
-  child_age_months: 18,
-  start_window: "as soon as possible (we can take a place earlier than October 2026 if one opens)",
-  schedule_pref: "full-time, 5 days/week"
+  parent_name: "",
+  parent_phone: ""
 };
 
 // Shortlist tracker (browser-only, localStorage). One entry per provider id.
@@ -105,7 +100,8 @@ const TRACKER_STATUSES = [
   { key: "called",        label: "Phoned" },
   { key: "replied",       label: "Replied" },
   { key: "visited",       label: "Visited" },
-  { key: "confirmed",     label: "Confirmed place" },
+  { key: "on_waitlist",   label: "On waitlist" },
+  { key: "accepted",      label: "Accepted (place offered)" },
   { key: "declined",      label: "Declined / no place" }
 ];
 function loadTracker(){
@@ -157,42 +153,35 @@ function updateEntry(providerId, patch){
 }
 
 // ---------- EMAIL TEMPLATES ----------
-function ageLabel(months){
-  if (months < 12) return `${months} months`;
-  if (months < 24) return `${months} months`;
-  const y = Math.floor(months / 12);
-  const m = months % 12;
-  return m === 0 ? `${y} year${y>1?"s":""}` : `${y}y ${m}m`;
-}
+// Kept short and generic. The mailto: opens in your mail client where you can
+// add the specifics (child age, dates, schedule) before sending.
 function initialEnquiryEmail(p){
-  const child = PROFILE.child_name ? `my daughter, ${PROFILE.child_name},` : "my daughter";
-  const subject = `Enquiry for crèche place — ${ageLabel(PROFILE.child_age_months)} child, ${HOME.eircode}`;
+  const subject = `Crèche place enquiry`;
   const body =
 `Hi,
 
-I'm looking for a place for ${child} who is currently ${ageLabel(PROFILE.child_age_months)} old. We are based in Lucan near ${HOME.eircode}.
+I'm enquiring about availability at ${p.name}.
 
-I'd ideally like a place ${PROFILE.start_window}.
+Could you let me know:
+ - Whether you currently have any openings
+ - If not, your typical waitlist length and how to join it
+ - Age groups you have space in
 
-Preferred schedule: ${PROFILE.schedule_pref}.
+Happy to provide more details once I know the basics.
 
-If you have a waitlist, I'd love to join it. If a place becomes available earlier, we are ready to start sooner.
-
-Please let me know if you have current availability, expected timelines, or a cancellation list I can join.
-
-Many thanks,
-${PROFILE.parent_name}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}${PROFILE.parent_email ? "\n" + PROFILE.parent_email : ""}`;
+Thanks,
+${PROFILE.parent_name || "[your name]"}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}`;
   return { subject, body };
 }
 function followupEmail(p){
-  const subject = `Following up — crèche enquiry for ${ageLabel(PROFILE.child_age_months)} child`;
+  const subject = `Follow-up on crèche enquiry`;
   const body =
 `Hi,
 
-Just checking in on my earlier enquiry in case any place has become available, or if your waitlist has moved. We are still very interested and can start as soon as a suitable place opens.
+Just following up on my earlier enquiry at ${p.name} — has anything changed on availability or the waitlist?
 
-Many thanks,
-${PROFILE.parent_name}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}`;
+Thanks,
+${PROFILE.parent_name || "[your name]"}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}`;
   return { subject, body };
 }
 function mailtoLink(provider, kind){
@@ -217,7 +206,7 @@ let map, markerLayer;
 function buildMap(){
   map = L.map("leaflet-map", {
     center: [DATA.metadata.center.lat, DATA.metadata.center.lng],
-    zoom: 13,
+    zoom: 11,
     scrollWheelZoom: false
   });
 
@@ -709,10 +698,9 @@ function shortlistRowHTML(entry, p){
   ).join("");
   const lastContacted = entry.contacted_dates && entry.contacted_dates.length
     ? entry.contacted_dates[entry.contacted_dates.length - 1]
-    : "—";
-  const followupDue = entry.next_followup
-    ? (entry.next_followup <= todayISO() ? `<strong style="color:var(--rust)">Due ${entry.next_followup}</strong>` : `Due ${entry.next_followup}`)
-    : "—";
+    : "";
+  const followupValue = entry.next_followup || "";
+  const followupOverdue = followupValue && followupValue <= todayISO();
 
   const emailKind = entry.status === "not_contacted" ? "initial" : "followup";
   const emailLabel = emailKind === "initial" ? "📧 Send enquiry" : "📧 Send follow-up";
@@ -733,14 +721,16 @@ function shortlistRowHTML(entry, p){
         <label>Status
           <select data-action="status-change" data-id="${p.id}">${statusOpts}</select>
         </label>
-        <div class="srow__dates">
-          <span>Last contact: <b>${lastContacted}</b></span>
-          <span>Next follow-up: ${followupDue}</span>
-        </div>
+        <label class="srow__datelbl">Email/contact sent on
+          <input type="date" data-action="last-contact-change" data-id="${p.id}" value="${lastContacted}" max="${todayISO()}" />
+        </label>
+        <label class="srow__datelbl">Next follow-up${followupOverdue ? ` <span class="due-flag">overdue</span>` : ""}
+          <input type="date" data-action="followup-change" data-id="${p.id}" value="${followupValue}" class="${followupOverdue ? "due" : ""}" />
+        </label>
       </div>
       <div class="srow__notes">
         <label>Notes
-          <textarea data-action="notes-change" data-id="${p.id}" rows="2" placeholder="Reply received? What did they say?">${entry.notes || ""}</textarea>
+          <textarea data-action="notes-change" data-id="${p.id}" rows="3" placeholder="What did they say? Waitlist position? Visit date? Their reply?">${entry.notes || ""}</textarea>
         </label>
       </div>
       <div class="srow__actions">
@@ -859,10 +849,10 @@ function handleShortlistChange(e){
     const patch = { status };
     if (status === "email_sent" || status === "called"){
       patch.next_followup = addDaysISO(todayISO(), status === "called" ? 14 : 7);
-    } else if (status === "replied"){
+    } else if (status === "replied" || status === "on_waitlist"){
       patch.last_reply = todayISO();
-      patch.next_followup = addDaysISO(todayISO(), 14);
-    } else if (status === "confirmed" || status === "declined"){
+      patch.next_followup = addDaysISO(todayISO(), status === "on_waitlist" ? 28 : 14);
+    } else if (status === "accepted" || status === "declined"){
       patch.stop_outreach = true;
       patch.next_followup = null;
     }
@@ -871,18 +861,37 @@ function handleShortlistChange(e){
   } else if (action === "notes-change"){
     updateEntry(id, { notes: target.value });
     // No re-render — let the user keep typing.
+  } else if (action === "last-contact-change"){
+    const t = loadTracker();
+    const entry = ensureEntry(t, id);
+    const newDate = target.value;
+    if (!newDate){
+      entry.contacted_dates = [];
+    } else {
+      // Replace the most recent entry rather than appending duplicates
+      if (entry.contacted_dates.length){
+        entry.contacted_dates[entry.contacted_dates.length - 1] = newDate;
+      } else {
+        entry.contacted_dates = [newDate];
+      }
+    }
+    saveTracker(t);
+    renderShortlist();
+  } else if (action === "followup-change"){
+    updateEntry(id, { next_followup: target.value || null });
+    renderShortlist();
   }
 }
 
 // ---------- Settings panel (user profile) ----------
 function wireSettings(){
-  const fields = ["parent_name","parent_phone","parent_email","child_name","child_age_months","start_window","schedule_pref"];
+  const fields = ["parent_name", "parent_phone"];
   fields.forEach(k => {
     const el = $("#prof-" + k);
     if (!el) return;
     el.value = PROFILE[k] != null ? PROFILE[k] : "";
     el.addEventListener("input", () => {
-      PROFILE[k] = k === "child_age_months" ? parseInt(el.value, 10) || 0 : el.value;
+      PROFILE[k] = el.value;
       saveProfile(PROFILE);
       // Re-render so cards pick up new mailto contents.
       renderProviders();

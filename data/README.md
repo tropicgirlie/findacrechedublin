@@ -1,6 +1,38 @@
 # Provider data
 
-All 14 providers live in [`providers.js`](providers.js). It's a plain JavaScript file that sets `window.PROVIDERS` to a JSON-shaped array, so the site loads it via a regular `<script>` tag (works locally over `file://` and on Vercel without any build step).
+All 21 providers (Lucan + nearby Co. Kildare) live in [`providers.js`](providers.js). It's a plain JavaScript file that sets `window.PROVIDERS` to a JSON-shaped array, so the site loads it via a regular `<script>` tag (works locally over `file://` and on Vercel without any build step).
+
+## Data provenance — read this before trusting any number
+
+The dataset is **research-compiled, not authoritative**. Every figure should be confirmed directly with the provider before you make a decision. Sourcing breaks down by field:
+
+| Field | Where it comes from | Confidence |
+|---|---|---|
+| `name`, `address`, `eircode` | Tusla Early Years Register, provider websites, [childcare.ie](https://www.childcare.ie) county directories, chain locator pages | **High** |
+| `phone` | Provider website or directory listing. `"via childcare.ie"` or `"Tusla register"` means no public number — you'd contact via the listing | **High** where shown |
+| `email` | Provider website or chain general info address. Empty if no public email | **High** where shown |
+| `lat`, `lng` | Eircode or address geocoded approximately | **Medium** — used only for the walking-time estimate |
+| `hours`, `age_range` | Provider website. `(est.)` flag means I inferred from the type | **High** for chains, **Medium** for independents |
+| `monthly_fee`, `weekly`, `post_universal` | (a) Chain published rates from the chain's pricing page, (b) Core Funding fee cap (€295/wk ≈ €1,275/mo for full day — most Core Funding providers can't exceed it), (c) ECCE capitation rate for sessional providers, (d) **estimate** for small independents that don't publish fees | **Medium** — verify on enquiry |
+| `waitlist`, `waitlist_months` | **Sector-wide approximation, not provider-specific.** Drawn from SIPTU Early Years Survey 2024, Early Childhood Ireland, RTÉ/Irish Times reporting on the 40,000+ national waitlist. Use only as a hint | **Low** — call to ask for real position |
+| `stability` (0–10), `staff_concern` | **Heuristic, not measured.** Combines chain size, Core Funding participation, sessional vs full-day, and sector pressures (33% Dublin staff turnover, 977 service closures 2019–2025). Higher = more likely to remain operating; lower = sector pressures more likely to bite | **Low — interpretive** |
+| `opening_status`, `last_verified` | Manually maintained. **You** update these when you confirm with the provider | **As good as the last update** |
+| `notes` | Free-text. Where I write `(est.)` or "verify directly", treat the surrounding numbers as guesses | n/a |
+
+### Per-row sources
+
+| Row | How it got into the dataset |
+|---|---|
+| #1–#5 (Giraffe Lucan, Adamstown, Liffey Valley · Cocoon Lucan · Little Harvard Kilcarbery) | Chain pricing pages on giraffe.ie / cocoonchildcare.ie / littleharvard.ie. Chain rates are **likely accurate to within €50/mo** but verify on enquiry |
+| #6–#10 (Happy Tots, Keane Minds, Sunflowers, Village Montessori, Lucan Childcare) | childcare.ie county-Dublin/Lucan directory + Tusla register. Fees marked `(est.)` are inferred from Core Funding caps and sector typical rates |
+| #11–#13 (childminders) | Tusla Childminder Register. Fees are typical childminder rates, not published per minder |
+| #14 (Tigers Castleknock) | tigerschildcare.com locator |
+| #15 Giraffe Celbridge, #16 Cocoon Celbridge, #17 Cocoon Naas | **Researched 2026-04-29** via giraffe.ie / cocoonchildcare.ie. Address + eircode verified; fees use chain standard rates |
+| #18 Choice Childcare Celbridge, #19 Ryevale Montessori Leixlip, #20 Confey Montessori, #21 Tiny Tots Leixlip | **Researched 2026-04-29** via childcare.ie/county-kildare directories. Fees not published — figures are Core Funding-cap estimates marked in `notes` |
+
+**What's likely wrong**: small independent providers' fees, all `waitlist`/`waitlist_months` figures (sector-wide guess, not phone-confirmed), every `stability` score (heuristic, no provider-by-provider data exists for this).
+
+**What's reliable**: provider names, addresses, eircodes, phone numbers from chains, email addresses where shown, age ranges from chain websites.
 
 ## How to mark an opening
 

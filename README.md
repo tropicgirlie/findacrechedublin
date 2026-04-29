@@ -1,8 +1,8 @@
-# Lucan Childcare Navigator
+# Lucan & Kildare Childcare Navigator
 
-An experimental, single-page tool for exploring, comparing, and planning childcare in Lucan, Co. Dublin.
+A single-page tool for finding, tracking, and contacting childcare providers in Lucan and nearby Co. Kildare. Anchored at K78 EE02; every provider shows walking time, opening status, and one-click email/call buttons.
 
-> **Status:** Experimental showcase. Data is embedded (no database). Expanding to other Dublin areas would require a backend and persistent data store.
+> **Status:** Personal-use tool. 21 providers covering Lucan + Celbridge, Leixlip, Naas, and other nearby Kildare towns. Data is research-compiled; see [data/README.md](data/README.md) for per-field provenance.
 
 ## What It Does
 

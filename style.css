@@ -949,6 +949,42 @@ input[type="range"]::-moz-range-thumb{
   font-size: var(--fs-xs);
   color: var(--muted);
 }
+.srow__datelbl{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 8px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+}
+.srow__datelbl input[type="date"]{
+  padding: 6px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+}
+.srow__datelbl input[type="date"].due{
+  border-color: var(--rust);
+  background: var(--rust-50);
+  color: var(--rust);
+  font-weight: 600;
+}
+.due-flag{
+  display: inline-block;
+  padding: 1px 6px;
+  margin-left: 4px;
+  border-radius: 999px;
+  background: var(--rust);
+  color: var(--cream);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  vertical-align: middle;
+}
 .srow__notes label{ display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-xs); color: var(--muted); height: 100%; }
 .srow__notes textarea{
   padding: 8px;
