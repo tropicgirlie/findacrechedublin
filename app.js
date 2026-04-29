@@ -239,7 +239,7 @@ function followupEmail(p){
   const body =
 `Hi,
 
-Just following up on my earlier enquiry at ${p.name} — has anything changed on availability or the waitlist?
+Just following up on my earlier enquiry at ${p.name}. Has anything changed on availability or the waitlist?
 
 Thanks,
 ${PROFILE.parent_name || "[your name]"}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}`;
@@ -365,9 +365,9 @@ const FEAT_ICONS = {
 
 function priceVerifyBadge(ep){
   if (ep.verified){
-    return `<span class="vfy vfy--ok" title="You confirmed this fee with the provider on ${ep.verified_date || "—"}">✓ You verified${ep.verified_date ? " · " + ep.verified_date : ""}</span>`;
+    return `<span class="vfy vfy--ok" title="You confirmed this fee with the provider on ${ep.verified_date || "?"}">✓ You verified${ep.verified_date ? " · " + ep.verified_date : ""}</span>`;
   }
-  return `<span class="vfy vfy--est" title="Inherited estimate — call the provider and click ✎ to update">? Unconfirmed estimate</span>`;
+  return `<span class="vfy vfy--est" title="Inherited estimate. Call the provider and click ✎ to update.">? Unconfirmed estimate</span>`;
 }
 
 function priceEditFormHTML(p, ep){
@@ -957,7 +957,7 @@ function handleShortlistAction(e){
     renderProviders();
     renderShortlist();
   } else if (action === "email-sent"){
-    // Don't preventDefault — we want the mailto: to open. We just record it.
+    // Don't preventDefault, we want the mailto: to open. We just record it.
     const kind = target.dataset.kind;
     const t = loadTracker();
     const entry = ensureEntry(t, id);
@@ -1000,7 +1000,7 @@ function handleShortlistChange(e){
     renderShortlist();
   } else if (action === "notes-change"){
     updateEntry(id, { notes: target.value });
-    // No re-render — let the user keep typing.
+    // No re-render. Let the user keep typing.
   } else if (action === "last-contact-change"){
     const t = loadTracker();
     const entry = ensureEntry(t, id);

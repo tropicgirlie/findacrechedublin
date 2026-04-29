@@ -1177,6 +1177,25 @@ input[type="range"]::-moz-range-thumb{
 }
 
 /* About / More resources */
+.why-block{
+  max-width: 720px;
+  margin: 0 0 28px;
+  padding: 22px 24px;
+  background: var(--cream-2);
+  border-left: 3px solid var(--sage-500);
+  border-radius: var(--radius);
+  color: var(--ink-2);
+  font-size: var(--fs-md);
+  line-height: 1.7;
+}
+.why-block p{ margin: 0 0 0.9em; }
+.why-block p:last-child{ margin-bottom: 0; }
+.why-block p:first-child{
+  font-size: var(--fs-lg);
+  color: var(--sage-700);
+  font-weight: 600;
+}
+
 .resources-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
