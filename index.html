@@ -412,19 +412,46 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow">⚙ Settings</span>
-          <h2 class="section__title">Your sign-off for emails.</h2>
-          <p class="section__lede">The email template is intentionally short and generic. The mailto: opens in your mail client where you can add the specifics before sending. These two fields just sign the email for you. Saved in your browser only.</p>
+          <h2 class="section__title">Your home, your sign-off.</h2>
+          <p class="section__lede">All settings are saved in your browser only. Nothing leaves this page.</p>
         </header>
 
-        <div class="settings-grid">
-          <label class="setting">
-            <span>Your name</span>
-            <input type="text" id="prof-parent_name" placeholder="Your name" />
-          </label>
-          <label class="setting">
-            <span>Your phone (optional)</span>
-            <input type="tel" id="prof-parent_phone" placeholder="+353 …" />
-          </label>
+        <div class="settings-card">
+          <h3>Your home</h3>
+          <p class="settings-card__lede">Walking times on every card are calculated from this point. Default is the site's K78 EE02 (Lucan). To use the site for your own home, enter your eircode and coordinates below. To get coordinates: search your eircode on Google Maps, right-click the pin, copy the two numbers.</p>
+          <div class="settings-grid">
+            <label class="setting">
+              <span>Eircode</span>
+              <input type="text" id="home-eircode-input" placeholder="K78 EE02" />
+            </label>
+            <label class="setting">
+              <span>Latitude</span>
+              <input type="number" id="home-lat-input" step="0.0001" placeholder="53.3548" />
+            </label>
+            <label class="setting">
+              <span>Longitude</span>
+              <input type="number" id="home-lng-input" step="0.0001" placeholder="-6.4485" />
+            </label>
+          </div>
+          <div class="settings-card__btns">
+            <button type="button" id="home-save-btn" class="btn btn--primary btn--small">Save home</button>
+            <button type="button" id="home-reset-btn" class="btn btn--ghost btn--small">Reset to default</button>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Your email sign-off</h3>
+          <p class="settings-card__lede">The email template is intentionally short and generic. The mailto: opens in your mail client where you can add specifics before sending. These two fields sign the email for you.</p>
+          <div class="settings-grid">
+            <label class="setting">
+              <span>Your name</span>
+              <input type="text" id="prof-parent_name" placeholder="Your name" />
+            </label>
+            <label class="setting">
+              <span>Your phone (optional)</span>
+              <input type="tel" id="prof-parent_phone" placeholder="+353 …" />
+            </label>
+          </div>
         </div>
       </div>
     </section>

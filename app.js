@@ -26,6 +26,15 @@ const TRACKER_KEY = "lucan-creche-tracker-v1";
 // "Unconfirmed estimate". Presence = "✓ You verified".
 const PRICE_OVERRIDE_KEY = "lucan-creche-prices-v1";
 
+// Per-provider opening-status overrides. Mirrors the price-override pattern:
+// the dataset's `opening_status` is the fork-default; the localStorage value
+// is what THIS visitor has confirmed for themselves.
+const STATUS_OVERRIDE_KEY = "lucan-creche-status-v1";
+
+// User's chosen home anchor (overrides the per-fork HOME default below).
+// Stores { eircode, lat, lng } when the visitor has set their own location.
+const HOME_OVERRIDE_KEY = "lucan-creche-home-v1";
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
@@ -71,11 +80,11 @@ function haversineKm(a, b){
 }
 // Path factor 1.3 over straight-line km, 5 km/h walking speed.
 function walkingMinutes(p){
-  const km = haversineKm(HOME, { lat: p.lat, lng: p.lng });
+  const km = haversineKm(effectiveHome(), { lat: p.lat, lng: p.lng });
   return Math.round((km * 1.3) / 5 * 60);
 }
 function walkingKm(p){
-  return haversineKm(HOME, { lat: p.lat, lng: p.lng });
+  return haversineKm(effectiveHome(), { lat: p.lat, lng: p.lng });
 }
 
 // ---------- Opening status badges ----------
@@ -139,6 +148,52 @@ function effectivePrice(p){
     verified: true,
     verified_date: o.verified_date || null
   };
+}
+
+// ---------- STATUS OVERRIDES (per-provider, localStorage) ----------
+function loadStatusOverrides(){
+  try { return JSON.parse(localStorage.getItem(STATUS_OVERRIDE_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveStatusOverrides(map){
+  try { localStorage.setItem(STATUS_OVERRIDE_KEY, JSON.stringify(map)); } catch {}
+}
+function setStatusOverride(providerId, status){
+  const map = loadStatusOverrides();
+  map[providerId] = { status, verified_date: todayISO() };
+  saveStatusOverrides(map);
+}
+function clearStatusOverride(providerId){
+  const map = loadStatusOverrides();
+  delete map[providerId];
+  saveStatusOverrides(map);
+}
+// Returns { status, source: "user"|"dataset", verified_date }.
+function effectiveStatus(p){
+  const map = loadStatusOverrides();
+  const o = map[p.id];
+  if (o) return { status: o.status, source: "user", verified_date: o.verified_date || null };
+  return { status: p.opening_status || "unknown", source: "dataset", verified_date: p.last_verified || null };
+}
+
+// ---------- HOME OVERRIDE (per-visitor, localStorage) ----------
+function loadHomeOverride(){
+  try { return JSON.parse(localStorage.getItem(HOME_OVERRIDE_KEY)); }
+  catch { return null; }
+}
+function saveHomeOverride(home){
+  try { localStorage.setItem(HOME_OVERRIDE_KEY, JSON.stringify(home)); } catch {}
+}
+function clearHomeOverride(){
+  try { localStorage.removeItem(HOME_OVERRIDE_KEY); } catch {}
+}
+// Merges: localStorage override (if any) over the per-fork HOME default.
+function effectiveHome(){
+  const o = loadHomeOverride();
+  if (o && Number.isFinite(o.lat) && Number.isFinite(o.lng)){
+    return { eircode: o.eircode || HOME.eircode, lat: o.lat, lng: o.lng };
+  }
+  return HOME;
 }
 
 // ---------- USER PROFILE (localStorage-backed) ----------
@@ -301,6 +356,8 @@ function makeIcon(risk){
 
 function popupHTML(p){
   const ep = effectivePrice(p);
+  const es = effectiveStatus(p);
+  const home = effectiveHome();
   const feeLine = p.sessional
     ? `<strong>${fmtEUR(ep.weekly)}/wk</strong> ${ep.verified ? "✓" : "?"} (sessional, free under ECCE)`
     : `<strong>${fmtEUR(ep.monthly_fee)}/mo</strong> ${ep.verified ? "✓" : "?"} pre-subsidy`;
@@ -309,8 +366,8 @@ function popupHTML(p){
     <div class="pop">
       <div class="pop__title">${p.name}</div>
       <div class="pop__type">${p.type}</div>
-      <div class="pop__row"><span>Status</span>${openingBadgeHTML(p.opening_status || "unknown")}</div>
-      <div class="pop__row"><span>From ${HOME.eircode}</span><strong>${mins} min walk · ${walkingKm(p).toFixed(1)} km</strong></div>
+      <div class="pop__row"><span>Status</span>${openingBadgeHTML(es.status)}</div>
+      <div class="pop__row"><span>From ${home.eircode}</span><strong>${mins} min walk · ${walkingKm(p).toFixed(1)} km</strong></div>
       <div class="pop__row"><span>Fee</span>${feeLine}</div>
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
@@ -346,7 +403,7 @@ function applyMapFilters(){
     if (monthly > budget) return false;
     if (mont && !p.montessori) return false;
     if (ecce && !p.ecce) return false;
-    if (openOnly && p.opening_status !== "open") return false;
+    if (openOnly && effectiveStatus(p).status !== "open") return false;
     if (walkOnly && walkingMinutes(p) > 20) return false;
     return true;
   });
@@ -399,14 +456,50 @@ function priceEditFormHTML(p, ep){
     </form>`;
 }
 
+function statusEditFormHTML(p){
+  const choices = [
+    { key: "open",     label: "✅ Open spot" },
+    { key: "waitlist", label: "⏳ Waitlist" },
+    { key: "full",     label: "❌ Full" },
+    { key: "unknown",  label: "❓ Unknown" }
+  ];
+  const buttons = choices.map(c =>
+    `<button type="button" class="act act--small" data-action="status-set" data-id="${p.id}" data-status="${c.key}">${c.label}</button>`
+  ).join("");
+  return `
+    <div class="status-edit">
+      <div class="status-edit__hint">What did the provider tell you?</div>
+      <div class="status-edit__btns">${buttons}</div>
+      <div class="status-edit__btns">
+        <button type="button" class="act act--small act--ghost" data-action="status-reset" data-id="${p.id}">Reset to default</button>
+        <button type="button" class="act act--small act--ghost" data-action="status-cancel" data-id="${p.id}">Cancel</button>
+      </div>
+    </div>`;
+}
+
+function statusProvenanceHTML(es){
+  if (es.source === "user" && es.verified_date){
+    return `<span class="vfy vfy--ok" title="You set this status on ${es.verified_date}">✓ You verified · ${es.verified_date}</span>`;
+  }
+  if (es.verified_date){
+    return `<span class="verified">last checked ${es.verified_date}</span>`;
+  }
+  return "";
+}
+
 function providerCardHTML(p){
   const ep = effectivePrice(p);
+  const es = effectiveStatus(p);
+  const home = effectiveHome();
   const feeLabel = p.sessional
     ? `<strong>${fmtEUR(ep.weekly)}</strong><span>/week sessional · free via ECCE</span>`
     : `<strong>${fmtEUR(ep.monthly_fee)}</strong><span>/month · pre-subsidy</span>`;
   const editPriceBtn = `<button class="price-edit-btn" data-action="price-edit" data-id="${p.id}" title="Edit / verify this fee">✎</button>`;
   const verifyBadge = priceVerifyBadge(ep);
   const editForm = priceEditFormHTML(p, ep);
+  const editStatusBtn = `<button class="price-edit-btn" data-action="status-edit" data-id="${p.id}" title="Edit / verify this status">✎</button>`;
+  const statusEditForm = statusEditFormHTML(p);
+  const statusProv = statusProvenanceHTML(es);
   const stabPct = p.stability * 10;
   const feats = [];
   if (p.montessori) feats.push(`<span class="feat">${FEAT_ICONS.mont} Montessori</span>`);
@@ -421,10 +514,9 @@ function providerCardHTML(p){
   const mins = walkingMinutes(p);
   const km = walkingKm(p);
   const walkCls = mins <= 20 ? "walk-pill walk-pill--near" : "walk-pill";
-  const distHTML = `<span class="${walkCls}">🚶 ${mins} min walk · ${km.toFixed(1)} km from ${HOME.eircode}</span>`;
+  const distHTML = `<span class="${walkCls}">🚶 ${mins} min walk · ${km.toFixed(1)} km from ${home.eircode}</span>`;
 
-  const opening = openingBadgeHTML(p.opening_status || "unknown");
-  const verified = p.last_verified ? `<span class="verified">verified ${p.last_verified}</span>` : "";
+  const opening = openingBadgeHTML(es.status);
 
   const onList = inShortlist(p.id);
   const shortlistBtn = onList
@@ -444,7 +536,8 @@ function providerCardHTML(p){
         <span class="pcard__type">${p.type}</span>
         <h3 class="pcard__name">${p.name}</h3>
       </header>
-      <div class="pcard__statusrow">${opening}${verified}</div>
+      <div class="pcard__statusrow">${opening}${editStatusBtn}${statusProv}</div>
+      <div class="pcard__statusedit" hidden>${statusEditForm}</div>
       <div class="pcard__distrow">${distHTML}</div>
       <div class="pcard__feerow">
         <div class="pcard__fee">${feeLabel} ${editPriceBtn}</div>
@@ -482,14 +575,14 @@ function renderProviders(){
       [p.name, p.type, p.address, p.chain, p.notes].join(" ").toLowerCase().includes(q)
     );
   }
-  if (openOnly) list = list.filter(p => p.opening_status === "open");
+  if (openOnly) list = list.filter(p => effectiveStatus(p).status === "open");
   if (walkOnly) list = list.filter(p => walkingMinutes(p) <= 20);
 
   const waitOrder = { "Low":1, "Medium":2, "High":3, "Very High":4 };
   const openOrder = { "open": 1, "waitlist": 2, "unknown": 3, "full": 4 };
   const sortFns = {
     "distance":   (a,b) => walkingKm(a) - walkingKm(b),
-    "open":       (a,b) => (openOrder[a.opening_status]||3) - (openOrder[b.opening_status]||3),
+    "open":       (a,b) => (openOrder[effectiveStatus(a).status]||3) - (openOrder[effectiveStatus(b).status]||3),
     "price":      (a,b) => effectivePrice(a).monthly_fee - effectivePrice(b).monthly_fee,
     "price-desc": (a,b) => effectivePrice(b).monthly_fee - effectivePrice(a).monthly_fee,
     "stability":  (a,b) => b.stability - a.stability,
@@ -801,7 +894,7 @@ function renderStress(){
 // 5) SHORTLIST TRACKER (My contacted providers)
 // ============================================================
 function shortlistRowHTML(entry, p){
-  const opening = openingBadgeHTML(p.opening_status || "unknown");
+  const opening = openingBadgeHTML(effectiveStatus(p).status);
   const mins = walkingMinutes(p);
   const statusOpts = TRACKER_STATUSES.map(s =>
     `<option value="${s.key}"${entry.status === s.key ? " selected":""}>${s.label}</option>`
@@ -948,6 +1041,36 @@ function handleShortlistAction(e){
     return;
   }
 
+  // Status edit actions
+  if (action === "status-edit"){
+    e.preventDefault();
+    const card = target.closest(".pcard");
+    const wrap = card && card.querySelector(".pcard__statusedit");
+    if (wrap) wrap.hidden = !wrap.hidden;
+    return;
+  }
+  if (action === "status-cancel"){
+    e.preventDefault();
+    const card = target.closest(".pcard");
+    const wrap = card && card.querySelector(".pcard__statusedit");
+    if (wrap) wrap.hidden = true;
+    return;
+  }
+  if (action === "status-set"){
+    e.preventDefault();
+    const status = target.dataset.status;
+    if (!status) return;
+    setStatusOverride(id, status);
+    refreshAfterStatusChange();
+    return;
+  }
+  if (action === "status-reset"){
+    e.preventDefault();
+    clearStatusOverride(id);
+    refreshAfterStatusChange();
+    return;
+  }
+
   if (action === "add-shortlist"){
     addToShortlist(id);
     renderProviders();
@@ -1043,6 +1166,12 @@ function handlePriceFormSubmit(e){
   refreshAfterPriceChange();
 }
 
+function refreshAfterStatusChange(){
+  renderProviders();
+  renderShortlist();
+  if (typeof applyMapFilters === "function") applyMapFilters();
+}
+
 function refreshAfterPriceChange(){
   renderProviders();
   renderShortlist();
@@ -1062,7 +1191,7 @@ function refreshAfterPriceChange(){
   if (typeof applyMapFilters === "function") applyMapFilters();
 }
 
-// ---------- Settings panel (user profile) ----------
+// ---------- Settings panel (user profile + home anchor) ----------
 function wireSettings(){
   const fields = ["parent_name", "parent_phone"];
   fields.forEach(k => {
@@ -1072,11 +1201,70 @@ function wireSettings(){
     el.addEventListener("input", () => {
       PROFILE[k] = el.value;
       saveProfile(PROFILE);
-      // Re-render so cards pick up new mailto contents.
       renderProviders();
       renderShortlist();
     });
   });
+
+  // Home anchor inputs
+  const home = effectiveHome();
+  const homeFields = [
+    { id: "home-eircode-input", key: "eircode" },
+    { id: "home-lat-input", key: "lat" },
+    { id: "home-lng-input", key: "lng" }
+  ];
+  homeFields.forEach(({ id, key }) => {
+    const el = $("#" + id);
+    if (!el) return;
+    el.value = home[key] != null ? home[key] : "";
+  });
+
+  const saveBtn = $("#home-save-btn");
+  const resetBtn = $("#home-reset-btn");
+  if (saveBtn){
+    saveBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const eircode = ($("#home-eircode-input")?.value || "").trim().toUpperCase();
+      const lat = parseFloat($("#home-lat-input")?.value);
+      const lng = parseFloat($("#home-lng-input")?.value);
+      if (!Number.isFinite(lat) || !Number.isFinite(lng)){
+        alert("Please enter both latitude and longitude as numbers.");
+        return;
+      }
+      saveHomeOverride({ eircode, lat, lng });
+      updateHomeBanner();
+      renderProviders();
+      renderShortlist();
+      if (typeof applyMapFilters === "function") applyMapFilters();
+      // Recentre the map on the new home if possible
+      if (typeof map !== "undefined" && map && map.setView){
+        map.setView([lat, lng], map.getZoom());
+      }
+    });
+  }
+  if (resetBtn){
+    resetBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      clearHomeOverride();
+      const def = effectiveHome();
+      $("#home-eircode-input") && ($("#home-eircode-input").value = def.eircode);
+      $("#home-lat-input") && ($("#home-lat-input").value = def.lat);
+      $("#home-lng-input") && ($("#home-lng-input").value = def.lng);
+      updateHomeBanner();
+      renderProviders();
+      renderShortlist();
+      if (typeof applyMapFilters === "function") applyMapFilters();
+      if (typeof map !== "undefined" && map && map.setView){
+        map.setView([def.lat, def.lng], map.getZoom());
+      }
+    });
+  }
+}
+
+function updateHomeBanner(){
+  const home = effectiveHome();
+  const el = $("#home-eircode");
+  if (el) el.textContent = home.eircode;
 }
 
 // ============================================================
@@ -1084,7 +1272,7 @@ function wireSettings(){
 // ============================================================
 function init(){
   // Home banner
-  $("#home-eircode") && ($("#home-eircode").textContent = HOME.eircode);
+  updateHomeBanner();
 
   // Map
   buildMap();

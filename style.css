@@ -853,7 +853,22 @@ input[type="range"]::-moz-range-thumb{
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  gap: 8px;
 }
+.pcard__statusedit{ margin: 0 0 12px; }
+.pcard__statusedit[hidden]{ display: none; }
+
+.status-edit{
+  background: var(--cream-2);
+  border: 1px solid var(--sage-200);
+  border-radius: var(--radius);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.status-edit__hint{ font-size: var(--fs-xs); color: var(--muted); font-weight: 600; }
+.status-edit__btns{ display: flex; gap: 6px; flex-wrap: wrap; }
 .pcard__actions{
   display: flex;
   flex-wrap: wrap;
@@ -1012,6 +1027,31 @@ input[type="range"]::-moz-range-thumb{
 }
 
 /* Settings */
+.settings-card{
+  background: var(--cream);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: var(--shadow-sm);
+}
+.settings-card h3{
+  margin: 0 0 6px;
+  color: var(--sage-700);
+  font-size: var(--fs-lg);
+}
+.settings-card__lede{
+  margin: 0 0 14px;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+.settings-card__btns{
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
 .settings-grid{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

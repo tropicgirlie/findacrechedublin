@@ -63,6 +63,32 @@ Open `index.html` directly in a browser — no build step, no install. Or for HT
 
 This repo is a Vercel-ready static site. Push to GitHub, import the repo into Vercel, and it deploys with zero configuration. There is no `vercel.json` because there's nothing custom to configure.
 
+## Adapting for your town
+
+This site is built to be forked. To make it work for, say, Naas or Drogheda or Tralee:
+
+| What to change | Where | Why |
+|---|---|---|
+| `HOME` constant | [app.js](app.js) near the top | Default eircode + lat/lng anchor for new visitors. Each visitor can override this in Settings, but the default should match the town. |
+| `DATA.metadata.center` | [app.js](app.js) (just below `HOME`) | The map centres here on first load. |
+| Map zoom in `buildMap()` | [app.js](app.js) | Currently 11 to fit Lucan + Kildare. Use 12 or 13 for a single town. |
+| Provider list | [data/providers.js](data/providers.js) | Replace the 21 entries. Schema: see [data/README.md](data/README.md). |
+| Title, hero, banner | [index.html](index.html) | The "Lucan & Kildare" copy in the `<title>`, hero, home banner, and resource cards. |
+| README description | [README.md](README.md) | Mention your area. |
+
+That's it. No build step. No backend. No env vars. Open `index.html` in a browser and verify, then push to your own Vercel project.
+
+What you do **not** need to change:
+- Email templates (already generic).
+- Cost simulator (NCS, ECCE, Core Funding are national Irish schemes).
+- Shortlist tracker, subsidy guide, stability checklist (all generic).
+
+Each visitor types in their own name, phone, eircode, and coordinates via the Settings panel; those settings are stored in their own browser, never in your code.
+
+## License
+
+MIT — see [LICENSE](LICENSE). Use it, fork it, change it, ship your own version. A credit link back to the original is appreciated but not required.
+
 ## Scaling Beyond Lucan
 
 To cover multiple Dublin areas (Clondalkin, Tallaght, Castleknock, etc.), the project would need:
