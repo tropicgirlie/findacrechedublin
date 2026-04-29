@@ -30,11 +30,13 @@
         <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
       </a>
       <nav class="nav__links" aria-label="Section links">
+        <a href="#shortlist">My shortlist</a>
         <a href="#map">Map</a>
         <a href="#providers">Providers</a>
         <a href="#simulator">Cost</a>
         <a href="#stress">Stability</a>
         <a href="#subsidies">Subsidies</a>
+        <a href="#settings">Settings</a>
       </nav>
     </div>
   </header>
@@ -92,8 +94,36 @@
       </div>
     </section>
 
+    <!-- ============ HOME BANNER ============ -->
+    <section class="homebar" aria-label="Your home reference point">
+      <div class="container homebar__inner">
+        <span class="homebar__icon" aria-hidden="true">🏠</span>
+        <div class="homebar__text">
+          <strong>Your home: <span id="home-eircode">K78 EE02</span></strong>
+          <span class="homebar__sub">Walking times shown next to each provider · approx, confirm on Google Maps</span>
+        </div>
+        <a href="#settings" class="homebar__edit">Edit details &amp; email templates →</a>
+      </div>
+    </section>
+
+    <!-- ============ SHORTLIST (MY CONTACTS) ============ -->
+    <section id="shortlist" class="section">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">★ My shortlist <span id="shortlist-count" class="count-pill">0</span></span>
+          <h2 class="section__title">Who you've contacted.</h2>
+          <p class="section__lede">Your contact tracker. Status, last contact date, follow-up reminder, notes — saved in your browser. One click sends a pre-filled email or phone call.</p>
+        </header>
+        <div class="shortlist-toolbar">
+          <button id="shortlist-export" class="btn btn--ghost btn--small">⬇ Export as CSV (backup)</button>
+          <span class="hint">Anything in red is overdue for follow-up.</span>
+        </div>
+        <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
     <!-- ============ MAP ============ -->
-    <section id="map" class="section">
+    <section id="map" class="section section--alt">
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow">01 · Map</span>
@@ -119,6 +149,8 @@
           <div class="control control--check">
             <label><input type="checkbox" id="f-mont" /> Montessori only</label>
             <label><input type="checkbox" id="f-ecce" /> ECCE participating</label>
+            <label><input type="checkbox" id="f-open" /> ✅ Open spot only</label>
+            <label><input type="checkbox" id="f-walk" /> 🚶 Walking ≤ 20 min</label>
           </div>
           <div class="control control--legend" aria-label="Legend">
             <span class="legend"><i class="dot dot--low"></i> Low wait</span>
@@ -149,6 +181,8 @@
           <div class="control">
             <label for="p-sort">Sort by</label>
             <select id="p-sort">
+              <option value="distance" selected>Closest to my home</option>
+              <option value="open">Open spots first</option>
               <option value="price">Price: low to high</option>
               <option value="price-desc">Price: high to low</option>
               <option value="stability">Stability: high to low</option>
@@ -156,8 +190,13 @@
               <option value="name">Name: A to Z</option>
             </select>
           </div>
+          <div class="control control--check">
+            <label><input type="checkbox" id="p-open" /> ✅ Open spots only</label>
+            <label><input type="checkbox" id="p-walk" /> 🚶 Walking ≤ 20 min</label>
+          </div>
         </div>
 
+        <p class="map-footnote"><span id="provider-count">14</span> providers shown.</p>
         <div id="provider-grid" class="card-grid" aria-live="polite"></div>
       </div>
     </section>
@@ -351,6 +390,48 @@
       </div>
     </section>
 
+    <!-- ============ SETTINGS ============ -->
+    <section id="settings" class="section section--alt">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">⚙ Settings</span>
+          <h2 class="section__title">Your details for emails &amp; calls.</h2>
+          <p class="section__lede">These details get plugged into the pre-filled enquiry and follow-up emails. Saved in your browser only — nothing leaves this page.</p>
+        </header>
+
+        <div class="settings-grid">
+          <label class="setting">
+            <span>Your name</span>
+            <input type="text" id="prof-parent_name" placeholder="Luana" />
+          </label>
+          <label class="setting">
+            <span>Your phone</span>
+            <input type="tel" id="prof-parent_phone" placeholder="+353 …" />
+          </label>
+          <label class="setting">
+            <span>Your email (for sign-off)</span>
+            <input type="email" id="prof-parent_email" placeholder="you@example.com" />
+          </label>
+          <label class="setting">
+            <span>Child's name (optional)</span>
+            <input type="text" id="prof-child_name" placeholder="Used in email body if filled" />
+          </label>
+          <label class="setting">
+            <span>Child's age (months)</span>
+            <input type="number" id="prof-child_age_months" min="0" max="60" step="1" />
+          </label>
+          <label class="setting setting--wide">
+            <span>Start window phrase</span>
+            <input type="text" id="prof-start_window" placeholder="as soon as possible…" />
+          </label>
+          <label class="setting setting--wide">
+            <span>Schedule preference</span>
+            <input type="text" id="prof-schedule_pref" placeholder="full-time, 5 days/week" />
+          </label>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
       <div class="container footer__inner">
@@ -393,6 +474,7 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="data/providers.js"></script>
   <script src="app.js" defer></script>
 <script data-pplx-inline-edit>
 (function(){

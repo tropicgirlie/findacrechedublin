@@ -6,11 +6,18 @@ An experimental, single-page tool for exploring, comparing, and planning childca
 
 ## What It Does
 
-- **Interactive map** with 14 providers, colour-coded by waitlist risk, filterable by type, budget, Montessori, and ECCE
-- **Provider comparison cards** with search, sort, fees, hours, stability scores, and feature badges
-- **Live cost simulator** with NCS Universal, NCS Income-Assessed, and ECCE subsidies applied in the correct order, plus "what if" scenarios (work change, income drop, Sept 2026 policy shift)
-- **Provider checklist** with constructive questions to ask when you visit, based on sector trends and each provider's profile
-- **Subsidy guide** in plain English: ECCE, NCS Universal, NCS Income-Assessed, Core Funding fee caps, plus ECCE birth-year eligibility table
+- **Home anchor (K78 EE02)**: every provider shows a walking-time pill (e.g. "12 min walk · 0.9 km") and an opening-status badge (✅ Open / ⏳ Waitlist / ❌ Full / ❓ Unknown). Filter the map and the cards by "Open spots only" and "Walking ≤ 20 min".
+- **My Shortlist tracker**: one-click "Add to shortlist" on any provider, then track status (not contacted → email sent → called → replied → visited → confirmed/declined), last-contact date, next-follow-up reminder (highlights overdue in red), and free-text notes. Persisted in your browser via `localStorage`. Export as CSV for backup.
+- **One-click contact**: 📧 Email button opens a pre-filled `mailto:` (initial enquiry or weekly follow-up depending on status), 📞 Call button opens `tel:` for the provider's number. Templates pull from the Settings panel (your name, child age, eircode, start window).
+- **Interactive map** with 14 providers, colour-coded by waitlist risk, filterable by type, budget, Montessori, ECCE, opening status, and walking distance.
+- **Provider comparison cards** with search, sort (closest first / open spots first / price / stability / waitlist / name), fees, hours, stability scores, and feature badges.
+- **Live cost simulator** with NCS Universal, NCS Income-Assessed, and ECCE subsidies applied in the correct order, plus "what if" scenarios (work change, income drop, Sept 2026 policy shift).
+- **Provider checklist** with constructive questions to ask when you visit, based on sector trends and each provider's profile.
+- **Subsidy guide** in plain English: ECCE, NCS Universal, NCS Income-Assessed, Core Funding fee caps, plus ECCE birth-year eligibility table.
+
+## Data
+
+Provider data lives in [`data/providers.js`](data/providers.js). See [`data/README.md`](data/README.md) for the schema and the one-line edit pattern for marking an opening (`opening_status: "open"` + bump `last_verified`). 14 providers are mapped, one currently flagged with a confirmed opening.
 
 ## Colour Scheme
 
@@ -42,10 +49,19 @@ This approach helps parents make informed decisions without creating self-fulfil
 
 ## Tech Stack
 
-- Vanilla HTML/CSS/JS, no build step
+- Vanilla HTML/CSS/JS, no build step, no package.json
 - [Leaflet](https://leafletjs.com/) with Carto Voyager tiles
 - [Satoshi](https://www.fontshare.com/fonts/satoshi) from Fontshare
-- All provider data embedded in `app.js` (no database)
+- Provider data in [`data/providers.js`](data/providers.js) (loaded via plain `<script>` so it works locally over `file://` and on Vercel without any dev server)
+- Personal shortlist + settings stored in browser `localStorage` (no backend, no accounts)
+
+## Run locally
+
+Open `index.html` directly in a browser — no build step, no install. Or for HTTPS-strict APIs, serve with `python3 -m http.server 8000`.
+
+## Deploy
+
+This repo is a Vercel-ready static site. Push to GitHub, import the repo into Vercel, and it deploys with zero configuration. There is no `vercel.json` because there's nothing custom to configure.
 
 ## Scaling Beyond Lucan
 

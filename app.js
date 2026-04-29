@@ -1,157 +1,42 @@
 /* ============================================================
    Lucan Childcare Navigator: app.js
-   All logic: data, map, cards, simulator, stress test
+   All logic: data, map, cards, simulator, checklist, shortlist tracker
+   Provider data is loaded from data/providers.js (window.PROVIDERS).
    ============================================================ */
 
-// ---------- DATA (embedded from lucan-childcare-data.json) ----------
+// ---------- HOME, USER PROFILE, TRACKER KEY ----------
+// Approximate K78 EE02 reference point (Lucan village). Used for walking-time
+// estimates only. Edit here to refine.
+const HOME = { eircode: "K78 EE02", lat: 53.3548, lng: -6.4485 };
+
+// Defaults for email templates. Override via the Settings panel; values
+// persist in localStorage under USER_PROFILE_KEY.
+const USER_PROFILE_KEY = "lucan-creche-profile-v1";
+const USER_PROFILE_DEFAULTS = {
+  parent_name: "Luana",
+  parent_phone: "",
+  parent_email: "",
+  child_name: "",
+  child_age_months: 18,
+  start_window: "as soon as possible (we can take a place earlier than October 2026 if one opens)",
+  schedule_pref: "full-time, 5 days/week"
+};
+
+// Shortlist tracker (browser-only, localStorage). One entry per provider id.
+const TRACKER_KEY = "lucan-creche-tracker-v1";
+
+// ---------- DATA ----------
 const DATA = {
   metadata: {
     area: "Lucan, County Dublin, Ireland",
     research_date: "2026-04-02",
     center: { lat: 53.3565, lng: -6.4489 }
   },
-  providers: [
-    { id:1, name:"Giraffe Childcare Lucan", type:"Full Day Crèche & Preschool", typeKey:"creche",
-      address:"Ballyowen Lane, Lucan, Co. Dublin", eircode:"K78 EV80",
-      lat:53.3476, lng:-6.4287, phone:"(01) 254 1345", website:"https://www.giraffe.ie/creche-location/childcare-lucan/",
-      hours:"7:30–18:00 Mon–Fri", age_range:"1–5 yrs (afterschool to 12)",
-      monthly_fee:1150, post_universal:732, weekly:265, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"High", waitlist_months:6, stability:8, staff_concern:"Medium",
-      chain:"Giraffe Childcare (national chain)",
-      notes:"Large national chain, purpose-built facility. Near Ballyowen and N4." },
-
-    { id:2, name:"Giraffe Childcare Adamstown", type:"Full Day Crèche & Preschool", typeKey:"creche",
-      address:"2 Castlegate House, Adamstown Avenue, Adamstown Castle", eircode:"K78 NH94",
-      lat:53.3486, lng:-6.4652, phone:"(01) 254 1381", website:"https://www.giraffe.ie/creche-location/childcare-adamstown/",
-      hours:"7:30–18:00 Mon–Fri", age_range:"12 months – 12 yrs",
-      monthly_fee:1150, post_universal:732, weekly:265, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"High", waitlist_months:6, stability:8, staff_concern:"Medium",
-      chain:"Giraffe Childcare (national chain)",
-      notes:"Voted Best Crèche 2016. Serves Adamstown, Lucan, Tallaght." },
-
-    { id:3, name:"Giraffe Childcare Liffey Valley", type:"Full Day Crèche & Preschool", typeKey:"creche",
-      address:"Liffey Valley Office Campus, Dublin 22", eircode:"D22 WO26",
-      lat:53.3512, lng:-6.3951, phone:"(01) 254 1346", website:"https://www.giraffe.ie/creche-location/childcare-liffey-valley/",
-      hours:"7:30–18:00 Mon–Fri", age_range:"6 months – 5 yrs",
-      monthly_fee:1150, post_universal:732, weekly:265, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Medium", waitlist_months:4, stability:8, staff_concern:"Medium",
-      chain:"Giraffe Childcare (national chain)",
-      notes:"Near Liffey Valley SC. Off N4/M50. Commuter-friendly." },
-
-    { id:4, name:"Cocoon Childcare Lucan", type:"Full Day Crèche & Preschool", typeKey:"creche",
-      address:"Rosse Court, Balgaddy, Lucan", eircode:"K32 V205",
-      lat:53.3412, lng:-6.4172, phone:"+353 1 419 9999", website:"https://cocoonchildcare.ie/find-creche/dublin-creches/cocoon-childcare-lucan",
-      hours:"7:30–18:30 Mon–Fri", age_range:"1–5 yrs",
-      monthly_fee:1150, post_universal:672, weekly:265, ecce:true, core_funding:true,
-      montessori:true, outdoor:true, meals:true,
-      waitlist:"High", waitlist_months:6, stability:7, staff_concern:"Medium",
-      chain:"Cocoon Childcare (14 centres)",
-      notes:"Purpose-built. Nutrition programme. Serves Lucan & Clondalkin." },
-
-    { id:5, name:"Little Harvard Kilcarbery (Clondalkin)", type:"Full Day Crèche & Montessori", typeKey:"creche",
-      address:"Kilcarbery Grange, Dublin 22", eircode:"D22 X0F0",
-      lat:53.3226, lng:-6.4285, phone:"(01) 274 1056", website:"https://www.littleharvard.ie",
-      hours:"7:00–18:30 Mon–Fri", age_range:"6 months – 12 yrs",
-      monthly_fee:1350, post_universal:932, weekly:295, ecce:true, core_funding:true,
-      montessori:true, outdoor:true, meals:true,
-      waitlist:"Very High", waitlist_months:9, stability:7, staff_concern:"Medium",
-      chain:"Little Harvard (20+ locations)",
-      notes:"Major chain. At fee cap maximum." },
-
-    { id:6, name:"Happy Tots Playschool & Full Day Care", type:"Playschool & Full Day Care", typeKey:"playschool",
-      address:"Lucan, Co. Dublin", eircode:"K78 TY05",
-      lat:53.3548, lng:-6.4510, phone:"via childcare.ie", website:"https://www.childcare.ie/county-dublin/lucan",
-      hours:"8:00–18:00 Mon–Fri (est.)", age_range:"2y7m+",
-      monthly_fee:950, post_universal:532, weekly:220, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Medium", waitlist_months:3, stability:5, staff_concern:"High",
-      chain:"Independent",
-      notes:"Independent local. Smaller operation." },
-
-    { id:7, name:"Keane Minds Montessori School", type:"Montessori Preschool", typeKey:"montessori",
-      address:"Lucan, Co. Dublin", eircode:"K78",
-      lat:53.3555, lng:-6.4445, phone:"via childcare.ie", website:"https://www.childcare.ie/county-dublin/lucan",
-      hours:"9:00–12:30 / extended to 14:30", age_range:"2.5–6 yrs",
-      monthly_fee:320, post_universal:320, weekly:80, ecce:true, core_funding:true,
-      montessori:true, outdoor:true, meals:false,
-      waitlist:"Medium", waitlist_months:3, stability:4, staff_concern:"High",
-      chain:"Independent", sessional:true,
-      notes:"Sessional Montessori. Free under ECCE for 3 hrs. Extended hours extra. ECCE-only model most at risk of closure." },
-
-    { id:8, name:"Sunflowers Childcare", type:"Family-run Childcare", typeKey:"creche",
-      address:"Ballyowen Lane, Lucan", eircode:"K78 WF44",
-      lat:53.3490, lng:-6.4320, phone:"via childcare.ie", website:"https://www.childcare.ie/county-dublin/lucan",
-      hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs",
-      monthly_fee:1000, post_universal:582, weekly:230, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Medium", waitlist_months:3, stability:5, staff_concern:"High",
-      chain:"Independent (family-run)",
-      notes:"Small, family-run. Personal touch but less capacity." },
-
-    { id:9, name:"The Village Montessori Pre-School", type:"Montessori Pre-School", typeKey:"montessori",
-      address:"Canon Despard Centre, Chapel Hill, Lucan", eircode:"K78 YX96",
-      lat:53.3575, lng:-6.4498, phone:"via childcare.ie", website:"https://www.childcare.ie/county-dublin/lucan",
-      hours:"9:00–12:00 / extended to 15:00", age_range:"2.5–5.5 yrs",
-      monthly_fee:340, post_universal:340, weekly:85, ecce:true, core_funding:true,
-      montessori:true, outdoor:true, meals:false,
-      waitlist:"Low", waitlist_months:2, stability:4, staff_concern:"High",
-      chain:"Independent", sessional:true,
-      notes:"Sessional Montessori in community centre. ECCE-only model at risk." },
-
-    { id:10, name:"Lucan Childcare Crèche and Montessori", type:"Full Day Crèche & Montessori", typeKey:"creche",
-      address:"33 Willsbrook Avenue, Lucan", eircode:"K78",
-      lat:53.3570, lng:-6.4400, phone:"Tusla register", website:"",
-      hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs",
-      monthly_fee:1050, post_universal:632, weekly:240, ecce:true, core_funding:true,
-      montessori:true, outdoor:true, meals:true,
-      waitlist:"Medium", waitlist_months:4, stability:5, staff_concern:"High",
-      chain:"Independent",
-      notes:"Listed on Tusla register. Independent Montessori crèche." },
-
-    { id:11, name:"Caroline Ogundimu (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
-      address:"3 Oldbridge Park, Lucan", eircode:"K78",
-      lat:53.3540, lng:-6.4460, phone:"085 107 5339", website:"",
-      hours:"Flexible", age_range:"0–14 yrs",
-      monthly_fee:850, post_universal:432, weekly:200, ecce:false, core_funding:false,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Low", waitlist_months:1, stability:6, staff_concern:"Low",
-      chain:"Independent Childminder",
-      notes:"Tusla registered Dec 2025. Max 6 children. NCS subsidies apply." },
-
-    { id:12, name:"Lynne's Little Ones (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
-      address:"20 Oldbridge View, Lucan", eircode:"K78",
-      lat:53.3538, lng:-6.4470, phone:"087 626 0360", website:"",
-      hours:"Flexible", age_range:"0–14 yrs",
-      monthly_fee:850, post_universal:432, weekly:200, ecce:false, core_funding:false,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Low", waitlist_months:1, stability:6, staff_concern:"Low",
-      chain:"Independent Childminder",
-      notes:"Tusla registered July 2025. Max 6 children." },
-
-    { id:13, name:"Mridul Sharma (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
-      address:"4 Griffeen Glen Drive, Lucan", eircode:"K78",
-      lat:53.3520, lng:-6.4380, phone:"(01) 503 0615", website:"",
-      hours:"Flexible", age_range:"2–6 yrs",
-      monthly_fee:800, post_universal:382, weekly:185, ecce:false, core_funding:false,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"Low", waitlist_months:1, stability:6, staff_concern:"Low",
-      chain:"Independent Childminder",
-      notes:"Tusla registered Aug 2023. Preschool-age focus (2–6). Max 6." },
-
-    { id:14, name:"Tigers Childcare (Castleknock)", type:"Full Day Crèche & Preschool", typeKey:"creche",
-      address:"Castleknock, Dublin 15", eircode:"D15",
-      lat:53.3712, lng:-6.3780, phone:"via Tigers site", website:"https://tigerschildcare.com",
-      hours:"7:30–18:30 Mon–Fri", age_range:"6 months – 12 yrs",
-      monthly_fee:1070, post_universal:652, weekly:252, ecce:true, core_funding:true,
-      montessori:false, outdoor:true, meals:true,
-      waitlist:"High", waitlist_months:6, stability:7, staff_concern:"Medium",
-      chain:"Tigers Childcare (national chain)",
-      notes:"Nearest Tigers to Lucan (15–20 min drive). Structured curriculum." }
-  ]
+  providers: (typeof window !== "undefined" && Array.isArray(window.PROVIDERS))
+    ? window.PROVIDERS
+    : []
 };
+
 
 // ---------- Helpers ----------
 const $ = (s, root=document) => root.querySelector(s);
@@ -166,6 +51,162 @@ function riskClass(risk){
 }
 function riskBadgeClass(risk){
   return `badge badge--wait-${riskClass(risk)}`;
+}
+
+// ---------- Distance from HOME (Haversine, walking minutes) ----------
+function haversineKm(a, b){
+  const R = 6371;
+  const toRad = (d) => d * Math.PI / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const s = Math.sin(dLat/2)**2 +
+            Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) *
+            Math.sin(dLng/2)**2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+// Path factor 1.3 over straight-line km, 5 km/h walking speed.
+function walkingMinutes(p){
+  const km = haversineKm(HOME, { lat: p.lat, lng: p.lng });
+  return Math.round((km * 1.3) / 5 * 60);
+}
+function walkingKm(p){
+  return haversineKm(HOME, { lat: p.lat, lng: p.lng });
+}
+
+// ---------- Opening status badges ----------
+const OPENING_LABELS = {
+  open:     { text: "Open spot", icon: "✅", cls: "open" },
+  waitlist: { text: "Waitlist",  icon: "⏳", cls: "waitlist" },
+  full:     { text: "Full",      icon: "❌", cls: "full" },
+  unknown:  { text: "Status unknown", icon: "❓", cls: "unknown" }
+};
+function openingBadgeHTML(status){
+  const o = OPENING_LABELS[status] || OPENING_LABELS.unknown;
+  return `<span class="open-badge open-badge--${o.cls}">${o.icon} ${o.text}</span>`;
+}
+
+// ---------- USER PROFILE (localStorage-backed) ----------
+function loadProfile(){
+  try {
+    const raw = localStorage.getItem(USER_PROFILE_KEY);
+    if (!raw) return { ...USER_PROFILE_DEFAULTS };
+    return { ...USER_PROFILE_DEFAULTS, ...JSON.parse(raw) };
+  } catch { return { ...USER_PROFILE_DEFAULTS }; }
+}
+function saveProfile(profile){
+  try { localStorage.setItem(USER_PROFILE_KEY, JSON.stringify(profile)); } catch {}
+}
+let PROFILE = loadProfile();
+
+// ---------- TRACKER (shortlist, localStorage-backed) ----------
+const TRACKER_STATUSES = [
+  { key: "not_contacted", label: "Not contacted yet" },
+  { key: "email_sent",    label: "Email sent" },
+  { key: "called",        label: "Phoned" },
+  { key: "replied",       label: "Replied" },
+  { key: "visited",       label: "Visited" },
+  { key: "confirmed",     label: "Confirmed place" },
+  { key: "declined",      label: "Declined / no place" }
+];
+function loadTracker(){
+  try { return JSON.parse(localStorage.getItem(TRACKER_KEY)) || {}; }
+  catch { return {}; }
+}
+function saveTracker(tracker){
+  try { localStorage.setItem(TRACKER_KEY, JSON.stringify(tracker)); } catch {}
+}
+function todayISO(){ return new Date().toISOString().slice(0, 10); }
+function addDaysISO(iso, days){
+  const d = new Date(iso + "T00:00:00");
+  d.setDate(d.getDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+function ensureEntry(tracker, providerId){
+  if (!tracker[providerId]){
+    tracker[providerId] = {
+      provider_id: providerId,
+      status: "not_contacted",
+      contacted_dates: [],
+      last_reply: null,
+      next_followup: todayISO(),
+      notes: "",
+      stop_outreach: false
+    };
+  }
+  return tracker[providerId];
+}
+function inShortlist(providerId){
+  const t = loadTracker();
+  return Object.prototype.hasOwnProperty.call(t, providerId);
+}
+function addToShortlist(providerId){
+  const t = loadTracker();
+  ensureEntry(t, providerId);
+  saveTracker(t);
+}
+function removeFromShortlist(providerId){
+  const t = loadTracker();
+  delete t[providerId];
+  saveTracker(t);
+}
+function updateEntry(providerId, patch){
+  const t = loadTracker();
+  const e = ensureEntry(t, providerId);
+  Object.assign(e, patch);
+  saveTracker(t);
+}
+
+// ---------- EMAIL TEMPLATES ----------
+function ageLabel(months){
+  if (months < 12) return `${months} months`;
+  if (months < 24) return `${months} months`;
+  const y = Math.floor(months / 12);
+  const m = months % 12;
+  return m === 0 ? `${y} year${y>1?"s":""}` : `${y}y ${m}m`;
+}
+function initialEnquiryEmail(p){
+  const child = PROFILE.child_name ? `my daughter, ${PROFILE.child_name},` : "my daughter";
+  const subject = `Enquiry for crèche place — ${ageLabel(PROFILE.child_age_months)} child, ${HOME.eircode}`;
+  const body =
+`Hi,
+
+I'm looking for a place for ${child} who is currently ${ageLabel(PROFILE.child_age_months)} old. We are based in Lucan near ${HOME.eircode}.
+
+I'd ideally like a place ${PROFILE.start_window}.
+
+Preferred schedule: ${PROFILE.schedule_pref}.
+
+If you have a waitlist, I'd love to join it. If a place becomes available earlier, we are ready to start sooner.
+
+Please let me know if you have current availability, expected timelines, or a cancellation list I can join.
+
+Many thanks,
+${PROFILE.parent_name}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}${PROFILE.parent_email ? "\n" + PROFILE.parent_email : ""}`;
+  return { subject, body };
+}
+function followupEmail(p){
+  const subject = `Following up — crèche enquiry for ${ageLabel(PROFILE.child_age_months)} child`;
+  const body =
+`Hi,
+
+Just checking in on my earlier enquiry in case any place has become available, or if your waitlist has moved. We are still very interested and can start as soon as a suitable place opens.
+
+Many thanks,
+${PROFILE.parent_name}${PROFILE.parent_phone ? "\n" + PROFILE.parent_phone : ""}`;
+  return { subject, body };
+}
+function mailtoLink(provider, kind){
+  const tpl = kind === "followup" ? followupEmail(provider) : initialEnquiryEmail(provider);
+  const params = new URLSearchParams({ subject: tpl.subject, body: tpl.body });
+  return `mailto:${encodeURIComponent(provider.email || "")}?${params.toString().replace(/\+/g, "%20")}`;
+}
+function hasUsablePhone(p){
+  if (!p.phone) return false;
+  const lc = p.phone.toLowerCase();
+  return !lc.startsWith("via ") && lc !== "tusla register";
+}
+function telLink(p){
+  return `tel:${p.phone.replace(/[^+0-9]/g, "")}`;
 }
 
 // ============================================================
@@ -212,15 +253,17 @@ function popupHTML(p){
   const feeLine = p.sessional
     ? `<strong>${fmtEUR(p.weekly)}/wk</strong> (sessional, free under ECCE)`
     : `<strong>${fmtEUR(p.monthly_fee)}/mo</strong> pre-subsidy`;
+  const mins = walkingMinutes(p);
   return `
     <div class="pop">
       <div class="pop__title">${p.name}</div>
       <div class="pop__type">${p.type}</div>
+      <div class="pop__row"><span>Status</span>${openingBadgeHTML(p.opening_status || "unknown")}</div>
+      <div class="pop__row"><span>From ${HOME.eircode}</span><strong>${mins} min walk · ${walkingKm(p).toFixed(1)} km</strong></div>
       <div class="pop__row"><span>Fee</span>${feeLine}</div>
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
       <div class="pop__row"><span>Waitlist</span><strong>${p.waitlist} (~${p.waitlist_months} mo)</strong></div>
-      <div class="pop__row"><span>Stability</span><strong>${p.stability}/10</strong></div>
     </div>`;
 }
 
@@ -240,6 +283,8 @@ function applyMapFilters(){
   const budget = parseInt($("#f-budget").value, 10);
   const mont = $("#f-mont").checked;
   const ecce = $("#f-ecce").checked;
+  const openOnly = $("#f-open") && $("#f-open").checked;
+  const walkOnly = $("#f-walk") && $("#f-walk").checked;
   $("#f-budget-val").textContent = fmtEUR(budget);
 
   const filtered = DATA.providers.filter(p => {
@@ -249,6 +294,8 @@ function applyMapFilters(){
     if (monthly > budget) return false;
     if (mont && !p.montessori) return false;
     if (ecce && !p.ecce) return false;
+    if (openOnly && p.opening_status !== "open") return false;
+    if (walkOnly && walkingMinutes(p) > 20) return false;
     return true;
   });
   renderMarkers(filtered);
@@ -279,12 +326,34 @@ function providerCardHTML(p){
     ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">Visit website →</a>`
     : `<span class="pcard__link" style="color:var(--muted)">Contact via Tusla register</span>`;
 
+  const mins = walkingMinutes(p);
+  const km = walkingKm(p);
+  const walkCls = mins <= 20 ? "walk-pill walk-pill--near" : "walk-pill";
+  const distHTML = `<span class="${walkCls}">🚶 ${mins} min walk · ${km.toFixed(1)} km from ${HOME.eircode}</span>`;
+
+  const opening = openingBadgeHTML(p.opening_status || "unknown");
+  const verified = p.last_verified ? `<span class="verified">verified ${p.last_verified}</span>` : "";
+
+  const onList = inShortlist(p.id);
+  const shortlistBtn = onList
+    ? `<button class="act act--on" data-action="remove-shortlist" data-id="${p.id}" title="Remove from shortlist">★ On my shortlist</button>`
+    : `<button class="act" data-action="add-shortlist" data-id="${p.id}" title="Add to shortlist">☆ Add to shortlist</button>`;
+
+  const emailBtn = p.email
+    ? `<a class="act" href="${mailtoLink(p, "initial")}" title="Open a pre-filled enquiry email">📧 Email enquiry</a>`
+    : "";
+  const callBtn = hasUsablePhone(p)
+    ? `<a class="act" href="${telLink(p)}" title="Call ${p.phone}">📞 Call ${p.phone}</a>`
+    : "";
+
   return `
     <article class="pcard" data-id="${p.id}">
       <header class="pcard__head">
         <span class="pcard__type">${p.type}</span>
         <h3 class="pcard__name">${p.name}</h3>
       </header>
+      <div class="pcard__statusrow">${opening}${verified}</div>
+      <div class="pcard__distrow">${distHTML}</div>
       <div class="pcard__fee">${feeLabel}</div>
       <div class="pcard__meta">
         <span><b>Hours</b><br/>${p.hours}</span>
@@ -300,6 +369,7 @@ function providerCardHTML(p){
         <div class="stability-bar"><div class="stability-bar__fill" style="width:${stabPct}%"></div></div>
       </div>
       <div class="pcard__features">${feats.join("")}</div>
+      <div class="pcard__actions">${shortlistBtn}${emailBtn}${callBtn}</div>
       ${link}
     </article>`;
 }
@@ -307,6 +377,8 @@ function providerCardHTML(p){
 function renderProviders(){
   const q = $("#p-search").value.trim().toLowerCase();
   const sort = $("#p-sort").value;
+  const openOnly = $("#p-open") && $("#p-open").checked;
+  const walkOnly = $("#p-walk") && $("#p-walk").checked;
   let list = DATA.providers.slice();
 
   if (q){
@@ -314,16 +386,23 @@ function renderProviders(){
       [p.name, p.type, p.address, p.chain, p.notes].join(" ").toLowerCase().includes(q)
     );
   }
+  if (openOnly) list = list.filter(p => p.opening_status === "open");
+  if (walkOnly) list = list.filter(p => walkingMinutes(p) <= 20);
+
   const waitOrder = { "Low":1, "Medium":2, "High":3, "Very High":4 };
+  const openOrder = { "open": 1, "waitlist": 2, "unknown": 3, "full": 4 };
   const sortFns = {
+    "distance":   (a,b) => walkingKm(a) - walkingKm(b),
+    "open":       (a,b) => (openOrder[a.opening_status]||3) - (openOrder[b.opening_status]||3),
     "price":      (a,b) => a.monthly_fee - b.monthly_fee,
     "price-desc": (a,b) => b.monthly_fee - a.monthly_fee,
     "stability":  (a,b) => b.stability - a.stability,
     "waitlist":   (a,b) => waitOrder[a.waitlist] - waitOrder[b.waitlist],
     "name":       (a,b) => a.name.localeCompare(b.name)
   };
-  list.sort(sortFns[sort]);
+  list.sort(sortFns[sort] || sortFns["distance"]);
   $("#provider-grid").innerHTML = list.map(providerCardHTML).join("");
+  $("#provider-count") && ($("#provider-count").textContent = list.length);
 }
 
 // ============================================================
@@ -620,20 +699,230 @@ function renderStress(){
 }
 
 // ============================================================
+// 5) SHORTLIST TRACKER (My contacted providers)
+// ============================================================
+function shortlistRowHTML(entry, p){
+  const opening = openingBadgeHTML(p.opening_status || "unknown");
+  const mins = walkingMinutes(p);
+  const statusOpts = TRACKER_STATUSES.map(s =>
+    `<option value="${s.key}"${entry.status === s.key ? " selected":""}>${s.label}</option>`
+  ).join("");
+  const lastContacted = entry.contacted_dates && entry.contacted_dates.length
+    ? entry.contacted_dates[entry.contacted_dates.length - 1]
+    : "—";
+  const followupDue = entry.next_followup
+    ? (entry.next_followup <= todayISO() ? `<strong style="color:var(--rust)">Due ${entry.next_followup}</strong>` : `Due ${entry.next_followup}`)
+    : "—";
+
+  const emailKind = entry.status === "not_contacted" ? "initial" : "followup";
+  const emailLabel = emailKind === "initial" ? "📧 Send enquiry" : "📧 Send follow-up";
+  const emailBtn = p.email
+    ? `<a class="act act--small" href="${mailtoLink(p, emailKind)}" data-action="email-sent" data-id="${p.id}" data-kind="${emailKind}">${emailLabel}</a>`
+    : `<span class="act act--small act--disabled">No email on file</span>`;
+  const callBtn = hasUsablePhone(p)
+    ? `<a class="act act--small" href="${telLink(p)}" data-action="called" data-id="${p.id}">📞 Call</a>`
+    : "";
+
+  return `
+    <div class="srow" data-id="${p.id}">
+      <div class="srow__main">
+        <div class="srow__name">${p.name}</div>
+        <div class="srow__meta">${opening} · ${mins} min walk · ${p.address.split(",")[0]}</div>
+      </div>
+      <div class="srow__status">
+        <label>Status
+          <select data-action="status-change" data-id="${p.id}">${statusOpts}</select>
+        </label>
+        <div class="srow__dates">
+          <span>Last contact: <b>${lastContacted}</b></span>
+          <span>Next follow-up: ${followupDue}</span>
+        </div>
+      </div>
+      <div class="srow__notes">
+        <label>Notes
+          <textarea data-action="notes-change" data-id="${p.id}" rows="2" placeholder="Reply received? What did they say?">${entry.notes || ""}</textarea>
+        </label>
+      </div>
+      <div class="srow__actions">
+        ${emailBtn}
+        ${callBtn}
+        <button class="act act--small act--ghost" data-action="remove-shortlist" data-id="${p.id}">Remove</button>
+      </div>
+    </div>`;
+}
+
+function renderShortlist(){
+  const tracker = loadTracker();
+  const ids = Object.keys(tracker).map(Number);
+  $("#shortlist-count") && ($("#shortlist-count").textContent = ids.length);
+  if (!ids.length){
+    $("#shortlist-grid").innerHTML =
+      `<p class="empty">Your shortlist is empty. Click <em>☆ Add to shortlist</em> on any provider below to start tracking your contacts.</p>`;
+    return;
+  }
+  // Sort: due-now first, then by last-contact ascending (oldest first)
+  const today = todayISO();
+  const rows = ids
+    .map(id => ({ entry: tracker[id], p: DATA.providers.find(p => p.id === id) }))
+    .filter(x => x.p)
+    .sort((a, b) => {
+      const aDue = (a.entry.next_followup || "9999") <= today ? 0 : 1;
+      const bDue = (b.entry.next_followup || "9999") <= today ? 0 : 1;
+      if (aDue !== bDue) return aDue - bDue;
+      const aLast = a.entry.contacted_dates.slice(-1)[0] || "0000";
+      const bLast = b.entry.contacted_dates.slice(-1)[0] || "0000";
+      return aLast.localeCompare(bLast);
+    });
+  $("#shortlist-grid").innerHTML = rows.map(({ entry, p }) => shortlistRowHTML(entry, p)).join("");
+}
+
+function shortlistToCSV(){
+  const tracker = loadTracker();
+  const header = ["provider_id","name","status","contacted_dates","next_followup","notes","phone","email","opening_status"];
+  const lines = [header.join(",")];
+  Object.values(tracker).forEach(e => {
+    const p = DATA.providers.find(x => x.id === e.provider_id);
+    if (!p) return;
+    const row = [
+      p.id,
+      `"${p.name.replace(/"/g, '""')}"`,
+      e.status,
+      `"${(e.contacted_dates||[]).join("; ")}"`,
+      e.next_followup || "",
+      `"${(e.notes||"").replace(/"/g, '""')}"`,
+      `"${p.phone||""}"`,
+      `"${p.email||""}"`,
+      p.opening_status || "unknown"
+    ];
+    lines.push(row.join(","));
+  });
+  return lines.join("\n");
+}
+function downloadCSV(){
+  const csv = shortlistToCSV();
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `lucan-creche-shortlist-${todayISO()}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function handleShortlistAction(e){
+  const target = e.target.closest("[data-action]");
+  if (!target) return;
+  const action = target.dataset.action;
+  const id = parseInt(target.dataset.id, 10);
+  if (!id) return;
+
+  if (action === "add-shortlist"){
+    addToShortlist(id);
+    renderProviders();
+    renderShortlist();
+  } else if (action === "remove-shortlist"){
+    removeFromShortlist(id);
+    renderProviders();
+    renderShortlist();
+  } else if (action === "email-sent"){
+    // Don't preventDefault — we want the mailto: to open. We just record it.
+    const kind = target.dataset.kind;
+    const t = loadTracker();
+    const entry = ensureEntry(t, id);
+    entry.contacted_dates.push(todayISO());
+    entry.status = "email_sent";
+    entry.next_followup = addDaysISO(todayISO(), 7);
+    saveTracker(t);
+    setTimeout(renderShortlist, 100);
+  } else if (action === "called"){
+    const t = loadTracker();
+    const entry = ensureEntry(t, id);
+    entry.contacted_dates.push(todayISO());
+    if (entry.status === "not_contacted") entry.status = "called";
+    entry.next_followup = addDaysISO(todayISO(), 14);
+    saveTracker(t);
+    setTimeout(renderShortlist, 100);
+  }
+}
+
+function handleShortlistChange(e){
+  const target = e.target.closest("[data-action]");
+  if (!target) return;
+  const action = target.dataset.action;
+  const id = parseInt(target.dataset.id, 10);
+  if (!id) return;
+
+  if (action === "status-change"){
+    const status = target.value;
+    const patch = { status };
+    if (status === "email_sent" || status === "called"){
+      patch.next_followup = addDaysISO(todayISO(), status === "called" ? 14 : 7);
+    } else if (status === "replied"){
+      patch.last_reply = todayISO();
+      patch.next_followup = addDaysISO(todayISO(), 14);
+    } else if (status === "confirmed" || status === "declined"){
+      patch.stop_outreach = true;
+      patch.next_followup = null;
+    }
+    updateEntry(id, patch);
+    renderShortlist();
+  } else if (action === "notes-change"){
+    updateEntry(id, { notes: target.value });
+    // No re-render — let the user keep typing.
+  }
+}
+
+// ---------- Settings panel (user profile) ----------
+function wireSettings(){
+  const fields = ["parent_name","parent_phone","parent_email","child_name","child_age_months","start_window","schedule_pref"];
+  fields.forEach(k => {
+    const el = $("#prof-" + k);
+    if (!el) return;
+    el.value = PROFILE[k] != null ? PROFILE[k] : "";
+    el.addEventListener("input", () => {
+      PROFILE[k] = k === "child_age_months" ? parseInt(el.value, 10) || 0 : el.value;
+      saveProfile(PROFILE);
+      // Re-render so cards pick up new mailto contents.
+      renderProviders();
+      renderShortlist();
+    });
+  });
+}
+
+// ============================================================
 // INIT
 // ============================================================
 function init(){
+  // Home banner
+  $("#home-eircode") && ($("#home-eircode").textContent = HOME.eircode);
+
   // Map
   buildMap();
   $("#f-type").addEventListener("change", applyMapFilters);
   $("#f-budget").addEventListener("input", applyMapFilters);
   $("#f-mont").addEventListener("change", applyMapFilters);
   $("#f-ecce").addEventListener("change", applyMapFilters);
+  $("#f-open") && $("#f-open").addEventListener("change", applyMapFilters);
+  $("#f-walk") && $("#f-walk").addEventListener("change", applyMapFilters);
 
   // Providers
   renderProviders();
   $("#p-search").addEventListener("input", renderProviders);
   $("#p-sort").addEventListener("change", renderProviders);
+  $("#p-open") && $("#p-open").addEventListener("change", renderProviders);
+  $("#p-walk") && $("#p-walk").addEventListener("change", renderProviders);
+
+  // Shortlist
+  renderShortlist();
+  $("#shortlist-grid") && $("#shortlist-grid").addEventListener("click", handleShortlistAction);
+  $("#shortlist-grid") && $("#shortlist-grid").addEventListener("change", handleShortlistChange);
+  $("#provider-grid") && $("#provider-grid").addEventListener("click", handleShortlistAction);
+  $("#shortlist-export") && $("#shortlist-export").addEventListener("click", downloadCSV);
+
+  // Settings
+  wireSettings();
 
   // Simulator
   wireSim();
