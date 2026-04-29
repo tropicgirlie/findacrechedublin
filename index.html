@@ -117,8 +117,8 @@
           <p class="section__lede">Your contact tracker. Status, last contact date, follow-up reminder, notes — saved in your browser. One click sends a pre-filled email or phone call.</p>
         </header>
         <div class="shortlist-toolbar">
-          <button id="shortlist-export" class="btn btn--ghost btn--small">⬇ Export as CSV (backup)</button>
-          <span class="hint">Anything in red is overdue for follow-up.</span>
+          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist — open in Excel or Google Sheets">⬇ Download as spreadsheet (backup)</button>
+          <span class="hint">Your shortlist lives only in this browser. Download a backup now and then so you don't lose it. Anything in red is overdue for follow-up.</span>
         </div>
         <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
       </div>
@@ -174,6 +174,19 @@
           <h2 class="section__title">Compare, side by side.</h2>
           <p class="section__lede">Search by name, sort by what matters, and spot the ones with space for your child.</p>
         </header>
+
+        <details class="price-source">
+          <summary>Where do these prices come from? <span class="price-source__hint">Click to expand</span></summary>
+          <ul>
+            <li><strong>Chain crèches</strong> (Giraffe, Cocoon, Little Harvard, Tigers): standard chain rate from each chain's pricing page. Likely accurate to within €50/month — confirm on enquiry.</li>
+            <li><strong>Core-Funding providers</strong>: capped at €295/week (~€1,275/month) by government rules; we use the chain rate or a Core-Funding-cap estimate where the provider doesn't publish.</li>
+            <li><strong>Sessional Montessori &amp; playschools</strong>: ECCE capitation pays the provider, so cost to parents during ECCE hours is €0; figures shown are weekly rates outside ECCE hours.</li>
+            <li><strong>Childminders</strong>: typical Tusla-registered childminder rates (not published per-minder).</li>
+            <li><strong>Independents marked <code>(est.)</code></strong>: I had to estimate — call to confirm.</li>
+            <li><strong>Waitlist length</strong> is a sector-wide guess (40,000+ on national waitlists per SIPTU/Early Childhood Ireland), not provider-specific. Phone for the real position.</li>
+          </ul>
+          <p>Full per-field provenance: <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">data/README.md →</a></p>
+        </details>
 
         <div class="prov-controls">
           <div class="control control--wide">
@@ -430,10 +443,10 @@
             <p>Find, track, and contact childcare providers near K78 EE02. Always free. No accounts, no tracking, no ads. Code is on <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">GitHub</a> if you want to fork it for another area.</p>
           </article>
 
-          <article class="res-card res-card--commercial">
-            <span class="res-card__tag">My commercial project</span>
+          <article class="res-card res-card--other">
+            <span class="res-card__tag">My other project</span>
             <h3>takehome.co</h3>
-            <p>If childcare costs are eating your salary, see what you actually take home after tax, USC, PRSI, and childcare. <a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a> is my for-profit project — built for working parents (especially mothers) trying to figure out whether returning to work makes financial sense.</p>
+            <p>If childcare costs are eating your salary, see what you actually take home after tax, USC, PRSI, and childcare. <a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a> helps working parents figure out whether returning to work makes financial sense.</p>
             <a href="https://takehome.co" target="_blank" rel="noopener" class="btn btn--primary btn--small">Visit takehome.co →</a>
           </article>
 

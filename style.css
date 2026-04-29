@@ -1038,6 +1038,50 @@ input[type="range"]::-moz-range-thumb{
   .setting--wide{ grid-column: span 2; }
 }
 
+/* Price-source disclosure */
+.price-source{
+  margin: 0 0 18px;
+  padding: 14px 18px;
+  background: var(--cream-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+}
+.price-source summary{
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--sage-700);
+  list-style: none;
+}
+.price-source summary::-webkit-details-marker{ display: none; }
+.price-source summary::before{
+  content: "▸ ";
+  color: var(--sage-500);
+  font-size: 0.9em;
+  margin-right: 4px;
+  display: inline-block;
+  transition: transform .15s var(--ease);
+}
+.price-source[open] summary::before{ transform: rotate(90deg); }
+.price-source__hint{
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  font-weight: 400;
+  margin-left: 6px;
+}
+.price-source ul{
+  margin: 12px 0 8px;
+  padding-left: 22px;
+}
+.price-source li{ margin: 6px 0; color: var(--ink-2); }
+.price-source code{
+  background: var(--cream-3);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.price-source p{ margin: 8px 0 0; font-size: var(--fs-xs); color: var(--muted); }
+
 /* About / More resources */
 .resources-grid{
   display: grid;
@@ -1067,8 +1111,8 @@ input[type="range"]::-moz-range-thumb{
 }
 .res-card--community{ border-color: var(--sage-300); }
 .res-card--community .res-card__tag{ background: var(--ok-50); color: var(--sage-700); }
-.res-card--commercial{ background: var(--cream-2); border-color: var(--amber); }
-.res-card--commercial .res-card__tag{ background: var(--amber-50); color: #7a5a14; }
+.res-card--other{ background: var(--cream-2); border-color: var(--sage-300); }
+.res-card--other .res-card__tag{ background: var(--sage-100); color: var(--sage-700); }
 .res-card--official{ border-color: var(--sage-200); }
 .res-card--official .res-card__tag{ background: var(--cream-2); color: var(--ink-2); }
 .res-card .btn{ align-self: flex-start; margin-top: 4px; }
