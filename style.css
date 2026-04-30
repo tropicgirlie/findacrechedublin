@@ -2,30 +2,54 @@
    Lucan Childcare Navigator: design tokens & base
    ============================================================ */
 :root{
-  /* palette */
-  --sage-50:  #F3F6F2;
-  --sage-100: #E6EDE4;
-  --sage-200: #CDD9C9;
-  --sage-300: #A9BFA4;
-  --sage-500: #5B8C6A;
-  --sage-600: #4A7558;
-  --sage-700: #385A43;
+  /* ---------- New palette (civic-service / family-tech) ---------- */
+  --bg:           #F7F5F0;   /* warm off-white page background */
+  --surface:      #FFFFFF;   /* cards, popups, key panels */
+  --highlight:    #F2E6D3;   /* soft peach for warm callout blocks */
 
-  --cream:    #FDFBF4;
-  --cream-2:  #F6F1E3;
-  --cream-3:  #EDE5CF;
+  --primary:      #1F6B63;   /* deep teal */
+  --primary-dark: #164E49;
+  --primary-50:   #E8F1EF;
+  --primary-100:  #D0E2DE;
 
-  --ink:      #2A2D34;
-  --ink-2:    #4A4E57;
-  --muted:    #757A85;
-  --line:     #E4E0D2;
+  --accent:       #E8B56A;   /* marigold warm accent */
+  --accent-50:    #FBF3DF;
 
-  --amber:    #D9A441;
-  --amber-50: #FBF2DE;
-  --rust:     #C15A3A;
-  --rust-50:  #F7E2D8;
-  --ok:       #5B8C6A;
-  --ok-50:    #E4EEDF;
+  --text:         #22302E;
+  --text-muted:   #66706D;
+  --line-soft:    #E2DDD2;
+
+  --success:      #4C7A43;
+  --success-50:   #E5EFE2;
+  --warning:      #A86A2C;
+  --warning-50:   #FAEFD9;
+  --alert:        #B24C4C;
+  --alert-50:     #F4DEDE;
+
+  /* ---------- Legacy aliases (so existing rules still resolve) ---------- */
+  --sage-50:  var(--primary-50);
+  --sage-100: var(--primary-100);
+  --sage-200: var(--primary-100);
+  --sage-300: var(--primary);
+  --sage-500: var(--primary);
+  --sage-600: var(--primary-dark);
+  --sage-700: var(--primary-dark);
+
+  --cream:    var(--surface);
+  --cream-2:  var(--highlight);
+  --cream-3:  var(--bg);
+
+  --ink:      var(--text);
+  --ink-2:    var(--text);
+  --muted:    var(--text-muted);
+  --line:     var(--line-soft);
+
+  --amber:    var(--accent);
+  --amber-50: var(--accent-50);
+  --rust:     var(--alert);
+  --rust-50:  var(--alert-50);
+  --ok:       var(--success);
+  --ok-50:    var(--success-50);
 
   /* typography */
   --ff-body: "Satoshi", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -56,8 +80,8 @@ html { scroll-behavior: smooth; }
 body{
   margin: 0;
   font-family: var(--ff-body);
-  color: var(--ink);
-  background: var(--cream);
+  color: var(--text);
+  background: var(--bg);
   font-size: var(--fs-base);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -212,7 +236,7 @@ p { margin: 0 0 1em; }
   border-top: 1px solid var(--line);
   scroll-margin-top: 70px;
 }
-.section--alt{ background: var(--cream-2); }
+.section--alt{ background: var(--surface); }
 
 .section__head{ max-width: 760px; margin-bottom: 44px; }
 .section__eyebrow{
@@ -361,7 +385,7 @@ input[type="range"]::-moz-range-thumb{
   transition: transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s var(--ease);
   box-shadow: var(--shadow-sm);
 }
-.section--alt .pcard{ background: white; }
+.section--alt .pcard{ background: var(--bg); }
 .pcard:hover{
   transform: translateY(-2px);
   border-color: var(--sage-300);
@@ -1266,6 +1290,199 @@ input[type="range"]::-moz-range-thumb{
 .res-card--community .res-card__tag{ background: var(--ok-50); color: var(--sage-700); }
 .res-card--other{ background: var(--cream-2); border-color: var(--sage-300); }
 .res-card--other .res-card__tag{ background: var(--sage-100); color: var(--sage-700); }
-.res-card--official{ border-color: var(--sage-200); }
-.res-card--official .res-card__tag{ background: var(--cream-2); color: var(--ink-2); }
+.res-card--official{ border-color: var(--primary-100); background: var(--surface); }
+.res-card--official .res-card__tag{ background: var(--bg); color: var(--text-muted); }
 .res-card .btn{ align-self: flex-start; margin-top: 4px; }
+
+/* ============================================================
+   Design v2: civic-service polish
+   ============================================================ */
+
+/* Calmer hero (no stats, single CTA) */
+.hero--calm{ padding: clamp(48px, 8vw, 96px) 0 clamp(56px, 10vw, 96px); }
+.hero--calm .hero__title{ font-weight: 700; }
+
+/* "How it works" 3-step strip */
+.howitworks{
+  background: var(--primary-50);
+  border-top: 1px solid var(--primary-100);
+  border-bottom: 1px solid var(--primary-100);
+  padding: 24px 0;
+}
+.howitworks__steps{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.howitworks__step{
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.howitworks__num{
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: var(--surface);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--fs-md);
+}
+.howitworks__step strong{
+  display: block;
+  color: var(--primary-dark);
+  font-size: var(--fs-md);
+  margin-bottom: 2px;
+}
+.howitworks__step span{
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+}
+
+/* Step pill (sits in section eyebrows) */
+.step__pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--primary);
+  color: var(--surface);
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* Recommended block */
+.recommended-footnote{
+  margin-top: 18px;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Minimal-default provider cards */
+.pcard__top{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 4px;
+}
+.pcard__minimeta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.age-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line-soft);
+  font-size: var(--fs-xs);
+}
+.mini-badge{
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-left: 6px;
+}
+.mini-badge--ecce{
+  background: var(--success-50);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.pcard__primary-cta{
+  display: flex;
+  margin-top: 6px;
+}
+.pcard__primary-cta .act{
+  flex: 1;
+  justify-content: center;
+}
+.act--primary{
+  background: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+}
+.act--primary:hover{
+  background: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: var(--surface);
+}
+
+/* Expandable details */
+.pcard__details{
+  margin-top: 12px;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 10px;
+}
+.pcard__details summary{
+  cursor: pointer;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--primary);
+  list-style: none;
+  padding: 4px 0;
+}
+.pcard__details summary::-webkit-details-marker{ display: none; }
+.pcard__details summary::before{
+  content: "▸ ";
+  color: var(--primary);
+  margin-right: 4px;
+  display: inline-block;
+  transition: transform .15s var(--ease);
+}
+.pcard__details[open] summary::before{ transform: rotate(90deg); }
+.pcard__details-body{
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pcard__type-row{
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.pcard__statusprov{
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.pcard__link--muted{ color: var(--text-muted); }
+
+/* Settings card on Step 1 (it lives directly in a section now) */
+.step .settings-card{
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+}
+
+/* Section--alt now uses --surface; cards inside it pick up --bg
+   for visual differentiation. */
+.section--alt .settings-card{
+  background: var(--bg);
+}
+

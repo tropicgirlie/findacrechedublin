@@ -35,6 +35,10 @@ const STATUS_OVERRIDE_KEY = "lucan-creche-status-v1";
 // Stores { eircode, lat, lng } when the visitor has set their own location.
 const HOME_OVERRIDE_KEY = "lucan-creche-home-v1";
 
+// User preferences (Step 1): max-walk minutes, etc.
+const PREFS_KEY = "lucan-creche-prefs-v1";
+const PREFS_DEFAULTS = { max_walk_min: 20 };
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
@@ -194,6 +198,15 @@ function effectiveHome(){
     return { eircode: o.eircode || HOME.eircode, lat: o.lat, lng: o.lng };
   }
   return HOME;
+}
+
+// ---------- USER PREFERENCES (Step 1) ----------
+function loadPrefs(){
+  try { return { ...PREFS_DEFAULTS, ...(JSON.parse(localStorage.getItem(PREFS_KEY)) || {}) }; }
+  catch { return { ...PREFS_DEFAULTS }; }
+}
+function savePrefs(p){
+  try { localStorage.setItem(PREFS_KEY, JSON.stringify(p)); } catch {}
 }
 
 // ---------- USER PROFILE (localStorage-backed) ----------
@@ -492,7 +505,7 @@ function providerCardHTML(p){
   const es = effectiveStatus(p);
   const home = effectiveHome();
   const feeLabel = p.sessional
-    ? `<strong>${fmtEUR(ep.weekly)}</strong><span>/week sessional · free via ECCE</span>`
+    ? `<strong>${fmtEUR(ep.weekly)}</strong><span>/wk sessional · free via ECCE</span>`
     : `<strong>${fmtEUR(ep.monthly_fee)}</strong><span>/month · pre-subsidy</span>`;
   const editPriceBtn = `<button class="price-edit-btn" data-action="price-edit" data-id="${p.id}" title="Edit / verify this fee">✎</button>`;
   const verifyBadge = priceVerifyBadge(ep);
@@ -505,61 +518,73 @@ function providerCardHTML(p){
   if (p.montessori) feats.push(`<span class="feat">${FEAT_ICONS.mont} Montessori</span>`);
   if (p.meals)      feats.push(`<span class="feat">${FEAT_ICONS.meals} Meals</span>`);
   if (p.outdoor)    feats.push(`<span class="feat">${FEAT_ICONS.out} Outdoor</span>`);
-  if (p.ecce)       feats.push(`<span class="feat">${FEAT_ICONS.ecce} ECCE</span>`);
 
   const link = p.website
     ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">Visit website →</a>`
-    : `<span class="pcard__link" style="color:var(--muted)">Contact via Tusla register</span>`;
+    : `<span class="pcard__link pcard__link--muted">Contact via Tusla register</span>`;
 
   const mins = walkingMinutes(p);
   const km = walkingKm(p);
   const walkCls = mins <= 20 ? "walk-pill walk-pill--near" : "walk-pill";
-  const distHTML = `<span class="${walkCls}">🚶 ${mins} min walk · ${km.toFixed(1)} km from ${home.eircode}</span>`;
+  const distHTML = `<span class="${walkCls}">🚶 ${mins} min · ${km.toFixed(1)} km</span>`;
+  const ecceBadge = p.ecce
+    ? `<span class="mini-badge mini-badge--ecce" title="ECCE participating (free preschool hours)">ECCE</span>`
+    : "";
 
   const opening = openingBadgeHTML(es.status);
 
   const onList = inShortlist(p.id);
   const shortlistBtn = onList
     ? `<button class="act act--on" data-action="remove-shortlist" data-id="${p.id}" title="Remove from shortlist">★ On my shortlist</button>`
-    : `<button class="act" data-action="add-shortlist" data-id="${p.id}" title="Add to shortlist">☆ Add to shortlist</button>`;
+    : `<button class="act act--primary" data-action="add-shortlist" data-id="${p.id}" title="Add to shortlist">☆ Add to shortlist</button>`;
 
   const emailBtn = p.email
-    ? `<a class="act" href="${mailtoLink(p, "initial")}" title="Open a pre-filled enquiry email">📧 Email enquiry</a>`
+    ? `<a class="act" href="${mailtoLink(p, "initial")}" title="Open a pre-filled enquiry email">📧 Email</a>`
     : "";
   const callBtn = hasUsablePhone(p)
-    ? `<a class="act" href="${telLink(p)}" title="Call ${p.phone}">📞 Call ${p.phone}</a>`
+    ? `<a class="act" href="${telLink(p)}" title="Call ${p.phone}">📞 Call</a>`
     : "";
 
+  // ---- Minimal default view: name, distance, age, cost, status, ECCE, 1 CTA ----
+  // ---- Expandable details: everything else ----
   return `
     <article class="pcard" data-id="${p.id}">
-      <header class="pcard__head">
-        <span class="pcard__type">${p.type}</span>
+      <div class="pcard__top">
+        <div class="pcard__statusrow">${opening}${ecceBadge}</div>
         <h3 class="pcard__name">${p.name}</h3>
-      </header>
-      <div class="pcard__statusrow">${opening}${editStatusBtn}${statusProv}</div>
-      <div class="pcard__statusedit" hidden>${statusEditForm}</div>
-      <div class="pcard__distrow">${distHTML}</div>
-      <div class="pcard__feerow">
-        <div class="pcard__fee">${feeLabel} ${editPriceBtn}</div>
-        ${verifyBadge}
+        <div class="pcard__minimeta">
+          ${distHTML}
+          <span class="age-pill">👶 ${p.age_range}</span>
+        </div>
+        <div class="pcard__feerow">
+          <div class="pcard__fee">${feeLabel} ${editPriceBtn}</div>
+          ${verifyBadge}
+        </div>
+        <div class="pcard__editwrap" hidden>${editForm}</div>
+        <div class="pcard__statusedit" hidden>${statusEditForm}</div>
+        <div class="pcard__primary-cta">${shortlistBtn}</div>
       </div>
-      <div class="pcard__editwrap" hidden>${editForm}</div>
-      <div class="pcard__meta">
-        <span><b>Hours</b><br/>${p.hours}</span>
-        <span><b>Ages</b><br/>${p.age_range}</span>
-        <span><b>Area</b><br/>${p.address.split(",")[0]}</span>
-        <span><b>Chain</b><br/>${p.chain}</span>
-      </div>
-      <div class="pcard__badges">
-        <span class="${riskBadgeClass(p.waitlist)}">Waitlist: ${p.waitlist} · ~${p.waitlist_months} mo</span>
-      </div>
-      <div class="pcard__stability">
-        Stability ${p.stability}/10
-        <div class="stability-bar"><div class="stability-bar__fill" style="width:${stabPct}%"></div></div>
-      </div>
-      <div class="pcard__features">${feats.join("")}</div>
-      <div class="pcard__actions">${shortlistBtn}${emailBtn}${callBtn}</div>
-      ${link}
+
+      <details class="pcard__details">
+        <summary>Show details</summary>
+        <div class="pcard__details-body">
+          <div class="pcard__type-row">${p.type}</div>
+          <div class="pcard__meta">
+            <span><b>Hours</b><br/>${p.hours}</span>
+            <span><b>Area</b><br/>${p.address.split(",")[0]}</span>
+            <span><b>Chain</b><br/>${p.chain}</span>
+            <span><b>Waitlist</b><br/><span class="${riskBadgeClass(p.waitlist)}">${p.waitlist} · ~${p.waitlist_months} mo</span></span>
+          </div>
+          <div class="pcard__stability">
+            Stability ${p.stability}/10
+            <div class="stability-bar"><div class="stability-bar__fill" style="width:${stabPct}%"></div></div>
+          </div>
+          ${feats.length ? `<div class="pcard__features">${feats.join("")}</div>` : ""}
+          <div class="pcard__statusprov">Opening status: ${editStatusBtn} ${statusProv}</div>
+          <div class="pcard__actions">${emailBtn}${callBtn}</div>
+          ${link}
+        </div>
+      </details>
     </article>`;
 }
 
@@ -592,6 +617,32 @@ function renderProviders(){
   list.sort(sortFns[sort] || sortFns["distance"]);
   $("#provider-grid").innerHTML = list.map(providerCardHTML).join("");
   $("#provider-count") && ($("#provider-count").textContent = list.length);
+}
+
+// ---------- RECOMMENDED (Step 2) ----------
+// Algorithm: filter by user's max-walk preference (with a graceful fallback if
+// fewer than 3 are within range), then sort by (open-status priority, walking
+// distance), and take the top 6.
+function renderRecommended(){
+  const grid = $("#recommended-grid");
+  if (!grid) return;
+  const prefs = loadPrefs();
+  const maxWalk = prefs.max_walk_min || 9999;
+  const openOrder = { "open": 0, "waitlist": 1, "unknown": 2, "full": 3 };
+
+  let candidates = DATA.providers.filter(p => walkingMinutes(p) <= maxWalk);
+  // Graceful fallback: if too few in range, widen so we always show at least 3
+  if (candidates.length < 3){
+    candidates = DATA.providers.slice();
+  }
+  candidates.sort((a, b) => {
+    const ao = openOrder[effectiveStatus(a).status] ?? 2;
+    const bo = openOrder[effectiveStatus(b).status] ?? 2;
+    if (ao !== bo) return ao - bo;
+    return walkingKm(a) - walkingKm(b);
+  });
+  const top = candidates.slice(0, 6);
+  grid.innerHTML = top.map(providerCardHTML).join("");
 }
 
 // ============================================================
@@ -1074,10 +1125,12 @@ function handleShortlistAction(e){
   if (action === "add-shortlist"){
     addToShortlist(id);
     renderProviders();
+    renderRecommended();
     renderShortlist();
   } else if (action === "remove-shortlist"){
     removeFromShortlist(id);
     renderProviders();
+    renderRecommended();
     renderShortlist();
   } else if (action === "email-sent"){
     // Don't preventDefault, we want the mailto: to open. We just record it.
@@ -1168,12 +1221,14 @@ function handlePriceFormSubmit(e){
 
 function refreshAfterStatusChange(){
   renderProviders();
+  renderRecommended();
   renderShortlist();
   if (typeof applyMapFilters === "function") applyMapFilters();
 }
 
 function refreshAfterPriceChange(){
   renderProviders();
+  renderRecommended();
   renderShortlist();
   // Refresh simulator dropdown labels and recompute
   const provSel = $("#s-prov");
@@ -1221,6 +1276,18 @@ function wireSettings(){
 
   const saveBtn = $("#home-save-btn");
   const resetBtn = $("#home-reset-btn");
+  // Walking-time preference
+  const walkSel = $("#pref-max-walk");
+  if (walkSel){
+    const prefs = loadPrefs();
+    walkSel.value = String(prefs.max_walk_min);
+    walkSel.addEventListener("change", () => {
+      const next = { ...loadPrefs(), max_walk_min: parseInt(walkSel.value, 10) || 9999 };
+      savePrefs(next);
+      renderRecommended();
+    });
+  }
+
   if (saveBtn){
     saveBtn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -1232,14 +1299,20 @@ function wireSettings(){
         return;
       }
       saveHomeOverride({ eircode, lat, lng });
+      // Also save the walk pref in case it was changed
+      const walkVal = walkSel ? parseInt(walkSel.value, 10) || 9999 : loadPrefs().max_walk_min;
+      savePrefs({ ...loadPrefs(), max_walk_min: walkVal });
       updateHomeBanner();
       renderProviders();
+      renderRecommended();
       renderShortlist();
       if (typeof applyMapFilters === "function") applyMapFilters();
-      // Recentre the map on the new home if possible
       if (typeof map !== "undefined" && map && map.setView){
         map.setView([lat, lng], map.getZoom());
       }
+      // Scroll to recommendations so the user immediately sees the result
+      const rec = $("#recommended");
+      if (rec) rec.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
   if (resetBtn){
@@ -1252,6 +1325,7 @@ function wireSettings(){
       $("#home-lng-input") && ($("#home-lng-input").value = def.lng);
       updateHomeBanner();
       renderProviders();
+      renderRecommended();
       renderShortlist();
       if (typeof applyMapFilters === "function") applyMapFilters();
       if (typeof map !== "undefined" && map && map.setView){
@@ -1283,14 +1357,19 @@ function init(){
   $("#f-open") && $("#f-open").addEventListener("change", applyMapFilters);
   $("#f-walk") && $("#f-walk").addEventListener("change", applyMapFilters);
 
-  // Providers
+  // Recommended (Step 2)
+  renderRecommended();
+  $("#recommended-grid") && $("#recommended-grid").addEventListener("click", handleShortlistAction);
+  $("#recommended-grid") && $("#recommended-grid").addEventListener("submit", handlePriceFormSubmit);
+
+  // Providers (Step 3 compare table)
   renderProviders();
   $("#p-search").addEventListener("input", renderProviders);
   $("#p-sort").addEventListener("change", renderProviders);
   $("#p-open") && $("#p-open").addEventListener("change", renderProviders);
   $("#p-walk") && $("#p-walk").addEventListener("change", renderProviders);
 
-  // Shortlist
+  // Shortlist (Step 4)
   renderShortlist();
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("click", handleShortlistAction);
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("change", handleShortlistChange);
