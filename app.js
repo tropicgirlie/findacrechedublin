@@ -328,9 +328,10 @@ function telLink(p){
 }
 
 // ============================================================
-// 1) LEAFLET MAP
+// 1) LEAFLET MAPS (full + recommended mini-map)
 // ============================================================
 let map, markerLayer;
+let recMap, recMarkerLayer;
 
 function buildMap(){
   map = L.map("leaflet-map", {
@@ -354,6 +355,56 @@ function buildMap(){
   map.on("click", () => map.scrollWheelZoom.enable());
 
   renderMarkers(DATA.providers);
+}
+
+function buildRecMap(){
+  const el = document.getElementById("recmap");
+  if (!el || typeof L === "undefined") return;
+  recMap = L.map("recmap", {
+    center: [DATA.metadata.center.lat, DATA.metadata.center.lng],
+    zoom: 12,
+    scrollWheelZoom: false,
+    zoomControl: true,
+    attributionControl: false
+  });
+  L.tileLayer(
+    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+    { maxZoom: 19 }
+  ).addTo(recMap);
+  recMarkerLayer = L.layerGroup().addTo(recMap);
+  recMap.on("click", () => recMap.scrollWheelZoom.enable());
+}
+
+function renderRecMarkers(list){
+  if (!recMarkerLayer || !recMap) return;
+  recMarkerLayer.clearLayers();
+  list.forEach(p => {
+    const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.waitlist) });
+    m.bindPopup(popupHTML(p), { maxWidth: 280 });
+    m.addTo(recMarkerLayer);
+  });
+  // Also include the user's home as a small marker so they see geographic context
+  const home = effectiveHome();
+  if (home && Number.isFinite(home.lat) && Number.isFinite(home.lng)){
+    const homeIcon = L.divIcon({
+      className: "pin-wrap",
+      html: `<div class="pin pin--home" aria-label="Your home">🏠</div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 14]
+    });
+    const hm = L.marker([home.lat, home.lng], { icon: homeIcon, zIndexOffset: 1000 });
+    hm.bindPopup(`<div class="pop"><div class="pop__title">Your home: ${home.eircode}</div></div>`, { maxWidth: 220 });
+    hm.addTo(recMarkerLayer);
+  }
+  // Fit the map to all markers + home so everything is visible
+  const points = list.map(p => [p.lat, p.lng]);
+  if (home && Number.isFinite(home.lat) && Number.isFinite(home.lng)){
+    points.push([home.lat, home.lng]);
+  }
+  if (points.length > 0){
+    const bounds = L.latLngBounds(points);
+    recMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
+  }
 }
 
 function makeIcon(risk){
@@ -643,6 +694,7 @@ function renderRecommended(){
   });
   const top = candidates.slice(0, 6);
   grid.innerHTML = top.map(providerCardHTML).join("");
+  renderRecMarkers(top);
 }
 
 // ============================================================
@@ -1357,7 +1409,8 @@ function init(){
   $("#f-open") && $("#f-open").addEventListener("change", applyMapFilters);
   $("#f-walk") && $("#f-walk").addEventListener("change", applyMapFilters);
 
-  // Recommended (Step 2)
+  // Recommended (Step 2): mini-map + cards
+  buildRecMap();
   renderRecommended();
   $("#recommended-grid") && $("#recommended-grid").addEventListener("click", handleShortlistAction);
   $("#recommended-grid") && $("#recommended-grid").addEventListener("submit", handlePriceFormSubmit);

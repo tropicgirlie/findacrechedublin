@@ -1368,6 +1368,26 @@ input[type="range"]::-moz-range-thumb{
   color: var(--text-muted);
   text-align: center;
 }
+.recmap{
+  height: 300px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-md);
+  margin: 0 0 22px;
+}
+@media (max-width: 600px){
+  .recmap{ height: 240px; }
+}
+.pin--home{
+  background: var(--accent);
+  color: var(--text);
+  border-color: var(--surface);
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
 /* Minimal-default provider cards */
 .pcard__top{
