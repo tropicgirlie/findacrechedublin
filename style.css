@@ -360,6 +360,15 @@ input[type="range"]::-moz-range-thumb{
 .pop__row{ display: flex; justify-content: space-between; gap: 12px; font-size: var(--fs-sm); padding: 4px 0; border-top: 1px dashed var(--line); }
 .pop__row:first-of-type{ border-top: none; }
 .pop__row strong{ color: var(--ink); }
+.pop__actions{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line-soft);
+}
+.pop__actions .act{ flex: 1; justify-content: center; min-width: 120px; }
 
 /* ============================================================
    Provider cards

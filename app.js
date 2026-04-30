@@ -546,6 +546,13 @@ function popupHTML(p){
     ? `<strong>${fmtEUR(ep.weekly)}/wk</strong> ${ep.verified ? "✓" : "?"} (sessional, free under ECCE)`
     : `<strong>${fmtEUR(ep.monthly_fee)}/mo</strong> ${ep.verified ? "✓" : "?"} pre-subsidy`;
   const mins = walkingMinutes(p);
+  const onList = inShortlist(p.id);
+  const cta = onList
+    ? `<button class="act act--small act--on" data-action="popup-remove-shortlist" data-id="${p.id}">★ On my shortlist</button>`
+    : `<button class="act act--small act--primary" data-action="popup-add-shortlist" data-id="${p.id}">☆ Add to shortlist</button>`;
+  const websiteLink = p.website
+    ? `<a class="act act--small" href="${p.website}" target="_blank" rel="noopener">↗ Website</a>`
+    : "";
   return `
     <div class="pop">
       <div class="pop__title">${p.name}</div>
@@ -556,6 +563,7 @@ function popupHTML(p){
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
       <div class="pop__row"><span>Waitlist</span><strong>${p.waitlist} (~${p.waitlist_months} mo)</strong></div>
+      <div class="pop__actions">${cta}${websiteLink}</div>
     </div>`;
 }
 
@@ -563,10 +571,34 @@ function renderMarkers(list){
   markerLayer.clearLayers();
   list.forEach(p => {
     const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.waitlist) });
-    m.bindPopup(popupHTML(p), { maxWidth: 280 });
+    // Rebuild popup HTML on every open so the shortlist button reflects
+    // current state (in case user added/removed it elsewhere).
+    m.bindPopup(() => popupHTML(p), { maxWidth: 280 });
     m.addTo(markerLayer);
   });
-  $("#map-count").textContent = list.length;
+  $("#map-count") && ($("#map-count").textContent = list.length);
+}
+
+// Document-level click delegation for buttons that live inside Leaflet popups.
+// Popups are appended to the map pane outside of #provider-grid, so the
+// existing handler scoped to the providers grid does not see them.
+function handlePopupClick(e){
+  const target = e.target.closest("[data-action='popup-add-shortlist'], [data-action='popup-remove-shortlist']");
+  if (!target) return;
+  // Only act when the click came from inside a Leaflet popup
+  if (!target.closest(".leaflet-popup")) return;
+  e.preventDefault();
+  const id = parseInt(target.dataset.id, 10);
+  if (!id) return;
+  if (target.dataset.action === "popup-add-shortlist"){
+    addToShortlist(id);
+  } else {
+    removeFromShortlist(id);
+  }
+  renderProviders();
+  renderShortlist();
+  // Refresh the popup so the button label updates
+  if (typeof map !== "undefined" && map && map.closePopup) map.closePopup();
 }
 
 // ---------- Map filters ----------
@@ -1213,12 +1245,11 @@ function updateHomeBanner(){
 // INIT
 // ============================================================
 function init(){
-  // Home banner + honest header
+  // Home banner
   updateHomeBanner();
-  updateRecommendedHeader();
   wireLocationPrompt();
 
-  // Map
+  // Map (now the main browse surface)
   buildMap();
   $("#f-type").addEventListener("change", applyMapFilters);
   $("#f-budget").addEventListener("input", applyMapFilters);
@@ -1227,20 +1258,18 @@ function init(){
   $("#f-open") && $("#f-open").addEventListener("change", applyMapFilters);
   $("#f-walk") && $("#f-walk").addEventListener("change", applyMapFilters);
 
-  // Recommended (Step 2): mini-map + cards
-  buildRecMap();
-  renderRecommended();
-  $("#recommended-grid") && $("#recommended-grid").addEventListener("click", handleShortlistAction);
-  $("#recommended-grid") && $("#recommended-grid").addEventListener("submit", handlePriceFormSubmit);
+  // Document-level delegation for popup buttons (popups live outside the
+  // section grids in the Leaflet pane, so the per-section handlers miss them).
+  document.addEventListener("click", handlePopupClick);
 
-  // Providers (Step 3 compare table)
+  // Providers compare table
   renderProviders();
   $("#p-search").addEventListener("input", renderProviders);
   $("#p-sort").addEventListener("change", renderProviders);
   $("#p-open") && $("#p-open").addEventListener("change", renderProviders);
   $("#p-walk") && $("#p-walk").addEventListener("change", renderProviders);
 
-  // Shortlist (Step 4)
+  // Shortlist
   renderShortlist();
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("click", handleShortlistAction);
   $("#shortlist-grid") && $("#shortlist-grid").addEventListener("change", handleShortlistChange);
