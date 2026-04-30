@@ -1336,6 +1336,57 @@ input[type="range"]::-moz-range-thumb{
 .dot-inline--med{ background: var(--accent); }
 .dot-inline--high{ background: var(--alert); }
 
+/* First-visit location prompt */
+.loc-prompt{
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-lg);
+  padding: 18px 22px;
+  margin: 0 0 22px;
+  box-shadow: var(--shadow-sm);
+}
+.loc-prompt[hidden]{ display: none; }
+.loc-prompt__head{
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.loc-prompt__icon{ font-size: 1.6rem; line-height: 1; }
+.loc-prompt__head strong{
+  display: block;
+  font-size: var(--fs-md);
+  color: var(--primary-dark);
+  margin-bottom: 4px;
+}
+.loc-prompt__head span{
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+.loc-prompt__actions{
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+.loc-prompt__privacy{
+  margin: 8px 0 0;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.loc-prompt__error{
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  background: var(--alert-50);
+  border: 1px solid var(--alert);
+  border-radius: var(--radius-sm);
+  color: var(--alert);
+  font-size: var(--fs-xs);
+}
+
 /* Embedded iframe (takehome.co cost calculator) */
 .embed-frame{
   width: 100%;

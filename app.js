@@ -39,6 +39,10 @@ const HOME_OVERRIDE_KEY = "lucan-creche-home-v1";
 const PREFS_KEY = "lucan-creche-prefs-v1";
 const PREFS_DEFAULTS = { max_walk_min: 20 };
 
+// First-visit location prompt. Set to "1" once the user has answered
+// (used, typed, or explicitly dismissed) so we do not nag every page load.
+const LOCATION_PROMPT_DISMISSED_KEY = "lucan-creche-loc-prompt-dismissed-v1";
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
@@ -198,6 +202,122 @@ function effectiveHome(){
     return { eircode: o.eircode || HOME.eircode, lat: o.lat, lng: o.lng };
   }
   return HOME;
+}
+
+// ---------- FIRST-VISIT LOCATION PROMPT ----------
+function locationPromptAlreadyAnswered(){
+  try {
+    return !!loadHomeOverride() || localStorage.getItem(LOCATION_PROMPT_DISMISSED_KEY) === "1";
+  } catch { return false; }
+}
+function markLocationPromptAnswered(){
+  try { localStorage.setItem(LOCATION_PROMPT_DISMISSED_KEY, "1"); } catch {}
+}
+
+// Reverse-geocode lat/lng to a friendly Irish area name (town / postcode)
+// using OSM Nominatim. Falls back to "your area" if anything goes wrong.
+async function reverseGeocode(lat, lng){
+  try {
+    const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&zoom=14`;
+    const r = await fetch(url, { headers: { "Accept": "application/json" } });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    const j = await r.json();
+    const a = j.address || {};
+    return a.postcode || a.suburb || a.village || a.town || a.city || a.county || "your area";
+  } catch {
+    return "your area";
+  }
+}
+
+async function useBrowserLocation(){
+  const errEl = document.getElementById("loc-prompt-error");
+  if (!navigator.geolocation){
+    if (errEl){
+      errEl.hidden = false;
+      errEl.textContent = "Your browser doesn't support location. Type your eircode instead.";
+    }
+    return;
+  }
+  if (errEl) errEl.hidden = true;
+  const btn = document.getElementById("loc-use-browser");
+  if (btn){ btn.disabled = true; btn.textContent = "Getting your location…"; }
+
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
+      const label = await reverseGeocode(lat, lng);
+      saveHomeOverride({ eircode: label, lat, lng });
+      markLocationPromptAnswered();
+      hideLocationPrompt();
+      updateHomeBanner();
+      updateRecommendedHeader();
+      renderProviders();
+      renderRecommended();
+      renderShortlist();
+      if (typeof applyMapFilters === "function") applyMapFilters();
+      if (typeof map !== "undefined" && map && map.setView){
+        map.setView([lat, lng], map.getZoom());
+      }
+    },
+    (err) => {
+      if (btn){ btn.disabled = false; btn.textContent = "📍 Use my location"; }
+      if (errEl){
+        errEl.hidden = false;
+        errEl.textContent = err.code === 1
+          ? "Location permission denied. Type your eircode below or stay with Lucan defaults."
+          : "Couldn't get your location. Try typing your eircode instead.";
+      }
+    },
+    { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
+  );
+}
+
+function hideLocationPrompt(){
+  const el = document.getElementById("location-prompt");
+  if (el) el.hidden = true;
+}
+function showLocationPrompt(){
+  const el = document.getElementById("location-prompt");
+  if (el) el.hidden = false;
+}
+function dismissLocationPrompt(){
+  markLocationPromptAnswered();
+  hideLocationPrompt();
+  updateRecommendedHeader();
+}
+
+function updateRecommendedHeader(){
+  const titleEl = document.getElementById("recommended-title");
+  const ledeEl = document.getElementById("recommended-lede");
+  if (!titleEl || !ledeEl) return;
+  const home = effectiveHome();
+  const userSet = !!loadHomeOverride();
+  if (userSet){
+    titleEl.textContent = `Top matches near ${home.eircode}.`;
+    ledeEl.innerHTML = `Open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact.`;
+  } else {
+    titleEl.textContent = `Top matches in Lucan (default).`;
+    ledeEl.innerHTML = `Anchored at K78 EE02 because you haven't told the site where you live yet. Open spots ranked first. <a href="#step1" class="recommended-set-home-link">Set your home</a> to get matches near you.`;
+  }
+}
+
+function wireLocationPrompt(){
+  const useBtn = document.getElementById("loc-use-browser");
+  const dismissBtn = document.getElementById("loc-dismiss");
+  const setBtn = document.getElementById("loc-set-eircode");
+  if (useBtn) useBtn.addEventListener("click", useBrowserLocation);
+  if (dismissBtn) dismissBtn.addEventListener("click", dismissLocationPrompt);
+  if (setBtn) setBtn.addEventListener("click", () => {
+    // Do not preventDefault. Anchor jumps to #step1. Mark answered so the
+    // prompt does not reappear on next page load.
+    markLocationPromptAnswered();
+    hideLocationPrompt();
+  });
+
+  if (!locationPromptAlreadyAnswered()){
+    showLocationPrompt();
+  }
 }
 
 // ---------- USER PREFERENCES (Step 1) ----------
@@ -1351,10 +1471,13 @@ function wireSettings(){
         return;
       }
       saveHomeOverride({ eircode, lat, lng });
+      markLocationPromptAnswered();
+      hideLocationPrompt();
       // Also save the walk pref in case it was changed
       const walkVal = walkSel ? parseInt(walkSel.value, 10) || 9999 : loadPrefs().max_walk_min;
       savePrefs({ ...loadPrefs(), max_walk_min: walkVal });
       updateHomeBanner();
+      updateRecommendedHeader();
       renderProviders();
       renderRecommended();
       renderShortlist();
@@ -1376,6 +1499,7 @@ function wireSettings(){
       $("#home-lat-input") && ($("#home-lat-input").value = def.lat);
       $("#home-lng-input") && ($("#home-lng-input").value = def.lng);
       updateHomeBanner();
+      updateRecommendedHeader();
       renderProviders();
       renderRecommended();
       renderShortlist();
@@ -1397,8 +1521,10 @@ function updateHomeBanner(){
 // INIT
 // ============================================================
 function init(){
-  // Home banner
+  // Home banner + honest header
   updateHomeBanner();
+  updateRecommendedHeader();
+  wireLocationPrompt();
 
   // Map
   buildMap();

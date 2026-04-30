@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-04-30-takehome-embed" />
+  <link rel="stylesheet" href="style.css?v=2026-04-30-loc-prompt" />
 </head>
 <body>
 
@@ -108,9 +108,28 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow step__pill">Recommended</span>
-          <h2 class="section__title">Top matches near home.</h2>
-          <p class="section__lede">Anchored at <span id="home-eircode">K78 EE02</span>, open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact. <a href="#step1" class="recommended-set-home-link">Not in Lucan? Set your home →</a></p>
+          <h2 class="section__title" id="recommended-title">Top matches near home.</h2>
+          <p class="section__lede" id="recommended-lede">Open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact.</p>
         </header>
+
+        <!-- First-visit location prompt: hidden once the visitor answers or dismisses -->
+        <div id="location-prompt" class="loc-prompt" hidden>
+          <div class="loc-prompt__head">
+            <span class="loc-prompt__icon" aria-hidden="true">📍</span>
+            <div>
+              <strong>Where are you?</strong>
+              <span>This site is anchored at K78 EE02 in Lucan by default. To see <em>real</em> walking distances from your home, choose one:</span>
+            </div>
+          </div>
+          <div class="loc-prompt__actions">
+            <button type="button" id="loc-use-browser" class="btn btn--primary btn--small">📍 Use my location</button>
+            <a href="#step1" id="loc-set-eircode" class="btn btn--ghost btn--small">✍️ Type my eircode</a>
+            <button type="button" id="loc-dismiss" class="btn btn--ghost btn--small">Stay with Lucan defaults</button>
+          </div>
+          <p class="loc-prompt__privacy">"Use my location" asks for browser permission and saves the coords in your browser only. Nothing leaves this page.</p>
+          <p class="loc-prompt__error" id="loc-prompt-error" hidden></p>
+        </div>
+
         <div id="recmap" class="recmap" role="application" aria-label="Recommended providers map"></div>
         <div id="recommended-grid" class="card-grid" aria-live="polite"></div>
         <p class="recommended-footnote">Don't see what you need? <a href="#step3">Open the full map and compare table →</a></p>
@@ -444,8 +463,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-04-30-takehome-embed"></script>
-  <script src="app.js?v=2026-04-30-takehome-embed" defer></script>
+  <script src="data/providers.js?v=2026-04-30-loc-prompt"></script>
+  <script src="app.js?v=2026-04-30-loc-prompt" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
