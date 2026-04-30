@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-04-30-cleanup" />
+  <link rel="stylesheet" href="style.css?v=2026-04-30-cost-link" />
 </head>
 <body>
 
@@ -288,24 +288,22 @@
       </div>
     </section>
 
-    <!-- ============ COST (TAKEHOME.CO EMBED) ============ -->
+    <!-- ============ COST (LINK OUT TO TAKEHOME.CO) ============ -->
     <section id="simulator" class="section step">
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow step__pill">Cost</span>
           <h2 class="section__title">What will it actually cost?</h2>
-          <p class="section__lede">My other project, <a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a>, calculates what working parents take home after tax, USC, PRSI, <em>and</em> childcare. Embedded below. If it loads slowly or you want the full experience, <a href="https://takehome.co" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+          <p class="section__lede">For a proper take-home calculation that factors in childcare, tax, USC, and PRSI, use takehome.co (my other project).</p>
         </header>
 
-        <div class="embed-frame">
-          <iframe
-            src="https://takehome.co/"
-            title="takehome.co cost calculator"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allow="clipboard-write"
-          ></iframe>
-        </div>
+        <a href="https://takehome.co" target="_blank" rel="noopener" class="cost-cta">
+          <div>
+            <strong>takehome.co →</strong>
+            <span>See what's actually left after tax and childcare.</span>
+          </div>
+          <span class="cost-cta__arrow" aria-hidden="true">↗</span>
+        </a>
       </div>
     </section>
 
@@ -463,8 +461,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-04-30-cleanup"></script>
-  <script src="app.js?v=2026-04-30-cleanup" defer></script>
+  <script src="data/providers.js?v=2026-04-30-cost-link"></script>
+  <script src="app.js?v=2026-04-30-cost-link" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
