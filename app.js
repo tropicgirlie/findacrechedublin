@@ -251,9 +251,7 @@ async function useBrowserLocation(){
       markLocationPromptAnswered();
       hideLocationPrompt();
       updateHomeBanner();
-      updateRecommendedHeader();
       renderProviders();
-      renderRecommended();
       renderShortlist();
       if (typeof applyMapFilters === "function") applyMapFilters();
       if (typeof map !== "undefined" && map && map.setView){
@@ -284,22 +282,6 @@ function showLocationPrompt(){
 function dismissLocationPrompt(){
   markLocationPromptAnswered();
   hideLocationPrompt();
-  updateRecommendedHeader();
-}
-
-function updateRecommendedHeader(){
-  const titleEl = document.getElementById("recommended-title");
-  const ledeEl = document.getElementById("recommended-lede");
-  if (!titleEl || !ledeEl) return;
-  const home = effectiveHome();
-  const userSet = !!loadHomeOverride();
-  if (userSet){
-    titleEl.textContent = `Top matches near ${home.eircode}.`;
-    ledeEl.innerHTML = `Open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact.`;
-  } else {
-    titleEl.textContent = `Top matches in Lucan (default).`;
-    ledeEl.innerHTML = `Anchored at K78 EE02 because you haven't told the site where you live yet. Open spots ranked first. <a href="#step1" class="recommended-set-home-link">Set your home</a> to get matches near you.`;
-  }
 }
 
 function wireLocationPrompt(){
@@ -448,10 +430,9 @@ function telLink(p){
 }
 
 // ============================================================
-// 1) LEAFLET MAPS (full + recommended mini-map)
+// 1) LEAFLET MAP
 // ============================================================
 let map, markerLayer;
-let recMap, recMarkerLayer;
 
 function buildMap(){
   map = L.map("leaflet-map", {
@@ -475,56 +456,6 @@ function buildMap(){
   map.on("click", () => map.scrollWheelZoom.enable());
 
   renderMarkers(DATA.providers);
-}
-
-function buildRecMap(){
-  const el = document.getElementById("recmap");
-  if (!el || typeof L === "undefined") return;
-  recMap = L.map("recmap", {
-    center: [DATA.metadata.center.lat, DATA.metadata.center.lng],
-    zoom: 12,
-    scrollWheelZoom: false,
-    zoomControl: true,
-    attributionControl: false
-  });
-  L.tileLayer(
-    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
-    { maxZoom: 19 }
-  ).addTo(recMap);
-  recMarkerLayer = L.layerGroup().addTo(recMap);
-  recMap.on("click", () => recMap.scrollWheelZoom.enable());
-}
-
-function renderRecMarkers(list){
-  if (!recMarkerLayer || !recMap) return;
-  recMarkerLayer.clearLayers();
-  list.forEach(p => {
-    const m = L.marker([p.lat, p.lng], { icon: makeIcon(p.waitlist) });
-    m.bindPopup(popupHTML(p), { maxWidth: 280 });
-    m.addTo(recMarkerLayer);
-  });
-  // Also include the user's home as a small marker so they see geographic context
-  const home = effectiveHome();
-  if (home && Number.isFinite(home.lat) && Number.isFinite(home.lng)){
-    const homeIcon = L.divIcon({
-      className: "pin-wrap",
-      html: `<div class="pin pin--home" aria-label="Your home">🏠</div>`,
-      iconSize: [28, 28],
-      iconAnchor: [14, 14]
-    });
-    const hm = L.marker([home.lat, home.lng], { icon: homeIcon, zIndexOffset: 1000 });
-    hm.bindPopup(`<div class="pop"><div class="pop__title">Your home: ${home.eircode}</div></div>`, { maxWidth: 220 });
-    hm.addTo(recMarkerLayer);
-  }
-  // Fit the map to all markers + home so everything is visible
-  const points = list.map(p => [p.lat, p.lng]);
-  if (home && Number.isFinite(home.lat) && Number.isFinite(home.lng)){
-    points.push([home.lat, home.lng]);
-  }
-  if (points.length > 0){
-    const bounds = L.latLngBounds(points);
-    recMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 13 });
-  }
 }
 
 function makeIcon(risk){
@@ -790,33 +721,6 @@ function renderProviders(){
   $("#provider-count") && ($("#provider-count").textContent = list.length);
 }
 
-// ---------- RECOMMENDED (Step 2) ----------
-// Algorithm: filter by user's max-walk preference (with a graceful fallback if
-// fewer than 3 are within range), then sort by (open-status priority, walking
-// distance), and take the top 6.
-function renderRecommended(){
-  const grid = $("#recommended-grid");
-  if (!grid) return;
-  const prefs = loadPrefs();
-  const maxWalk = prefs.max_walk_min || 9999;
-  const openOrder = { "open": 0, "waitlist": 1, "unknown": 2, "full": 3 };
-
-  let candidates = DATA.providers.filter(p => walkingMinutes(p) <= maxWalk);
-  // Graceful fallback: if too few in range, widen so we always show at least 3
-  if (candidates.length < 3){
-    candidates = DATA.providers.slice();
-  }
-  candidates.sort((a, b) => {
-    const ao = openOrder[effectiveStatus(a).status] ?? 2;
-    const bo = openOrder[effectiveStatus(b).status] ?? 2;
-    if (ao !== bo) return ao - bo;
-    return walkingKm(a) - walkingKm(b);
-  });
-  const top = candidates.slice(0, 6);
-  grid.innerHTML = top.map(providerCardHTML).join("");
-  renderRecMarkers(top);
-}
-
 // ============================================================
 // 5) SHORTLIST TRACKER (My contacted providers)
 // ============================================================
@@ -1001,12 +905,10 @@ function handleShortlistAction(e){
   if (action === "add-shortlist"){
     addToShortlist(id);
     renderProviders();
-    renderRecommended();
     renderShortlist();
   } else if (action === "remove-shortlist"){
     removeFromShortlist(id);
     renderProviders();
-    renderRecommended();
     renderShortlist();
   } else if (action === "email-sent"){
     // Don't preventDefault, we want the mailto: to open. We just record it.
@@ -1097,14 +999,12 @@ function handlePriceFormSubmit(e){
 
 function refreshAfterStatusChange(){
   renderProviders();
-  renderRecommended();
   renderShortlist();
   if (typeof applyMapFilters === "function") applyMapFilters();
 }
 
 function refreshAfterPriceChange(){
   renderProviders();
-  renderRecommended();
   renderShortlist();
   // Refresh map markers (budget filter may now match differently)
   if (typeof applyMapFilters === "function") applyMapFilters();
@@ -1148,7 +1048,6 @@ function wireSettings(){
     walkSel.addEventListener("change", () => {
       const next = { ...loadPrefs(), max_walk_min: parseInt(walkSel.value, 10) || 9999 };
       savePrefs(next);
-      renderRecommended();
     });
   }
 
@@ -1171,7 +1070,6 @@ function wireSettings(){
       updateHomeBanner();
       updateRecommendedHeader();
       renderProviders();
-      renderRecommended();
       renderShortlist();
       if (typeof applyMapFilters === "function") applyMapFilters();
       if (typeof map !== "undefined" && map && map.setView){
@@ -1193,7 +1091,6 @@ function wireSettings(){
       updateHomeBanner();
       updateRecommendedHeader();
       renderProviders();
-      renderRecommended();
       renderShortlist();
       if (typeof applyMapFilters === "function") applyMapFilters();
       if (typeof map !== "undefined" && map && map.setView){
@@ -1227,13 +1124,7 @@ function init(){
   $("#f-open") && $("#f-open").addEventListener("change", applyMapFilters);
   $("#f-walk") && $("#f-walk").addEventListener("change", applyMapFilters);
 
-  // Recommended (Step 2): mini-map + cards
-  buildRecMap();
-  renderRecommended();
-  $("#recommended-grid") && $("#recommended-grid").addEventListener("click", handleShortlistAction);
-  $("#recommended-grid") && $("#recommended-grid").addEventListener("submit", handlePriceFormSubmit);
-
-  // Providers (Step 3 compare table)
+  // Providers (compare table)
   renderProviders();
   $("#p-search").addEventListener("input", renderProviders);
   $("#p-sort").addEventListener("change", renderProviders);
