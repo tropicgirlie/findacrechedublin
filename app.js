@@ -1433,8 +1433,7 @@ function init(){
   // Settings
   wireSettings();
 
-  // Simulator
-  wireSim();
+  // Cost calculator is now an embedded iframe (takehome.co), no JS wiring.
 }
 
 if (document.readyState === "loading"){

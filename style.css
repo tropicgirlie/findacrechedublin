@@ -1336,6 +1336,27 @@ input[type="range"]::-moz-range-thumb{
 .dot-inline--med{ background: var(--accent); }
 .dot-inline--high{ background: var(--alert); }
 
+/* Embedded iframe (takehome.co cost calculator) */
+.embed-frame{
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  aspect-ratio: 4 / 3;
+  min-height: 600px;
+}
+.embed-frame iframe{
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+@media (max-width: 600px){
+  .embed-frame{ aspect-ratio: 3 / 4; min-height: 720px; }
+}
+
 /* "How it works" 3-step strip */
 .howitworks{
   background: var(--primary-50);

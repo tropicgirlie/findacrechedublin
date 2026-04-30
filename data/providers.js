@@ -6,7 +6,7 @@
 window.PROVIDERS = [
   { id:1, name:"Giraffe Childcare Lucan", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Ballyowen Lane, Lucan, Co. Dublin", eircode:"K78 EV80",
-    lat:53.3476, lng:-6.4287, phone:"(01) 254 1345",
+    lat:53.3562, lng:-6.4133, phone:"(01) 254 1345",
     email:"info@giraffe.ie",
     website:"https://www.giraffe.ie/creche-location/childcare-lucan/",
     hours:"7:30–18:00 Mon–Fri", age_range:"1–5 yrs (afterschool to 12)",
@@ -32,7 +32,7 @@ window.PROVIDERS = [
 
   { id:3, name:"Giraffe Childcare Liffey Valley", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Liffey Valley Office Campus, Dublin 22", eircode:"D22 WO26",
-    lat:53.3512, lng:-6.3951, phone:"(01) 254 1346",
+    lat:53.3248, lng:-6.4132, phone:"(01) 254 1346",
     email:"info@giraffe.ie",
     website:"https://www.giraffe.ie/creche-location/childcare-liffey-valley/",
     hours:"7:30–18:00 Mon–Fri", age_range:"6 months – 5 yrs",
@@ -58,7 +58,7 @@ window.PROVIDERS = [
 
   { id:5, name:"Little Harvard Kilcarbery (Clondalkin)", type:"Full Day Crèche & Montessori", typeKey:"creche",
     address:"Kilcarbery Grange, Dublin 22", eircode:"D22 X0F0",
-    lat:53.3226, lng:-6.4285, phone:"(01) 274 1056",
+    lat:53.3164, lng:-6.4235, phone:"(01) 274 1056",
     email:"info@littleharvard.ie",
     website:"https://www.littleharvard.ie",
     hours:"7:00–18:30 Mon–Fri", age_range:"6 months – 12 yrs",
@@ -71,7 +71,7 @@ window.PROVIDERS = [
 
   { id:6, name:"Happy Tots Playschool & Full Day Care", type:"Playschool & Full Day Care", typeKey:"playschool",
     address:"Lucan, Co. Dublin", eircode:"K78 TY05",
-    lat:53.3548, lng:-6.4510, phone:"via childcare.ie",
+    lat:53.3567, lng:-6.4502, phone:"via childcare.ie",
     email:"",
     website:"https://www.childcare.ie/county-dublin/lucan",
     hours:"8:00–18:00 Mon–Fri (est.)", age_range:"2y7m+",
@@ -84,7 +84,7 @@ window.PROVIDERS = [
 
   { id:7, name:"Keane Minds Montessori School", type:"Montessori Preschool", typeKey:"montessori",
     address:"Lucan, Co. Dublin", eircode:"K78",
-    lat:53.3555, lng:-6.4445, phone:"via childcare.ie",
+    lat:53.3567, lng:-6.4502, phone:"via childcare.ie",
     email:"",
     website:"https://www.childcare.ie/county-dublin/lucan",
     hours:"9:00–12:30 / extended to 14:30", age_range:"2.5–6 yrs",
@@ -97,7 +97,7 @@ window.PROVIDERS = [
 
   { id:8, name:"Sunflowers Childcare", type:"Family-run Childcare", typeKey:"creche",
     address:"Ballyowen Lane, Lucan", eircode:"K78 WF44",
-    lat:53.3490, lng:-6.4320, phone:"(01) 626 1048",
+    lat:53.3562, lng:-6.4133, phone:"(01) 626 1048",
     email:"admin@sunflowers.ie",
     website:"https://www.childcare.ie/county-dublin/lucan",
     hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs",
@@ -123,7 +123,7 @@ window.PROVIDERS = [
 
   { id:10, name:"Lucan Childcare Crèche and Montessori", type:"Full Day Crèche & Montessori", typeKey:"creche",
     address:"33 Willsbrook Avenue, Lucan", eircode:"K78",
-    lat:53.3570, lng:-6.4400, phone:"Tusla register",
+    lat:53.3552, lng:-6.4262, phone:"Tusla register",
     email:"",
     website:"",
     hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs",
@@ -136,7 +136,7 @@ window.PROVIDERS = [
 
   { id:11, name:"Caroline Ogundimu (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
     address:"3 Oldbridge Park, Lucan", eircode:"K78",
-    lat:53.3540, lng:-6.4460, phone:"085 107 5339",
+    lat:53.3391, lng:-6.4359, phone:"085 107 5339",
     email:"",
     website:"",
     hours:"Flexible", age_range:"0–14 yrs",
@@ -149,7 +149,7 @@ window.PROVIDERS = [
 
   { id:12, name:"Lynne's Little Ones (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
     address:"20 Oldbridge View, Lucan", eircode:"K78",
-    lat:53.3538, lng:-6.4470, phone:"087 626 0360",
+    lat:53.3376, lng:-6.4340, phone:"087 626 0360",
     email:"",
     website:"",
     hours:"Flexible", age_range:"0–14 yrs",
@@ -162,7 +162,7 @@ window.PROVIDERS = [
 
   { id:13, name:"Mridul Sharma (Childminder)", type:"Tusla Registered Childminder", typeKey:"childminder",
     address:"4 Griffeen Glen Drive, Lucan", eircode:"K78",
-    lat:53.3520, lng:-6.4380, phone:"(01) 503 0615",
+    lat:53.3422, lng:-6.4331, phone:"(01) 503 0615",
     email:"",
     website:"",
     hours:"Flexible", age_range:"2–6 yrs",
@@ -175,7 +175,7 @@ window.PROVIDERS = [
 
   { id:14, name:"Tigers Childcare (Castleknock)", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Castleknock, Dublin 15", eircode:"D15",
-    lat:53.3712, lng:-6.3780, phone:"via Tigers site",
+    lat:53.3730, lng:-6.3625, phone:"via Tigers site",
     email:"",
     website:"https://tigerschildcare.com",
     hours:"7:30–18:30 Mon–Fri", age_range:"6 months – 12 yrs",
@@ -191,7 +191,7 @@ window.PROVIDERS = [
   // ============================================================
   { id:15, name:"Giraffe Childcare Celbridge", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Unit B1, M4 Business Park, Celbridge, Co. Kildare", eircode:"W23 KW6F",
-    lat:53.3430, lng:-6.5340, phone:"(01) 254 1369",
+    lat:53.3615, lng:-6.5539, phone:"(01) 254 1369",
     email:"info@giraffe.ie",
     website:"https://www.giraffe.ie/creche-location/childcare-celbridge/",
     hours:"7:30–18:00 Mon–Fri", age_range:"6 months – 5 yrs",
@@ -204,7 +204,7 @@ window.PROVIDERS = [
 
   { id:16, name:"Cocoon Childcare Celbridge", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Hazel Hatch, Celbridge, Co. Kildare", eircode:"W23 YV48",
-    lat:53.3300, lng:-6.5300, phone:"+353 1 419 9999",
+    lat:53.3320, lng:-6.5321, phone:"+353 1 419 9999",
     email:"info@cocoonchildcare.ie",
     website:"https://cocoonchildcare.ie/find-creche/kildare-creches/cocoon-childcare-celbridge",
     hours:"7:30–18:30 Mon–Fri", age_range:"1–5 yrs",
@@ -217,7 +217,7 @@ window.PROVIDERS = [
 
   { id:17, name:"Cocoon Childcare Naas", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Millennium Park, Osberstown, Co. Kildare", eircode:"W91 X211",
-    lat:53.2300, lng:-6.6900, phone:"+353 1 419 9999",
+    lat:53.2372, lng:-6.6681, phone:"+353 1 419 9999",
     email:"info@cocoonchildcare.ie",
     website:"https://cocoonchildcare.ie/find-creche/kildare-creches/cocoon-childcare-naas",
     hours:"7:30–18:30 Mon–Fri", age_range:"6 months – 5 yrs",
@@ -230,7 +230,7 @@ window.PROVIDERS = [
 
   { id:18, name:"Choice Childcare Celbridge", type:"Full Day Crèche & Montessori", typeKey:"creche",
     address:"Celbridge, Co. Kildare", eircode:"W23",
-    lat:53.3390, lng:-6.5410, phone:"087 117 8305",
+    lat:53.3383, lng:-6.5396, phone:"087 117 8305",
     email:"",
     website:"https://www.childcare.ie/county-kildare/celbridge",
     hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs (typical)",
@@ -243,7 +243,7 @@ window.PROVIDERS = [
 
   { id:19, name:"Ryevale Montessori & Day Care", type:"Full Day Crèche & Montessori", typeKey:"creche",
     address:"Leixlip, Co. Kildare", eircode:"W23 XV58",
-    lat:53.3660, lng:-6.4940, phone:"(01) 624 2055",
+    lat:53.3645, lng:-6.4897, phone:"(01) 624 2055",
     email:"",
     website:"https://www.childcare.ie/county-kildare/leixlip",
     hours:"7:30–18:00 Mon–Fri (est.)", age_range:"1–5 yrs",
@@ -256,7 +256,7 @@ window.PROVIDERS = [
 
   { id:20, name:"Confey Montessori", type:"Montessori Preschool", typeKey:"montessori",
     address:"Confey, Leixlip, Co. Kildare", eircode:"W23",
-    lat:53.3700, lng:-6.4880, phone:"086 325 9585",
+    lat:53.3789, lng:-6.4911, phone:"086 325 9585",
     email:"",
     website:"https://www.childcare.ie/county-kildare/leixlip",
     hours:"9:00–12:30 / extended hours (verify)", age_range:"2.5–5.5 yrs",

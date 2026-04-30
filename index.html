@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-04-29-reorder" />
+  <link rel="stylesheet" href="style.css?v=2026-04-30-takehome-embed" />
 </head>
 <body>
 
@@ -269,99 +269,23 @@
       </div>
     </section>
 
-    <!-- ============ COST SIMULATOR ============ -->
+    <!-- ============ COST (TAKEHOME.CO EMBED) ============ -->
     <section id="simulator" class="section step">
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow step__pill">Cost</span>
           <h2 class="section__title">What will it actually cost?</h2>
-          <p class="section__lede">Drag the sliders. The net monthly bill updates live, with subsidies applied in the right order.</p>
+          <p class="section__lede">My other project, <a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a>, calculates what working parents take home after tax, USC, PRSI, <em>and</em> childcare. Embedded below. If it loads slowly or you want the full experience, <a href="https://takehome.co" target="_blank" rel="noopener">open it in a new tab</a>.</p>
         </header>
 
-        <div class="sim">
-          <div class="sim__inputs">
-            <div class="sim__field">
-              <label for="s-income">Household income <strong id="s-income-val">€50,000</strong></label>
-              <input type="range" id="s-income" min="20000" max="120000" step="1000" value="50000" />
-              <div class="range-scale"><span>€20k</span><span>€70k</span><span>€120k</span></div>
-            </div>
-
-            <div class="sim__field">
-              <label for="s-kids">Children <strong id="s-kids-val">1</strong></label>
-              <input type="range" id="s-kids" min="1" max="4" step="1" value="1" />
-              <div class="range-scale"><span>1</span><span>2</span><span>3</span><span>4</span></div>
-            </div>
-
-            <div class="sim__field">
-              <label for="s-days">Days per week <strong id="s-days-val">5</strong></label>
-              <input type="range" id="s-days" min="1" max="5" step="1" value="5" />
-              <div class="range-scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-            </div>
-
-            <div class="sim__row">
-              <div class="sim__field sim__field--inline">
-                <label for="s-age">Child age</label>
-                <select id="s-age">
-                  <option value="baby">Baby (under 1)</option>
-                  <option value="toddler" selected>Toddler (1–2)</option>
-                  <option value="preschool">Preschool (3–5)</option>
-                  <option value="school">School age (6+)</option>
-                </select>
-              </div>
-              <div class="sim__field sim__field--inline">
-                <label for="s-prov">Provider</label>
-                <select id="s-prov"></select>
-              </div>
-            </div>
-
-            <div class="sim__toggles">
-              <label class="switch">
-                <input type="checkbox" id="s-ecce" />
-                <span>Apply ECCE (free preschool, age 2y8m+)</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="sim__output">
-            <div class="sim__breakdown">
-              <div class="break"><span>Gross monthly fee</span><strong id="o-gross">€0</strong></div>
-              <div class="break break--sub"><span>− NCS Universal subsidy</span><strong id="o-ncsu">€0</strong></div>
-              <div class="break break--sub"><span>− Income-assessed top-up</span><strong id="o-ncsi">€0</strong></div>
-              <div class="break break--sub"><span>− ECCE saving</span><strong id="o-ecce">€0</strong></div>
-              <div class="break break--net">
-                <span>Net monthly</span>
-                <strong id="o-net">€0</strong>
-              </div>
-              <div class="break break--meta">
-                <span id="o-pct">% of household income</span>
-                <span id="o-annual">€0 per year</span>
-              </div>
-            </div>
-
-            <div class="sim__bars" aria-label="Cost before and after subsidies">
-              <div class="barrow">
-                <span class="barrow__lbl">Gross</span>
-                <div class="barrow__track"><div class="barrow__fill barrow__fill--gross" id="bar-gross"></div></div>
-                <span class="barrow__val" id="bar-gross-val">€0</span>
-              </div>
-              <div class="barrow">
-                <span class="barrow__lbl">After NCS</span>
-                <div class="barrow__track"><div class="barrow__fill barrow__fill--mid" id="bar-mid"></div></div>
-                <span class="barrow__val" id="bar-mid-val">€0</span>
-              </div>
-              <div class="barrow">
-                <span class="barrow__lbl">You pay</span>
-                <div class="barrow__track"><div class="barrow__fill barrow__fill--net" id="bar-net"></div></div>
-                <span class="barrow__val" id="bar-net-val">€0</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- What-if scenarios -->
-        <div class="scenarios">
-          <h3 class="scenarios__title">What if…</h3>
-          <div class="scenarios__grid" id="scenarios-grid"></div>
+        <div class="embed-frame">
+          <iframe
+            src="https://takehome.co/"
+            title="takehome.co cost calculator"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allow="clipboard-write"
+          ></iframe>
         </div>
       </div>
     </section>
@@ -520,8 +444,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-04-29-reorder"></script>
-  <script src="app.js?v=2026-04-29-reorder" defer></script>
+  <script src="data/providers.js?v=2026-04-30-takehome-embed"></script>
+  <script src="app.js?v=2026-04-30-takehome-embed" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
