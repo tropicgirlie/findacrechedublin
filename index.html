@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-04-29-why-fullwidth" />
+  <link rel="stylesheet" href="style.css?v=2026-04-29-reorder" />
 </head>
 <body>
 
@@ -30,11 +30,12 @@
         <span class="brand__text">Lucan &amp; Kildare<span class="brand__text--muted"> Childcare Navigator</span></span>
       </a>
       <nav class="nav__links" aria-label="Section links">
-        <a href="#step1">1 · Home</a>
-        <a href="#recommended">2 · Matches</a>
-        <a href="#step3">3 · Map</a>
-        <a href="#shortlist">4 · Shortlist</a>
-        <a href="#simulator">5 · Cost</a>
+        <a href="#recommended">Matches</a>
+        <a href="#step3">Map</a>
+        <a href="#providers">Compare</a>
+        <a href="#shortlist">★ Shortlist</a>
+        <a href="#step1">Set home</a>
+        <a href="#simulator">Cost</a>
         <a href="#about">About</a>
       </nav>
     </div>
@@ -47,10 +48,11 @@
       <div class="container hero__inner">
         <span class="hero__eyebrow">Lucan &amp; Co. Kildare</span>
         <h1 class="hero__title">Find childcare near home and<br/>keep track of every enquiry.</h1>
-        <p class="hero__subtitle">A free, community-run tool for parents in Lucan and nearby Co. Kildare. Anchored at your home, with walking times, opening status, and a contact tracker that remembers who you've emailed.</p>
+        <p class="hero__subtitle">A free, community-run tool for parents in Lucan and nearby Co. Kildare. Walking times from your home, open-spot status on every card, and a built-in tracker that remembers who you've emailed and when to follow up.</p>
 
         <div class="hero__cta">
-          <a href="#step1" class="btn btn--primary">Set my home, then see matches</a>
+          <a href="#recommended" class="btn btn--primary">See matches near me</a>
+          <a href="#shortlist" class="hero__sublink">★ Already contacted some? Jump to your shortlist →</a>
         </div>
       </div>
       <div class="hero__art" aria-hidden="true">
@@ -79,78 +81,35 @@
           <li class="howitworks__step">
             <span class="howitworks__num">1</span>
             <div>
-              <strong>Set your home</strong>
-              <span>Eircode + coordinates. Walking time updates everywhere.</span>
+              <strong>Browse matches</strong>
+              <span>Top crèches near home, open spots ranked first.</span>
             </div>
           </li>
           <li class="howitworks__step">
             <span class="howitworks__num">2</span>
             <div>
-              <strong>Browse recommended matches</strong>
-              <span>Top providers within a comfortable walk, open spots first.</span>
+              <strong>Map &amp; compare</strong>
+              <span>All providers on a map and in a sortable table.</span>
             </div>
           </li>
           <li class="howitworks__step">
             <span class="howitworks__num">3</span>
             <div>
-              <strong>Contact and track</strong>
-              <span>One-click email or call. Status, dates, and follow-ups in one place.</span>
+              <strong>Track your contacts</strong>
+              <span>One-click email and follow-up reminders, all in your browser.</span>
             </div>
           </li>
         </ol>
       </div>
     </section>
 
-    <!-- ============ STEP 1: SET LOCATION & PREFERENCES ============ -->
-    <section id="step1" class="section step">
-      <div class="container">
-        <header class="section__head">
-          <span class="section__eyebrow step__pill">Step 1</span>
-          <h2 class="section__title">Set your home and preferences.</h2>
-          <p class="section__lede">Type in your eircode and coordinates so distances are calculated from <em>your</em> doorstep. Saved in your browser only.</p>
-        </header>
-
-        <div class="settings-card">
-          <h3>Your home</h3>
-          <p class="settings-card__lede">To get coordinates: search your eircode on Google Maps, right-click the pin, copy the two numbers. Currently anchored at <span id="home-eircode">K78 EE02</span>.</p>
-          <div class="settings-grid">
-            <label class="setting">
-              <span>Eircode</span>
-              <input type="text" id="home-eircode-input" placeholder="K78 EE02" />
-            </label>
-            <label class="setting">
-              <span>Latitude</span>
-              <input type="number" id="home-lat-input" step="0.0001" placeholder="53.3548" />
-            </label>
-            <label class="setting">
-              <span>Longitude</span>
-              <input type="number" id="home-lng-input" step="0.0001" placeholder="-6.4485" />
-            </label>
-            <label class="setting">
-              <span>Comfortable walking time</span>
-              <select id="pref-max-walk">
-                <option value="10">10 min walk or less</option>
-                <option value="20" selected>20 min walk or less</option>
-                <option value="30">30 min walk or less</option>
-                <option value="9999">Any distance</option>
-              </select>
-            </label>
-          </div>
-          <div class="settings-card__btns">
-            <button type="button" id="home-save-btn" class="btn btn--primary btn--small">Save and see matches</button>
-            <button type="button" id="home-reset-btn" class="btn btn--ghost btn--small">Reset to default</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ STEP 2: RECOMMENDED ============ -->
+    <!-- ============ RECOMMENDED ============ -->
     <section id="recommended" class="section section--alt step">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow step__pill">Step 2</span>
-          <h2 class="section__title">Recommended for you.</h2>
-          <p class="section__lede">Top matches near your home, open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact.</p>
+          <span class="section__eyebrow step__pill">Recommended</span>
+          <h2 class="section__title">Top matches near home.</h2>
+          <p class="section__lede">Anchored at <span id="home-eircode">K78 EE02</span>, open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact. <a href="#step1" class="recommended-set-home-link">Not in Lucan? Set your home →</a></p>
         </header>
         <div id="recmap" class="recmap" role="application" aria-label="Recommended providers map"></div>
         <div id="recommended-grid" class="card-grid" aria-live="polite"></div>
@@ -158,29 +117,13 @@
       </div>
     </section>
 
-    <!-- ============ STEP 4: SHORTLIST (MY CONTACTS) ============ -->
-    <section id="shortlist" class="section step">
-      <div class="container">
-        <header class="section__head">
-          <span class="section__eyebrow step__pill">Step 4 · ★ <span id="shortlist-count" class="count-pill">0</span></span>
-          <h2 class="section__title">Track who you've contacted.</h2>
-          <p class="section__lede">Your contact tracker. Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call.</p>
-        </header>
-        <div class="shortlist-toolbar">
-          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet (backup)</button>
-          <span class="hint">Your shortlist lives only in this browser. Download a backup now and then so you don't lose it. Anything in red is overdue for follow-up.</span>
-        </div>
-        <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
-      </div>
-    </section>
-
-    <!-- ============ STEP 3a: MAP ============ -->
+    <!-- ============ MAP ============ -->
     <section id="step3" class="section section--alt step">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow step__pill">Step 3</span>
-          <h2 class="section__title">Map and full compare table.</h2>
-          <p class="section__lede">All 21 providers on one map and a sortable, filterable table. Use this when the recommended block didn't have what you needed.</p>
+          <span class="section__eyebrow step__pill">Map</span>
+          <h2 class="section__title">All 21 providers, on one map.</h2>
+          <p class="section__lede">Filter by what matters. Pin colours: <span class="dot-inline dot-inline--low"></span> Low waitlist, <span class="dot-inline dot-inline--med"></span> Medium, <span class="dot-inline dot-inline--high"></span> High or Very High.</p>
         </header>
 
         <div class="map-controls" role="region" aria-label="Map filters">
@@ -216,11 +159,11 @@
       </div>
     </section>
 
-    <!-- ============ STEP 3b: COMPARE TABLE ============ -->
+    <!-- ============ COMPARE TABLE ============ -->
     <section id="providers" class="section section--alt">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow">Compare table</span>
+          <span class="section__eyebrow step__pill">Compare</span>
           <h2 class="section__title">All providers, side by side.</h2>
           <p class="section__lede">Search, sort, filter. Cards are minimal by default; click <em>Show details</em> to expand any one for hours, chain, stability, and provenance.</p>
         </header>
@@ -268,11 +211,69 @@
       </div>
     </section>
 
-    <!-- ============ STEP 5a: COST SIMULATOR ============ -->
+    <!-- ============ SHORTLIST (TRACK CONTACTS) ============ -->
+    <section id="shortlist" class="section step">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow step__pill">Your shortlist · ★ <span id="shortlist-count" class="count-pill">0</span></span>
+          <h2 class="section__title">Track who you've contacted.</h2>
+          <p class="section__lede">Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call. Anything in red is overdue for follow-up.</p>
+        </header>
+        <div class="shortlist-toolbar">
+          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet (backup)</button>
+          <span class="hint">Your shortlist lives only in this browser. Download a backup now and then so you don't lose it.</span>
+        </div>
+        <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- ============ SET HOME (PERSONALISE) ============ -->
+    <section id="step1" class="section step">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow step__pill">Personalise</span>
+          <h2 class="section__title">Set your home (optional).</h2>
+          <p class="section__lede">By default the site is anchored at K78 EE02 in Lucan. To use it for your own town, enter your eircode and coordinates below. Walking times update everywhere. Saved in your browser only.</p>
+        </header>
+
+        <div class="settings-card">
+          <p class="settings-card__lede">To get coordinates: search your eircode on Google Maps, right-click the pin, copy the two numbers.</p>
+          <div class="settings-grid">
+            <label class="setting">
+              <span>Eircode</span>
+              <input type="text" id="home-eircode-input" placeholder="K78 EE02" />
+            </label>
+            <label class="setting">
+              <span>Latitude</span>
+              <input type="number" id="home-lat-input" step="0.0001" placeholder="53.3548" />
+            </label>
+            <label class="setting">
+              <span>Longitude</span>
+              <input type="number" id="home-lng-input" step="0.0001" placeholder="-6.4485" />
+            </label>
+            <label class="setting">
+              <span>Comfortable walking time</span>
+              <select id="pref-max-walk">
+                <option value="10">10 min walk or less</option>
+                <option value="20" selected>20 min walk or less</option>
+                <option value="30">30 min walk or less</option>
+                <option value="9999">Any distance</option>
+              </select>
+            </label>
+          </div>
+          <div class="settings-card__btns">
+            <button type="button" id="home-save-btn" class="btn btn--primary btn--small">Save and update matches</button>
+            <button type="button" id="home-reset-btn" class="btn btn--ghost btn--small">Reset to default</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COST SIMULATOR ============ -->
     <section id="simulator" class="section step">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow step__pill">Step 5 · Cost</span>
+          <span class="section__eyebrow step__pill">Cost</span>
           <h2 class="section__title">What will it actually cost?</h2>
           <p class="section__lede">Drag the sliders. The net monthly bill updates live, with subsidies applied in the right order.</p>
         </header>
@@ -365,27 +366,7 @@
       </div>
     </section>
 
-    <!-- ============ STEP 5b: STABILITY CHECKLIST ============ -->
-    <section id="stress" class="section section--alt">
-      <div class="container">
-        <header class="section__head">
-          <span class="section__eyebrow">Provider checklist</span>
-          <h2 class="section__title">What to ask your provider.</h2>
-          <p class="section__lede">Ireland's early-years sector is under pressure. Here are the questions worth asking when you visit a provider.</p>
-        </header>
-
-        <div class="stress-stats">
-          <div class="stress-stat"><div class="stress-stat__num">977</div><div class="stress-stat__lbl">Services closed 2019–2025</div></div>
-          <div class="stress-stat"><div class="stress-stat__num">33%</div><div class="stress-stat__lbl">Dublin staff turnover / yr</div></div>
-          <div class="stress-stat"><div class="stress-stat__num">30%</div><div class="stress-stat__lbl">Managers reporting closure risk</div></div>
-          <div class="stress-stat"><div class="stress-stat__num">49%</div><div class="stress-stat__lbl">Staff leaving within 5 yrs</div></div>
-        </div>
-
-        <div id="stress-grid" class="stress-grid"></div>
-      </div>
-    </section>
-
-    <!-- ============ STEP 5c: SUBSIDIES ============ -->
+    <!-- ============ SUBSIDIES ============ -->
     <section id="subsidies" class="section">
       <div class="container">
         <header class="section__head">
@@ -457,25 +438,6 @@
       </div>
     </section>
 
-    <!-- ============ EMAIL SIGN-OFF (mini settings) ============ -->
-    <section id="settings" class="section section--alt">
-      <div class="container">
-        <div class="settings-card">
-          <h3>Your email sign-off</h3>
-          <p class="settings-card__lede">Used to sign the pre-filled enquiry and follow-up emails. The mailto: opens in your mail client where you can add specifics before sending. Saved in your browser only.</p>
-          <div class="settings-grid">
-            <label class="setting">
-              <span>Your name</span>
-              <input type="text" id="prof-parent_name" placeholder="Your name" />
-            </label>
-            <label class="setting">
-              <span>Your phone (optional)</span>
-              <input type="tel" id="prof-parent_phone" placeholder="+353 …" />
-            </label>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ============ ABOUT / MORE RESOURCES ============ -->
     <section id="about" class="section">
@@ -558,8 +520,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-04-29-why-fullwidth"></script>
-  <script src="app.js?v=2026-04-29-why-fullwidth" defer></script>
+  <script src="data/providers.js?v=2026-04-29-reorder"></script>
+  <script src="app.js?v=2026-04-29-reorder" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;

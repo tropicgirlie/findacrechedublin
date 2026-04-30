@@ -63,6 +63,82 @@ Open `index.html` directly in a browser — no build step, no install. Or for HT
 
 This repo is a Vercel-ready static site. Push to GitHub, import the repo into Vercel, and it deploys with zero configuration. There is no `vercel.json` because there's nothing custom to configure.
 
+## Heads-up on accuracy
+
+**Walking-time estimates are approximate.** Each provider has a `lat` and `lng` in `data/providers.js`. Several were initially placed by eye against the eircode area rather than geocoded from the exact address, so a card might say "3 min walk" when the real walk is closer to 8. If precision matters, click the eircode link on the card to verify on Google Maps, and update the `lat`/`lng` in `data/providers.js` to match the exact pin.
+
+**Fees are estimates, not chain-pulled.** See [data/README.md](data/README.md) for per-field provenance. The on-site "Where do prices come from?" callout above the compare table explains the same thing in plain English.
+
+## Auto-filling crèches via Google Places API (optional, for forkers)
+
+If you fork this for a town that doesn't have a curated list, you can use the Google Places API to discover crèches near a given coordinate and pre-fill `data/providers.js`. **This is paid above the free tier** (around $17 per 1,000 Place Details requests as of 2026, with a generous monthly free credit), so it's optional, not required.
+
+The shape of the integration:
+
+```js
+// One-off script (Node.js), run locally to seed the dataset.
+// Costs ~5 to 10 USD for a typical town's worth of providers.
+const KEY = process.env.GOOGLE_PLACES_KEY;
+const HOME = { lat: 53.3548, lng: -6.4485 }; // your town centre
+const RADIUS_M = 5000;
+
+// Step 1: Nearby Search for "creche" within 5 km
+const nearby = await fetch(
+  `https://places.googleapis.com/v1/places:searchNearby`,
+  { method: "POST", headers: {
+      "Content-Type": "application/json",
+      "X-Goog-Api-Key": KEY,
+      "X-Goog-FieldMask": "places.id,places.displayName,places.formattedAddress,places.location"
+    },
+    body: JSON.stringify({
+      locationRestriction: {
+        circle: { center: { latitude: HOME.lat, longitude: HOME.lng }, radius: RADIUS_M }
+      },
+      includedTypes: ["preschool", "child_care_agency"],
+      maxResultCount: 20
+    })
+  }
+).then(r => r.json());
+
+// Step 2: For each place, transform into the providers.js schema
+// and write data/providers.js.
+const seeded = nearby.places.map((p, i) => ({
+  id: i + 1,
+  name: p.displayName.text,
+  address: p.formattedAddress,
+  lat: p.location.latitude,
+  lng: p.location.longitude,
+  // The rest (fees, waitlist, opening_status) start as estimates / unknown
+  // and get filled in as you ring around.
+  type: "Full Day Crèche",
+  typeKey: "creche",
+  monthly_fee: 1100,
+  weekly: 254,
+  post_universal: 683,
+  ecce: true, core_funding: true,
+  montessori: false, outdoor: true, meals: true,
+  waitlist: "Medium", waitlist_months: 3,
+  stability: 5, staff_concern: "Medium",
+  chain: "Independent",
+  opening_status: "unknown", last_verified: new Date().toISOString().slice(0,10),
+  notes: "Auto-discovered via Google Places. Verify directly."
+}));
+```
+
+Steps to run it:
+
+1. Get a Google Places API key from the Google Cloud Console. Enable the **Places API (New)**. Restrict the key to your IP for safety.
+2. `export GOOGLE_PLACES_KEY=your-key-here`
+3. Save the script as `scripts/seed-from-places.js` and run with `node`.
+4. Manually review the output before committing — Google sometimes returns hairdressers or coffee shops next to a crèche.
+
+The site itself does **not** call Google APIs at runtime. This is a one-off seeding tool. The eircode + lat/lng you see on cards always come from `data/providers.js`, which is static and free to serve.
+
+If you don't want to use Google Places, the cheaper alternatives are:
+- **OpenStreetMap Nominatim** (free) for geocoding addresses you already have, but no nearby-search by category.
+- **Tusla Early Years Register** (free, official) — manually copy the relevant rows for your area.
+- **childcare.ie county directories** — manual copy as a starting point.
+
 ## Adapting for your town
 
 This site is built to be forked. To make it work for, say, Naas or Drogheda or Tralee:

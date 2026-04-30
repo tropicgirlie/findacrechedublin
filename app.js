@@ -1435,9 +1435,6 @@ function init(){
 
   // Simulator
   wireSim();
-
-  // Stress test
-  renderStress();
 }
 
 if (document.readyState === "loading"){
