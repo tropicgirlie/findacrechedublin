@@ -19,7 +19,7 @@ window.PROVIDERS = [
 
   { id:2, name:"Giraffe Childcare Adamstown", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"2 Castlegate House, Adamstown Avenue, Adamstown Castle", eircode:"K78 NH94",
-    lat:53.3486, lng:-6.4652, phone:"(01) 254 1381",
+    lat:53.3363, lng:-6.4597, phone:"(01) 254 1381",
     email:"info@giraffe.ie",
     website:"https://www.giraffe.ie/creche-location/childcare-adamstown/",
     hours:"7:30–18:00 Mon–Fri", age_range:"12 months – 12 yrs",
@@ -45,7 +45,7 @@ window.PROVIDERS = [
 
   { id:4, name:"Cocoon Childcare Lucan", type:"Full Day Crèche & Preschool", typeKey:"creche",
     address:"Rosse Court, Balgaddy, Lucan", eircode:"K32 V205",
-    lat:53.3412, lng:-6.4172, phone:"+353 1 419 9999",
+    lat:53.3424, lng:-6.4180, phone:"+353 1 419 9999",
     email:"info@cocoonchildcare.ie",
     website:"https://cocoonchildcare.ie/find-creche/dublin-creches/cocoon-childcare-lucan",
     hours:"7:30–18:30 Mon–Fri", age_range:"1–5 yrs",
@@ -110,7 +110,7 @@ window.PROVIDERS = [
 
   { id:9, name:"The Village Montessori Pre-School", type:"Montessori Pre-School", typeKey:"montessori",
     address:"Canon Despard Centre, Chapel Hill, Lucan", eircode:"K78 YX96",
-    lat:53.3575, lng:-6.4498, phone:"via childcare.ie",
+    lat:53.3594, lng:-6.4413, phone:"via childcare.ie",
     email:"",
     website:"https://www.childcare.ie/county-dublin/lucan",
     hours:"9:00–12:00 / extended to 15:00", age_range:"2.5–5.5 yrs",
@@ -269,7 +269,7 @@ window.PROVIDERS = [
 
   { id:21, name:"Tiny Tots Preschool (Leixlip)", type:"Sessional Preschool", typeKey:"playschool",
     address:"Scoil San Carlo school grounds, Leixlip, Co. Kildare", eircode:"W23 E9D0",
-    lat:53.3650, lng:-6.4900, phone:"087 190 6337",
+    lat:53.3789, lng:-6.4911, phone:"087 190 6337",
     email:"",
     website:"https://www.childcare.ie/county-kildare/leixlip",
     hours:"Sessional (verify)", age_range:"2.5–5 yrs",
