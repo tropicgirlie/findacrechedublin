@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-chips-print" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-chips-md" />
 </head>
 <body>
 
@@ -519,9 +519,9 @@
               <tr><th>Born</th><th>Status for 2025/26</th><th>Notes</th></tr>
             </thead>
             <tbody>
-              <tr><td>Jan 2022 – Dec 2023</td><td class="pill pill--ok">Eligible</td><td>Two full ECCE years available</td></tr>
-              <tr><td>Jan 2024 onwards</td><td class="pill pill--wait">Wait</td><td>Eligible from 2026/27 onward</td></tr>
-              <tr><td>Before Jan 2022</td><td class="pill pill--past">Past</td><td>Likely exited; confirm school start</td></tr>
+              <tr><td>Jan 2022 – Dec 2023</td><td><span class="chip chip--ok">Eligible</span></td><td>Two full ECCE years available</td></tr>
+              <tr><td>Jan 2024 onwards</td><td><span class="chip chip--warn">Wait</span></td><td>Eligible from 2026/27 onward</td></tr>
+              <tr><td>Before Jan 2022</td><td><span class="chip chip--neutral">Past</span></td><td>Likely exited; confirm school start</td></tr>
             </tbody>
           </table>
           <a class="linkout" href="https://www.ncs.gov.ie" target="_blank" rel="noopener">Official NCS calculator →</a>
@@ -611,8 +611,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-chips-print"></script>
-  <script src="app.js?v=2026-05-01-chips-print" defer></script>
+  <script src="data/providers.js?v=2026-05-01-chips-md"></script>
+  <script src="app.js?v=2026-05-01-chips-md" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
