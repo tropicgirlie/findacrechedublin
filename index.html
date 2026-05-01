@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lucan & Kildare Childcare Navigator: Find, Track, Contact</title>
-  <meta name="description" content="Find, track and contact childcare providers in Lucan and nearby Co. Kildare. 21 providers mapped, walking-time from your home, live subsidy calculator, contact tracker." />
+  <meta name="description" content="Find, track and contact childcare providers in Lucan, Clondalkin and nearby Co. Kildare. Tusla register, walking time from your home, live subsidy info, contact tracker." />
 
   <!-- Fontshare: Satoshi -->
   <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-hero-redesign" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-tusla-189" />
 </head>
 <body>
 
@@ -182,7 +182,7 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow step__pill">Map</span>
-          <h2 class="section__title">All 21 providers, on one map.</h2>
+          <h2 class="section__title">All providers, on one map.</h2>
           <p class="section__lede">Click any pin for details and to add the provider to your shortlist. Pin colours: <span class="dot-inline dot-inline--low"></span> Low waitlist, <span class="dot-inline dot-inline--med"></span> Medium, <span class="dot-inline dot-inline--high"></span> High or Very High.</p>
         </header>
 
@@ -203,6 +203,8 @@
           <p class="loc-prompt__privacy">"Use my location" asks for browser permission and saves the coords in your browser only. Nothing leaves this page.</p>
           <p class="loc-prompt__error" id="loc-prompt-error" hidden></p>
         </div>
+
+        <div class="area-pills" role="tablist" aria-label="Filter by area"></div>
 
         <div class="map-controls" role="region" aria-label="Map filters">
           <div class="control">
@@ -260,6 +262,8 @@
           <p class="price-source__cta"><strong>So: every fee on this page starts as <span class="vfy vfy--est-inline">? Unconfirmed</span>.</strong> When you ring or email a provider and they tell you the real number, click the <span class="ico-cue">✎</span> next to their fee and save it. The card will switch to <span class="vfy vfy--ok-inline">✓ You verified</span> and remember it next time you visit.</p>
           <p>Full per-field provenance and where each row came from: <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">data/README.md →</a></p>
         </details>
+
+        <div class="area-pills" role="tablist" aria-label="Filter by area"></div>
 
         <div class="prov-controls">
           <div class="control control--wide">
@@ -553,7 +557,7 @@
           <article class="res-card res-card--official">
             <span class="res-card__tag">Official register</span>
             <h3>Tusla Early Years Register</h3>
-            <p>This site lists 21 nearby providers. Tusla, the State agency that registers all Irish early-years services, has the full national list of every Tusla-registered crèche, Montessori, and childminder. Use it if you want to widen the search or verify a provider is properly registered.</p>
+            <p>This site lists the Tusla-registered providers in Lucan, Clondalkin and nearby Co. Kildare (Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounding towns). Tusla, the State agency that registers all Irish early-years services, has the full national list. Use it to widen the search or verify a provider is properly registered.</p>
             <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener" class="btn btn--ghost btn--small">Open Tusla register →</a>
           </article>
         </div>
@@ -603,8 +607,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-hero-redesign"></script>
-  <script src="app.js?v=2026-05-01-hero-redesign" defer></script>
+  <script src="data/providers.js?v=2026-05-01-tusla-189"></script>
+  <script src="app.js?v=2026-05-01-tusla-189" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;

@@ -1593,6 +1593,52 @@ input[type="range"]::-moz-range-thumb{
   font-size: 0.9em;
 }
 
+/* Area filter pill row (sits above map + compare) */
+.area-pills{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+.area-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+  background: var(--surface);
+  color: var(--text);
+  font-family: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s var(--ease), border-color .15s var(--ease), color .15s var(--ease);
+}
+.area-pill:hover{
+  background: var(--primary-50);
+  border-color: var(--primary-100);
+}
+.area-pill.is-active{
+  background: var(--primary);
+  color: var(--surface);
+  border-color: var(--primary);
+  font-weight: 700;
+}
+.area-pill span{
+  font-size: 11px;
+  background: var(--bg);
+  color: var(--text-muted);
+  border-radius: 999px;
+  padding: 0 6px;
+  font-weight: 700;
+}
+.area-pill.is-active span{
+  background: var(--primary-dark);
+  color: var(--surface);
+}
+
 /* Persistent backup-note bar */
 .backup-note{
   background: var(--accent-50);

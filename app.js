@@ -48,6 +48,10 @@ const LOCATION_PROMPT_DISMISSED_KEY = "lucan-creche-loc-prompt-dismissed-v1";
 // dataset (which uses positive ids 1+).
 const USER_PROVIDERS_KEY = "lucan-creche-user-providers-v1";
 
+// Currently-selected area pill (Lucan / Clondalkin / Kildare / "all"). The
+// pill row above the map filters both the markers and the compare table.
+let currentArea = "all";
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
@@ -693,6 +697,35 @@ function handlePopupClick(e){
 }
 
 // ---------- Map filters ----------
+// Render area filter pills above the map. Pills show counts and update
+// `currentArea` when clicked, then re-run both filters.
+function renderAreaPills(){
+  const containers = $$(".area-pills");
+  if (!containers.length) return;
+  const counts = DATA.providers.reduce((acc, p) => {
+    const a = p.area || "Lucan";
+    acc[a] = (acc[a] || 0) + 1;
+    return acc;
+  }, {});
+  const total = DATA.providers.length;
+  const areas = Object.keys(counts).sort();
+  const html = [
+    `<button type="button" class="area-pill ${currentArea === "all" ? "is-active" : ""}" data-area="all">All <span>${total}</span></button>`,
+    ...areas.map(a => `<button type="button" class="area-pill ${currentArea === a ? "is-active" : ""}" data-area="${a}">${a} <span>${counts[a]}</span></button>`)
+  ].join("");
+  containers.forEach(el => { el.innerHTML = html; });
+}
+
+function handleAreaPillClick(e){
+  const btn = e.target.closest(".area-pill");
+  if (!btn) return;
+  e.preventDefault();
+  currentArea = btn.dataset.area;
+  renderAreaPills();
+  renderProviders();
+  applyMapFilters();
+}
+
 function applyMapFilters(){
   const type = $("#f-type").value;
   const budget = parseInt($("#f-budget").value, 10);
@@ -703,6 +736,7 @@ function applyMapFilters(){
   $("#f-budget-val").textContent = fmtEUR(budget);
 
   const filtered = DATA.providers.filter(p => {
+    if (currentArea !== "all" && (p.area || "Lucan") !== currentArea) return false;
     if (type !== "all" && p.typeKey !== type) return false;
     // Use sessional weekly × 4.33 for budget check, else monthly (effective price)
     const ep = effectivePrice(p);
@@ -892,6 +926,9 @@ function renderProviders(){
   const walkOnly = $("#p-walk") && $("#p-walk").checked;
   let list = DATA.providers.slice();
 
+  if (currentArea !== "all"){
+    list = list.filter(p => (p.area || "Lucan") === currentArea);
+  }
   if (q){
     list = list.filter(p =>
       [p.name, p.type, p.address, p.chain, p.notes].join(" ").toLowerCase().includes(q)
@@ -1418,6 +1455,8 @@ function init(){
 
   // Map (now the main browse surface)
   buildMap();
+  renderAreaPills();
+  document.querySelectorAll(".area-pills").forEach(el => el.addEventListener("click", handleAreaPillClick));
   $("#f-type").addEventListener("change", applyMapFilters);
   $("#f-budget").addEventListener("input", applyMapFilters);
   $("#f-mont").addEventListener("change", applyMapFilters);
