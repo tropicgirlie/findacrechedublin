@@ -43,11 +43,19 @@ const PREFS_DEFAULTS = { max_walk_min: 20 };
 // (used, typed, or explicitly dismissed) so we do not nag every page load.
 const LOCATION_PROMPT_DISMISSED_KEY = "lucan-creche-loc-prompt-dismissed-v1";
 
+// User-added providers (browser-only, localStorage). Stored as an array of
+// provider objects with negative ids so they never collide with the built-in
+// dataset (which uses positive ids 1+).
+const USER_PROVIDERS_KEY = "lucan-creche-user-providers-v1";
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
 
 // ---------- DATA ----------
+// IMPORTANT: providers must be a DEFENSIVE COPY of window.PROVIDERS, not a
+// shared reference. Otherwise refreshProviderList() (which mutates this array
+// in place) would also empty window.PROVIDERS, breaking the subsequent rebuild.
 const DATA = {
   metadata: {
     area: "Lucan, County Dublin, Ireland",
@@ -55,7 +63,7 @@ const DATA = {
     center: { lat: 53.3565, lng: -6.4489 }
   },
   providers: (typeof window !== "undefined" && Array.isArray(window.PROVIDERS))
-    ? window.PROVIDERS
+    ? window.PROVIDERS.slice()
     : []
 };
 
@@ -156,6 +164,89 @@ function effectivePrice(p){
     verified: true,
     verified_date: o.verified_date || null
   };
+}
+
+// ---------- USER-ADDED PROVIDERS (per-visitor, localStorage) ----------
+// Stored as plain provider objects keyed by negative id so they never collide
+// with the built-in dataset (which uses positive ids).
+function loadUserProviders(){
+  try {
+    const raw = JSON.parse(localStorage.getItem(USER_PROVIDERS_KEY));
+    return Array.isArray(raw) ? raw : [];
+  } catch { return []; }
+}
+function saveUserProviders(list){
+  try { localStorage.setItem(USER_PROVIDERS_KEY, JSON.stringify(list)); } catch {}
+}
+function nextUserProviderId(){
+  const list = loadUserProviders();
+  // Smallest existing negative id minus 1, defaulting to -1
+  const min = list.reduce((acc, p) => Math.min(acc, p.id || 0), 0);
+  return min - 1;
+}
+function addUserProvider(input){
+  const list = loadUserProviders();
+  const id = nextUserProviderId();
+  const provider = {
+    // Required user input
+    id,
+    name: String(input.name || "").trim(),
+    address: String(input.address || "").trim(),
+    eircode: String(input.eircode || "").trim().toUpperCase(),
+    lat: parseFloat(input.lat),
+    lng: parseFloat(input.lng),
+    typeKey: input.typeKey || "creche",
+    type: input.type || ({
+      creche: "Full Day Crèche",
+      montessori: "Montessori / Sessional",
+      childminder: "Tusla Registered Childminder",
+      playschool: "Playschool"
+    }[input.typeKey] || "Full Day Crèche"),
+    // Optional
+    phone: String(input.phone || "").trim(),
+    email: String(input.email || "").trim(),
+    website: String(input.website || "").trim(),
+    age_range: String(input.age_range || "").trim() || "—",
+    hours: String(input.hours || "").trim() || "—",
+    notes: String(input.notes || "").trim() || `Added by you on ${todayISO()}.`,
+    // Sensible defaults so the provider renders cleanly
+    monthly_fee: parseInt(input.monthly_fee, 10) || 0,
+    weekly: parseInt(input.weekly, 10) || 0,
+    post_universal: 0,
+    ecce: !!input.ecce,
+    core_funding: !!input.core_funding,
+    montessori: input.typeKey === "montessori",
+    outdoor: false,
+    meals: false,
+    waitlist: "Unknown",
+    waitlist_months: 0,
+    stability: 5,
+    staff_concern: "Unknown",
+    chain: "Independent (added by you)",
+    opening_status: "unknown",
+    last_verified: todayISO(),
+    // Flag so the card renderer can show a badge
+    source: "user",
+    added_date: todayISO()
+  };
+  list.push(provider);
+  saveUserProviders(list);
+  return provider;
+}
+function removeUserProvider(id){
+  saveUserProviders(loadUserProviders().filter(p => p.id !== id));
+}
+function isUserProvider(p){
+  return p && p.source === "user";
+}
+
+// Rebuild DATA.providers from the built-in dataset + any localStorage adds.
+// Mutates the existing array so existing references stay valid.
+function refreshProviderList(){
+  const builtIn = (typeof window !== "undefined" && Array.isArray(window.PROVIDERS)) ? window.PROVIDERS : [];
+  const userAdded = loadUserProviders();
+  DATA.providers.length = 0;
+  DATA.providers.push(...builtIn, ...userAdded);
 }
 
 // ---------- STATUS OVERRIDES (per-provider, localStorage) ----------
@@ -733,6 +824,9 @@ function providerCardHTML(p){
   const ecceBadge = p.ecce
     ? `<span class="mini-badge mini-badge--ecce" title="ECCE participating (free preschool hours)">ECCE</span>`
     : "";
+  const userBadge = isUserProvider(p)
+    ? `<span class="mini-badge mini-badge--user" title="Added by you in this browser">★ Added by you</span>`
+    : "";
 
   const opening = openingBadgeHTML(es.status);
 
@@ -753,7 +847,7 @@ function providerCardHTML(p){
   return `
     <article class="pcard" data-id="${p.id}">
       <div class="pcard__top">
-        <div class="pcard__statusrow">${opening}${ecceBadge}</div>
+        <div class="pcard__statusrow">${opening}${ecceBadge}${userBadge}</div>
         <h3 class="pcard__name">${p.name}</h3>
         <div class="pcard__minimeta">
           ${distHTML}
@@ -1127,6 +1221,76 @@ function handlePriceFormSubmit(e){
   refreshAfterPriceChange();
 }
 
+function refreshAfterUserProviderChange(){
+  refreshProviderList();
+  renderProviders();
+  renderShortlist();
+  renderUserProviders();
+  if (typeof applyMapFilters === "function") applyMapFilters();
+}
+
+function renderUserProviders(){
+  const list = $("#user-providers-list");
+  if (!list) return;
+  const userList = loadUserProviders();
+  $("#user-providers-count") && ($("#user-providers-count").textContent = userList.length);
+  if (!userList.length){
+    list.innerHTML = `<p class="empty">You haven't added any providers yet. Use the form above.</p>`;
+    return;
+  }
+  list.innerHTML = userList.map(p => `
+    <div class="userprov-row">
+      <div>
+        <strong>${p.name}</strong>
+        <span>${p.address || ""} · ${p.eircode || ""}</span>
+      </div>
+      <button class="act act--small act--ghost" data-action="remove-user-provider" data-id="${p.id}">Remove</button>
+    </div>
+  `).join("");
+}
+
+function handleAddProviderSubmit(e){
+  const form = e.target.closest("form#add-provider-form");
+  if (!form) return;
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form).entries());
+  // Lightweight validation: required fields + sane lat/lng
+  const errs = [];
+  if (!data.name || !data.name.trim()) errs.push("Name is required.");
+  if (!data.address || !data.address.trim()) errs.push("Address is required.");
+  const lat = parseFloat(data.lat), lng = parseFloat(data.lng);
+  if (!Number.isFinite(lat) || lat < 51 || lat > 56) errs.push("Latitude must be a number between 51 and 56 (Ireland).");
+  if (!Number.isFinite(lng) || lng < -11 || lng > -5) errs.push("Longitude must be a number between -11 and -5 (Ireland).");
+  const errEl = $("#add-provider-error");
+  if (errs.length){
+    if (errEl){
+      errEl.hidden = false;
+      errEl.textContent = errs.join(" ");
+    }
+    return;
+  }
+  if (errEl) errEl.hidden = true;
+  addUserProvider(data);
+  form.reset();
+  refreshAfterUserProviderChange();
+  // Scroll the new card into view in the compare grid (last position)
+  const grid = $("#provider-grid");
+  if (grid && grid.lastElementChild){
+    grid.lastElementChild.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+function handleUserProviderRemove(e){
+  const target = e.target.closest("[data-action='remove-user-provider']");
+  if (!target) return;
+  e.preventDefault();
+  const id = parseInt(target.dataset.id, 10);
+  if (!id) return;
+  if (!confirm("Remove this provider from your list?")) return;
+  removeUserProvider(id);
+  refreshAfterUserProviderChange();
+}
+
 function refreshAfterStatusChange(){
   renderProviders();
   renderRecommended();
@@ -1245,6 +1409,9 @@ function updateHomeBanner(){
 // INIT
 // ============================================================
 function init(){
+  // Pull in any user-added providers from localStorage before any rendering
+  refreshProviderList();
+
   // Home banner
   updateHomeBanner();
   wireLocationPrompt();
@@ -1280,7 +1447,14 @@ function init(){
   // Settings
   wireSettings();
 
-  // Cost calculator is now an embedded iframe (takehome.co), no JS wiring.
+  // Add-a-provider form
+  const addForm = document.getElementById("add-provider-form");
+  if (addForm) addForm.addEventListener("submit", handleAddProviderSubmit);
+  const userList = document.getElementById("user-providers-list");
+  if (userList) userList.addEventListener("click", handleUserProviderRemove);
+  renderUserProviders();
+
+  // Cost calculator is a link out to takehome.co; no JS wiring.
 }
 
 if (document.readyState === "loading"){

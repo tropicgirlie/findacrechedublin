@@ -1554,6 +1554,60 @@ input[type="range"]::-moz-range-thumb{
   color: var(--success);
   border: 1px solid var(--success);
 }
+.mini-badge--user{
+  background: var(--accent-50);
+  color: var(--warning);
+  border: 1px solid var(--accent);
+}
+
+/* User-added providers list (in the Add a provider section) */
+.userprov-list{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.userprov-list .empty{
+  margin: 0;
+  padding: 14px;
+  background: var(--bg);
+  border: 1px dashed var(--line-soft);
+  border-radius: var(--radius);
+  color: var(--text-muted);
+  text-align: center;
+  font-size: var(--fs-sm);
+}
+.userprov-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+}
+.userprov-row strong{ display: block; color: var(--text); font-weight: 600; }
+.userprov-row span{ display: block; font-size: var(--fs-xs); color: var(--text-muted); }
+
+.add-provider-form textarea{
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text);
+  resize: vertical;
+}
+.add-provider-form select{
+  padding: 10px 12px;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
 
 .pcard__primary-cta{
   display: flex;

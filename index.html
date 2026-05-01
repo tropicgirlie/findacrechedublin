@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-map-main" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-add-provider-fix" />
 </head>
 <body>
 
@@ -272,6 +272,89 @@
       </div>
     </section>
 
+    <!-- ============ ADD A PROVIDER (browser-only for now) ============ -->
+    <section id="add-provider" class="section section--alt step">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow step__pill">Add a provider</span>
+          <h2 class="section__title">Know a crèche we don't have?</h2>
+          <p class="section__lede">Add it here. Saved in <em>your</em> browser only for now. A community-shared option is coming next: a small backend (Cloudflare KV) where one click can share your addition with everyone.</p>
+        </header>
+
+        <div class="settings-card">
+          <h3>New provider</h3>
+          <p class="settings-card__lede">Required: name, address, eircode, latitude, longitude. The rest is optional. To get coordinates, search the eircode on Google Maps, right-click the pin, copy the two numbers.</p>
+          <form id="add-provider-form" class="add-provider-form">
+            <div class="settings-grid">
+              <label class="setting setting--wide">
+                <span>Name *</span>
+                <input type="text" name="name" placeholder="Provider name" required />
+              </label>
+              <label class="setting setting--wide">
+                <span>Address *</span>
+                <input type="text" name="address" placeholder="Street, town, county" required />
+              </label>
+              <label class="setting">
+                <span>Eircode *</span>
+                <input type="text" name="eircode" placeholder="K78 AB12" required />
+              </label>
+              <label class="setting">
+                <span>Type</span>
+                <select name="typeKey">
+                  <option value="creche">Full Day Crèche</option>
+                  <option value="montessori">Montessori / Sessional</option>
+                  <option value="childminder">Childminder</option>
+                  <option value="playschool">Playschool</option>
+                </select>
+              </label>
+              <label class="setting">
+                <span>Latitude *</span>
+                <input type="number" name="lat" step="0.0001" placeholder="53.3548" required />
+              </label>
+              <label class="setting">
+                <span>Longitude *</span>
+                <input type="number" name="lng" step="0.0001" placeholder="-6.4485" required />
+              </label>
+              <label class="setting">
+                <span>Phone</span>
+                <input type="tel" name="phone" placeholder="(01) 555 1234" />
+              </label>
+              <label class="setting">
+                <span>Email</span>
+                <input type="email" name="email" placeholder="info@example.ie" />
+              </label>
+              <label class="setting setting--wide">
+                <span>Website</span>
+                <input type="url" name="website" placeholder="https://…" />
+              </label>
+              <label class="setting">
+                <span>Age range</span>
+                <input type="text" name="age_range" placeholder="1–5 yrs" />
+              </label>
+              <label class="setting">
+                <span>Hours</span>
+                <input type="text" name="hours" placeholder="7:30–18:00 Mon–Fri" />
+              </label>
+              <label class="setting setting--wide">
+                <span>Notes (optional)</span>
+                <textarea name="notes" rows="2" placeholder="Anything worth remembering"></textarea>
+              </label>
+            </div>
+            <div class="settings-card__btns">
+              <button type="submit" class="btn btn--primary btn--small">★ Add to my list</button>
+            </div>
+            <p id="add-provider-error" class="loc-prompt__error" hidden></p>
+          </form>
+        </div>
+
+        <div class="settings-card">
+          <h3>Your additions <span id="user-providers-count" class="count-pill">0</span></h3>
+          <p class="settings-card__lede">These show up on the map and in the compare table with a "★ Added by you" badge.</p>
+          <div id="user-providers-list" class="userprov-list" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ COST (LINK OUT TO TAKEHOME.CO) ============ -->
     <section id="simulator" class="section step">
       <div class="container">
@@ -445,8 +528,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-map-main"></script>
-  <script src="app.js?v=2026-05-01-map-main" defer></script>
+  <script src="data/providers.js?v=2026-05-01-add-provider-fix"></script>
+  <script src="app.js?v=2026-05-01-add-provider-fix" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
