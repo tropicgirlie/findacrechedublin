@@ -40,7 +40,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 104. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 2,
@@ -49,8 +50,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "St. Loman's Road, Lucan",
     "eircode": "",
-    "lat": 53.35707,
-    "lng": -6.4506,
+    "lat": 53.35393,
+    "lng": -6.40774,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -73,7 +74,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 8. Service type: Drop-In. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 3,
@@ -82,8 +84,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "1 Rosse Court Terrace Block 5, Balgaddy, Lucan",
     "eircode": "",
-    "lat": 53.35676,
-    "lng": -6.45069,
+    "lat": 53.34199,
+    "lng": -6.41673,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -106,7 +108,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 104. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 4,
@@ -115,8 +118,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "4 Weston Lawn, Lucan",
     "eircode": "",
-    "lat": 53.35689,
-    "lng": -6.45065,
+    "lat": 53.35777,
+    "lng": -6.47223,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -140,7 +143,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 5,
@@ -149,8 +153,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Poplars, St. Edmunds Avenue, Lucan",
     "eircode": "",
-    "lat": 53.35686,
-    "lng": -6.45039,
+    "lat": 53.35486,
+    "lng": -6.40591,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -173,7 +177,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 132. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 6,
@@ -182,8 +187,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Unit 1, Shackleton Mill, Shackleton Vale, Lucan",
     "eircode": "",
-    "lat": 53.35609,
-    "lng": -6.45058,
+    "lat": 53.34588,
+    "lng": -6.47335,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -206,7 +211,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 130. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 7,
@@ -215,8 +221,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Adamstown Avenue, Castlegate, Lucan",
     "eircode": "",
-    "lat": 53.35718,
-    "lng": -6.44939,
+    "lat": 53.33633,
+    "lng": -6.43299,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -239,7 +245,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 78. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 8,
@@ -248,8 +255,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Griffeen Avenue, Lucan",
     "eircode": "",
-    "lat": 53.35646,
-    "lng": -6.44968,
+    "lat": 53.34013,
+    "lng": -6.42788,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -272,7 +279,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 78. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 9,
@@ -281,8 +289,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Ballyowen Lane, Lucan",
     "eircode": "",
-    "lat": 53.35622,
-    "lng": -6.45053,
+    "lat": 53.35621,
+    "lng": -6.41325,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -305,7 +313,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 108. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 10,
@@ -314,8 +323,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "20A Moy Glas Wood, Lucan",
     "eircode": "",
-    "lat": 53.35698,
-    "lng": -6.45016,
+    "lat": 53.3434,
+    "lng": -6.43143,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -339,7 +348,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 14. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 11,
@@ -372,7 +382,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 12,
@@ -381,8 +392,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "20 Foxborough Lawn, Lucan",
     "eircode": "",
-    "lat": 53.35735,
-    "lng": -6.44939,
+    "lat": 53.33827,
+    "lng": -6.42321,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -405,7 +416,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 41. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 13,
@@ -439,7 +451,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 33. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 14,
@@ -473,7 +486,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 15,
@@ -482,8 +496,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "94 Colthurst Crescent, Lucan",
     "eircode": "",
-    "lat": 53.35662,
-    "lng": -6.44977,
+    "lat": 53.34894,
+    "lng": -6.41947,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -506,7 +520,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 19. Service type: Full Day, Part Time. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 16,
@@ -539,7 +554,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 70. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 17,
@@ -573,7 +589,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 18. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 18,
@@ -582,8 +599,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "13 Westbrook Park, Lucan",
     "eircode": "",
-    "lat": 53.35761,
-    "lng": -6.45024,
+    "lat": 53.35124,
+    "lng": -6.46021,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -606,7 +623,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 27. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 19,
@@ -615,8 +633,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "108 Esker Manor, Lucan",
     "eircode": "",
-    "lat": 53.35646,
-    "lng": -6.45095,
+    "lat": 53.34904,
+    "lng": -6.43671,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -639,7 +657,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 53. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 20,
@@ -648,8 +667,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "23 Griffeen Glen Vale, Lucan",
     "eircode": "",
-    "lat": 53.35691,
-    "lng": -6.45057,
+    "lat": 53.34163,
+    "lng": -6.43556,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -673,7 +692,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 21. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 21,
@@ -707,7 +727,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 27. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 22,
@@ -741,7 +762,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 23,
@@ -750,8 +772,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Cannon Despard Centre, Chapel Hill, Lucan",
     "eircode": "",
-    "lat": 53.35757,
-    "lng": -6.44991,
+    "lat": 53.36043,
+    "lng": -6.43944,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -774,7 +796,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 24. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 24,
@@ -783,8 +806,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "72 Rokeby Park, Lucan",
     "eircode": "",
-    "lat": 53.35712,
-    "lng": -6.44989,
+    "lat": 53.3645,
+    "lng": -6.45272,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -807,7 +830,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 25,
@@ -841,7 +865,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 47. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 26,
@@ -850,8 +875,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "1 Griffeen Glen Drive, Lucan",
     "eircode": "",
-    "lat": 53.3572,
-    "lng": -6.44962,
+    "lat": 53.34177,
+    "lng": -6.43228,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -874,7 +899,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 34. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 27,
@@ -908,7 +934,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 28,
@@ -942,7 +969,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 29,
@@ -951,8 +979,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "1 The Close, Grange Manor, Lucan",
     "eircode": "",
-    "lat": 53.35628,
-    "lng": -6.45023,
+    "lat": 53.34086,
+    "lng": -6.44584,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -976,7 +1004,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 10. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 30,
@@ -1009,7 +1038,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 34. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 31,
@@ -1042,7 +1072,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 38. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 32,
@@ -1051,8 +1082,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Ballyowen Lane, Lucan",
     "eircode": "",
-    "lat": 53.35643,
-    "lng": -6.45088,
+    "lat": 53.35621,
+    "lng": -6.41325,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1075,7 +1106,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 56. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 33,
@@ -1108,7 +1140,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 88. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 34,
@@ -1142,7 +1175,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "town"
   },
   {
     "id": 35,
@@ -1151,8 +1185,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "45 Colthurst Crescent, Lucan",
     "eircode": "",
-    "lat": 53.35663,
-    "lng": -6.44927,
+    "lat": 53.34894,
+    "lng": -6.41947,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1176,7 +1210,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 36,
@@ -1209,7 +1244,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 31. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 37,
@@ -1242,7 +1278,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 38,
@@ -1276,7 +1313,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 39,
@@ -1285,8 +1323,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "18a St. Anthony's Avenue, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32215,
-    "lng": -6.39482,
+    "lat": 53.31711,
+    "lng": -6.39429,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1309,7 +1347,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 40. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 40,
@@ -1318,8 +1357,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "3 Castle Crescent, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32129,
-    "lng": -6.39489,
+    "lat": 53.32113,
+    "lng": -6.39029,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1343,7 +1382,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 41,
@@ -1352,8 +1392,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Deansrath Health Centre, St. Cuthbert's Road, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32128,
-    "lng": -6.39364,
+    "lat": 53.32381,
+    "lng": -6.42433,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1377,7 +1417,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 25. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 42,
@@ -1410,7 +1451,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 13. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 43,
@@ -1419,8 +1461,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Rowlagh Health Centre, Rowlagh, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32172,
-    "lng": -6.39416,
+    "lat": 53.34417,
+    "lng": -6.39703,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1443,7 +1485,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 48. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 44,
@@ -1476,7 +1519,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 106. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 45,
@@ -1509,7 +1553,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 46,
@@ -1542,7 +1587,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 96. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 47,
@@ -1575,7 +1621,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 12. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 48,
@@ -1608,7 +1655,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 60. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 49,
@@ -1617,8 +1665,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "17 Monksfield Meadows, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.3216,
-    "lng": -6.39465,
+    "lat": 53.32322,
+    "lng": -6.37697,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1642,7 +1690,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 50,
@@ -1676,7 +1725,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 51,
@@ -1710,7 +1760,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 40. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 52,
@@ -1719,8 +1770,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "Áras Chrónáin, Bóthar an Úlloird, Cluain Dolcáin, D22",
     "eircode": "",
-    "lat": 53.32286,
-    "lng": -6.39409,
+    "lat": 53.32303,
+    "lng": -6.39261,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1744,7 +1795,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 33. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 53,
@@ -1778,7 +1830,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 54,
@@ -1811,7 +1864,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 53. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 55,
@@ -1845,7 +1899,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 56,
@@ -1878,7 +1933,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Drop-In. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 57,
@@ -1887,8 +1943,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Neilstown Road, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32141,
-    "lng": -6.39449,
+    "lat": 53.34169,
+    "lng": -6.39907,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1911,7 +1967,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 48. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 58,
@@ -1944,7 +2001,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 25. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 59,
@@ -1953,8 +2011,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Rowlagh Community Centre, Neilstown Road, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32267,
-    "lng": -6.39348,
+    "lat": 53.34515,
+    "lng": -6.39866,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -1978,7 +2036,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 24. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 60,
@@ -2011,7 +2070,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 61,
@@ -2044,7 +2104,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 51. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 62,
@@ -2077,7 +2138,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 40. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 63,
@@ -2111,7 +2173,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 64,
@@ -2144,7 +2207,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 35. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 65,
@@ -2153,8 +2217,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "20 Cooleven Green, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32281,
-    "lng": -6.39348,
+    "lat": 53.33479,
+    "lng": -6.39704,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -2178,7 +2242,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 66,
@@ -2187,8 +2252,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "64 Laurel Park, Clondalkin, D22",
     "eircode": "",
-    "lat": 53.32142,
-    "lng": -6.39338,
+    "lat": 53.32012,
+    "lng": -6.39176,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -2211,7 +2276,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 76. Service type: Full Day, Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "address"
   },
   {
     "id": 67,
@@ -2245,7 +2311,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 53. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Clondalkin",
-    "town": "Clondalkin"
+    "town": "Clondalkin",
+    "coord_source": "town"
   },
   {
     "id": 68,
@@ -2279,7 +2346,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 34. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Caragh"
+    "town": "Caragh",
+    "coord_source": "town"
   },
   {
     "id": 69,
@@ -2313,7 +2381,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 52. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "town"
   },
   {
     "id": 70,
@@ -2347,7 +2416,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 43. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "town"
   },
   {
     "id": 71,
@@ -2356,8 +2426,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Aghards House, Thornhill, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33896,
-    "lng": -6.53987,
+    "lat": 53.34889,
+    "lng": -6.5509,
     "phone": "0861850944",
     "email": "",
     "website": "",
@@ -2380,7 +2450,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 60. Service type: Full Day, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 72,
@@ -2389,8 +2460,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "The Close, Hazelthatch Park, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33792,
-    "lng": -6.54004,
+    "lat": 53.33232,
+    "lng": -6.53123,
     "phone": "016544476",
     "email": "",
     "website": "",
@@ -2414,7 +2485,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 116. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 73,
@@ -2447,7 +2519,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 140. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "town"
   },
   {
     "id": 74,
@@ -2456,8 +2529,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "The green, Oldtown, Mill, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33859,
-    "lng": -6.54018,
+    "lat": 53.34382,
+    "lng": -6.5558,
     "phone": "0872852113",
     "email": "",
     "website": "",
@@ -2480,7 +2553,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 75,
@@ -2489,8 +2563,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Celbridge GAA, Hazelhatch Road, Co. Kildare",
     "eircode": "",
-    "lat": 53.3385,
-    "lng": -6.53988,
+    "lat": 53.33058,
+    "lng": -6.52771,
     "phone": "0873140170",
     "email": "",
     "website": "",
@@ -2513,7 +2587,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 76,
@@ -2522,8 +2597,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "407 Ballyoulster, park, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33834,
-    "lng": -6.54024,
+    "lat": 53.33966,
+    "lng": -6.51416,
     "phone": "0879310297",
     "email": "",
     "website": "",
@@ -2547,7 +2622,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 77,
@@ -2556,8 +2632,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "1 Elm Park, 38, Maynooth Road, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.3388,
-    "lng": -6.54042,
+    "lat": 53.34107,
+    "lng": -6.53917,
     "phone": "016288650",
     "email": "",
     "website": "",
@@ -2581,7 +2657,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 51. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 78,
@@ -2590,8 +2667,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Room 3, The Mill, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33872,
-    "lng": -6.53946,
+    "lat": 53.346,
+    "lng": -6.55587,
     "phone": "0877630122",
     "email": "",
     "website": "",
@@ -2615,7 +2692,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 79,
@@ -2649,7 +2727,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 11. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "town"
   },
   {
     "id": 80,
@@ -2683,7 +2762,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "town"
   },
   {
     "id": 81,
@@ -2692,8 +2772,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "3 Thornhill, eights, Celbridge, o. Kildare Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33864,
-    "lng": -6.54051,
+    "lat": 53.35223,
+    "lng": -6.54683,
     "phone": "016288443",
     "email": "",
     "website": "",
@@ -2717,7 +2797,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 82,
@@ -2726,8 +2807,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "5 The Avenue, St, olstan’s Abbey, elbridge, Co., ildare Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33856,
-    "lng": -6.54035,
+    "lat": 53.3362,
+    "lng": -6.53184,
     "phone": "0874154502",
     "email": "",
     "website": "",
@@ -2751,7 +2832,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 40. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 83,
@@ -2760,8 +2842,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "he Orchard, ldtown Mill, elbridge, Co., ildare Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33745,
-    "lng": -6.54044,
+    "lat": 53.34536,
+    "lng": -6.55497,
     "phone": "016274791",
     "email": "",
     "website": "",
@@ -2785,7 +2867,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 73. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 84,
@@ -2794,8 +2877,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "12 The Drive, Abbey, Farm, Celbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.33821,
-    "lng": -6.53881,
+    "lat": 53.33142,
+    "lng": -6.53303,
     "phone": "0872790123",
     "email": "",
     "website": "",
@@ -2819,7 +2902,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 13. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Celbridge"
+    "town": "Celbridge",
+    "coord_source": "address"
   },
   {
     "id": 85,
@@ -2853,7 +2937,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 14. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Clane"
+    "town": "Clane",
+    "coord_source": "town"
   },
   {
     "id": 86,
@@ -2862,8 +2947,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Collegewood, nor, Clane, Co. Kildare",
     "eircode": "",
-    "lat": 53.29153,
-    "lng": -6.68671,
+    "lat": 53.29707,
+    "lng": -6.69907,
     "phone": "045892483",
     "email": "",
     "website": "",
@@ -2886,7 +2971,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 68. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Clane"
+    "town": "Clane",
+    "coord_source": "address"
   },
   {
     "id": 87,
@@ -2920,7 +3006,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Clane"
+    "town": "Clane",
+    "coord_source": "town"
   },
   {
     "id": 88,
@@ -2929,8 +3016,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Capdoo, Clane, Co. Kildare",
     "eircode": "",
-    "lat": 53.29111,
-    "lng": -6.68689,
+    "lat": 53.29531,
+    "lng": -6.68299,
     "phone": "0892727139",
     "email": "",
     "website": "",
@@ -2954,7 +3041,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Clane"
+    "town": "Clane",
+    "coord_source": "address"
   },
   {
     "id": 89,
@@ -2988,7 +3076,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 77. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Clane"
+    "town": "Clane",
+    "coord_source": "town"
   },
   {
     "id": 90,
@@ -2997,8 +3086,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Ryebridge, Kilcock, Co. Kildare",
     "eircode": "",
-    "lat": 53.39984,
-    "lng": -6.66804,
+    "lat": 53.4069,
+    "lng": -6.67653,
     "phone": "016519567",
     "email": "",
     "website": "",
@@ -3021,7 +3110,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 126. Service type: Full Day, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kilcock"
+    "town": "Kilcock",
+    "coord_source": "address"
   },
   {
     "id": 91,
@@ -3055,7 +3145,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kilcock"
+    "town": "Kilcock",
+    "coord_source": "town"
   },
   {
     "id": 92,
@@ -3088,7 +3179,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 66. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kildare Town"
+    "town": "Kildare Town",
+    "coord_source": "town"
   },
   {
     "id": 93,
@@ -3097,8 +3189,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Kildare Town, Educate Together, National School, Melitta Road, Co. Kildare",
     "eircode": "",
-    "lat": 53.15649,
-    "lng": -6.91111,
+    "lat": 53.15659,
+    "lng": -6.91786,
     "phone": "0874042957",
     "email": "",
     "website": "",
@@ -3122,7 +3214,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kildare Town"
+    "town": "Kildare Town",
+    "coord_source": "address"
   },
   {
     "id": 94,
@@ -3155,7 +3248,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kildare Town"
+    "town": "Kildare Town",
+    "coord_source": "town"
   },
   {
     "id": 95,
@@ -3188,7 +3282,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 48. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kill"
+    "town": "Kill",
+    "coord_source": "town"
   },
   {
     "id": 96,
@@ -3222,7 +3317,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 37. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kill"
+    "town": "Kill",
+    "coord_source": "town"
   },
   {
     "id": 97,
@@ -3256,7 +3352,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 10. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kill"
+    "town": "Kill",
+    "coord_source": "town"
   },
   {
     "id": 98,
@@ -3290,7 +3387,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 77. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Kill"
+    "town": "Kill",
+    "coord_source": "town"
   },
   {
     "id": 99,
@@ -3324,7 +3422,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 66. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "town"
   },
   {
     "id": 100,
@@ -3333,8 +3432,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "Oaklawn, Leixlip, . Kildare Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36435,
-    "lng": -6.48982,
+    "lat": 53.36723,
+    "lng": -6.50481,
     "phone": "016155870",
     "email": "",
     "website": "",
@@ -3358,7 +3457,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 30. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 101,
@@ -3392,7 +3492,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 120. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "town"
   },
   {
     "id": 102,
@@ -3401,8 +3502,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Green, Barnhall, Meadows, Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36381,
-    "lng": -6.49012,
+    "lat": 53.36171,
+    "lng": -6.5123,
     "phone": "012533418",
     "email": "",
     "website": "",
@@ -3425,7 +3526,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 122. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 103,
@@ -3434,8 +3536,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Avenue, Westfield, Green, Lane, Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36476,
-    "lng": -6.4902,
+    "lat": 53.37061,
+    "lng": -6.50001,
     "phone": "012536788",
     "email": "",
     "website": "",
@@ -3458,7 +3560,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 81. Service type: Full Day, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 104,
@@ -3492,7 +3595,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 74. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "town"
   },
   {
     "id": 105,
@@ -3501,8 +3605,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Scoil Ui Dhalaigh, Celbridge Road, Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.3646,
-    "lng": -6.49038,
+    "lat": 53.36587,
+    "lng": -6.49475,
     "phone": "0863587630",
     "email": "",
     "website": "",
@@ -3526,7 +3630,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 19. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 106,
@@ -3535,8 +3640,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Harpur House, Harpur Lane, Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36403,
-    "lng": -6.48922,
+    "lat": 53.36466,
+    "lng": -6.52692,
     "phone": "019649830",
     "email": "",
     "website": "",
@@ -3560,7 +3665,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 101. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 107,
@@ -3569,8 +3675,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "2 Ryevale Lawns, eixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36433,
-    "lng": -6.49004,
+    "lat": 53.36896,
+    "lng": -6.49441,
     "phone": "016242055",
     "email": "",
     "website": "",
@@ -3594,7 +3700,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 39. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 108,
@@ -3603,8 +3710,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "0 Oaklawn West, eixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36448,
-    "lng": -6.48937,
+    "lat": 53.36724,
+    "lng": -6.50433,
     "phone": "016404420",
     "email": "",
     "website": "",
@@ -3628,7 +3735,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 109,
@@ -3662,7 +3770,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "town"
   },
   {
     "id": 110,
@@ -3671,8 +3780,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "Barnhall Rugby, Club, Parsonstown, Leixlip, Co. Kildare",
     "eircode": "",
-    "lat": 53.36514,
-    "lng": -6.48972,
+    "lat": 53.34859,
+    "lng": -6.51408,
     "phone": "0838397818",
     "email": "",
     "website": "",
@@ -3696,7 +3805,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Leixlip"
+    "town": "Leixlip",
+    "coord_source": "address"
   },
   {
     "id": 111,
@@ -3705,8 +3815,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Taghadoe, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38323,
-    "lng": -6.59283,
+    "lat": 53.35324,
+    "lng": -6.61306,
     "phone": "0879019917",
     "email": "",
     "website": "",
@@ -3730,7 +3840,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 14. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 112,
@@ -3739,8 +3850,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "14 - 15 The Grove, Newtown Hall, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.3823,
-    "lng": -6.59201,
+    "lat": 53.37752,
+    "lng": -6.61238,
     "phone": "0876683533",
     "email": "",
     "website": "",
@@ -3764,7 +3875,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 56. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 113,
@@ -3773,8 +3885,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "481 The Crescent, Straffan Road, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38336,
-    "lng": -6.59244,
+    "lat": 53.39345,
+    "lng": -6.59286,
     "phone": "016290452",
     "email": "",
     "website": "",
@@ -3798,7 +3910,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 114. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 114,
@@ -3807,8 +3920,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Carton Wood, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38378,
-    "lng": -6.59204,
+    "lat": 53.39182,
+    "lng": -6.54874,
     "phone": "015038249",
     "email": "",
     "website": "",
@@ -3831,7 +3944,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 124. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 115,
@@ -3840,8 +3954,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Mullen Park, Greenfield, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38329,
-    "lng": -6.59201,
+    "lat": 53.36814,
+    "lng": -6.5876,
     "phone": "0873975293",
     "email": "",
     "website": "",
@@ -3865,7 +3979,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 87. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 116,
@@ -3898,7 +4013,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 69. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "town"
   },
   {
     "id": 117,
@@ -3907,8 +4023,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Straffan Wood, raffan Green, ynooth, Co., ldare Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38274,
-    "lng": -6.59208,
+    "lat": 53.36993,
+    "lng": -6.5942,
     "phone": "016510802",
     "email": "",
     "website": "",
@@ -3932,7 +4048,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 30. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 118,
@@ -3941,8 +4058,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "29 The Walk, Moyglare Hall, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38314,
-    "lng": -6.59212,
+    "lat": 53.39144,
+    "lng": -6.5926,
     "phone": "0831006547",
     "email": "",
     "website": "",
@@ -3966,7 +4083,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 119,
@@ -4000,7 +4118,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 60. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "town"
   },
   {
     "id": 120,
@@ -4009,8 +4128,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "The Mews, Main, treet, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38276,
-    "lng": -6.59232,
+    "lat": 53.38264,
+    "lng": -6.58946,
     "phone": "0831768911",
     "email": "",
     "website": "",
@@ -4033,7 +4152,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 38. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 121,
@@ -4042,8 +4162,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "86 Carton Square, Dillons Row, Maynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38314,
-    "lng": -6.59178,
+    "lat": 53.38411,
+    "lng": -6.58674,
     "phone": "016106876",
     "email": "",
     "website": "",
@@ -4066,7 +4186,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 116. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 122,
@@ -4075,8 +4196,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Castle Park, Dunboyne Rd., aynooth, Co. Kildare",
     "eircode": "",
-    "lat": 53.38337,
-    "lng": -6.59289,
+    "lat": 53.38676,
+    "lng": -6.58537,
     "phone": "0873975293",
     "email": "",
     "website": "",
@@ -4100,7 +4221,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Maynooth"
+    "town": "Maynooth",
+    "coord_source": "address"
   },
   {
     "id": 123,
@@ -4109,8 +4231,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Block 1, Oldgrange, Wood, Monasterevin, Co. Kildare",
     "eircode": "",
-    "lat": 53.14238,
-    "lng": -7.06415,
+    "lat": 53.14265,
+    "lng": -7.06346,
     "phone": "045532022",
     "email": "",
     "website": "",
@@ -4134,7 +4256,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 110. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Monasterevin"
+    "town": "Monasterevin",
+    "coord_source": "address"
   },
   {
     "id": 124,
@@ -4143,8 +4266,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Unit 1, Drogheda St, Monasterevin, Co. Kildare",
     "eircode": "",
-    "lat": 53.14287,
-    "lng": -7.06426,
+    "lat": 53.14169,
+    "lng": -7.06372,
     "phone": "0862456187",
     "email": "",
     "website": "",
@@ -4167,7 +4290,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Monasterevin"
+    "town": "Monasterevin",
+    "coord_source": "address"
   },
   {
     "id": 125,
@@ -4201,7 +4325,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 30. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Monasterevin"
+    "town": "Monasterevin",
+    "coord_source": "town"
   },
   {
     "id": 126,
@@ -4234,7 +4359,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 75. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 127,
@@ -4268,7 +4394,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 19. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 128,
@@ -4302,7 +4429,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 72. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 129,
@@ -4336,7 +4464,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 130,
@@ -4345,8 +4474,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Limerick Road, Naas, West, Co. Kildare",
     "eircode": "",
-    "lat": 53.22101,
-    "lng": -6.65805,
+    "lat": 53.214,
+    "lng": -6.68622,
     "phone": "0858758024",
     "email": "",
     "website": "",
@@ -4369,7 +4498,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 131,
@@ -4378,8 +4508,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Station Road, Allenwood, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22093,
-    "lng": -6.65686,
+    "lat": 53.2347,
+    "lng": -6.64212,
     "phone": "045890297",
     "email": "",
     "website": "",
@@ -4403,7 +4533,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 101. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 132,
@@ -4437,7 +4568,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 133,
@@ -4471,7 +4603,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 11. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 134,
@@ -4480,8 +4613,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "7 Caragh Court, as, Co. Kildare",
     "eircode": "",
-    "lat": 53.22142,
-    "lng": -6.65681,
+    "lat": 53.21894,
+    "lng": -6.68182,
     "phone": "045871585",
     "email": "",
     "website": "",
@@ -4505,7 +4638,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 135,
@@ -4539,7 +4673,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 126. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 136,
@@ -4572,7 +4707,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 137,
@@ -4581,8 +4717,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Elsmore, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22221,
-    "lng": -6.65722,
+    "lat": 53.21098,
+    "lng": -6.67601,
     "phone": "045397430",
     "email": "",
     "website": "",
@@ -4606,7 +4742,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 120. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 138,
@@ -4640,7 +4777,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 139,
@@ -4674,7 +4812,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 110. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 140,
@@ -4707,7 +4846,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 50. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 141,
@@ -4741,7 +4881,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 142,
@@ -4750,8 +4891,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Naas Racecourse, Tipper Road, Co. Kildare",
     "eircode": "",
-    "lat": 53.22057,
-    "lng": -6.65809,
+    "lat": 53.22407,
+    "lng": -6.64088,
     "phone": "0877845288",
     "email": "",
     "website": "",
@@ -4774,7 +4915,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 6. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 143,
@@ -4807,7 +4949,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 12. Service type: Part Time. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 144,
@@ -4816,8 +4959,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "The Park, Ledwill, Park, Kilcock, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22204,
-    "lng": -6.65652,
+    "lat": 53.23366,
+    "lng": -6.65905,
     "phone": "via Tusla register",
     "email": "",
     "website": "",
@@ -4841,7 +4984,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 132. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 145,
@@ -4875,7 +5019,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 146,
@@ -4909,7 +5054,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 147,
@@ -4918,8 +5064,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "ak Park, Naas, Co., ildare Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22176,
-    "lng": -6.65827,
+    "lat": 53.23366,
+    "lng": -6.65905,
     "phone": "0870696699",
     "email": "",
     "website": "",
@@ -4943,7 +5089,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 148,
@@ -4977,7 +5124,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 76. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 149,
@@ -4986,8 +5134,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "53 Kingsfurze, Avenue, Dublin, ad, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22152,
-    "lng": -6.65735,
+    "lat": 53.22319,
+    "lng": -6.65074,
     "phone": "045866509",
     "email": "",
     "website": "",
@@ -5011,7 +5159,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 150,
@@ -5045,7 +5194,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 11. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 151,
@@ -5054,8 +5204,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Monread, Community Centre, Maudlins Ave, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.2223,
-    "lng": -6.65686,
+    "lat": 53.23085,
+    "lng": -6.65443,
     "phone": "0892499414",
     "email": "",
     "website": "",
@@ -5079,7 +5229,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 152,
@@ -5113,7 +5264,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 40. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 153,
@@ -5147,7 +5299,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "town"
   },
   {
     "id": 154,
@@ -5156,8 +5309,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "3 Roselawn, Tipper, Road, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22094,
-    "lng": -6.65711,
+    "lat": 53.22034,
+    "lng": -6.65653,
     "phone": "045876739",
     "email": "",
     "website": "",
@@ -5181,7 +5334,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 155,
@@ -5190,8 +5344,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "St. David's, Dublin, Road, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22192,
-    "lng": -6.65701,
+    "lat": 53.22156,
+    "lng": -6.65791,
     "phone": "045876863",
     "email": "",
     "website": "",
@@ -5215,7 +5369,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 66. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 156,
@@ -5224,8 +5379,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Old Caragh Road, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22117,
-    "lng": -6.6579,
+    "lat": 53.2183,
+    "lng": -6.67956,
     "phone": "045881199",
     "email": "",
     "website": "",
@@ -5249,7 +5404,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 60. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 157,
@@ -5258,8 +5414,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Monread Avenue, Naas, Co. Kildare",
     "eircode": "",
-    "lat": 53.22207,
-    "lng": -6.65669,
+    "lat": 53.23147,
+    "lng": -6.65226,
     "phone": "045898845",
     "email": "",
     "website": "",
@@ -5283,7 +5439,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 121. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Naas"
+    "town": "Naas",
+    "coord_source": "address"
   },
   {
     "id": 158,
@@ -5292,8 +5449,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "51 Moorefield, Drive, Newbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.18064,
-    "lng": -6.7974,
+    "lat": 53.17149,
+    "lng": -6.80981,
     "phone": "0862870581",
     "email": "",
     "website": "",
@@ -5317,7 +5474,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 11. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 159,
@@ -5351,7 +5509,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 203. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 160,
@@ -5384,7 +5543,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 80. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 161,
@@ -5418,7 +5578,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 11. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 162,
@@ -5427,8 +5588,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Curragh Grange, House, Green Road, Newbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.18048,
-    "lng": -6.79847,
+    "lat": 53.15979,
+    "lng": -6.80827,
     "phone": "045445714",
     "email": "",
     "website": "",
@@ -5452,7 +5613,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 16. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 163,
@@ -5461,8 +5623,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "1 College Farm, Green, Newbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.1804,
-    "lng": -6.79788,
+    "lat": 53.1866,
+    "lng": -6.80267,
     "phone": "0877721878",
     "email": "",
     "website": "",
@@ -5486,7 +5648,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 22. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 164,
@@ -5520,7 +5683,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 120. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 165,
@@ -5554,7 +5718,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 113. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 166,
@@ -5588,7 +5753,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 18. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 167,
@@ -5597,8 +5763,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Dara Park, bridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.18002,
-    "lng": -6.79851,
+    "lat": 53.18057,
+    "lng": -6.80953,
     "phone": "045438173",
     "email": "",
     "website": "",
@@ -5622,7 +5788,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 68. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 168,
@@ -5631,8 +5798,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Paddocks, Morristown and, Cornerscourt, Station Road, Newbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.17969,
-    "lng": -6.79802,
+    "lat": 53.18472,
+    "lng": -6.81418,
     "phone": "0858596622",
     "email": "",
     "website": "",
@@ -5655,7 +5822,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 70. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 169,
@@ -5688,7 +5856,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 35. Service type: Part Time, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 170,
@@ -5722,7 +5891,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 171,
@@ -5756,7 +5926,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: n/a. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 172,
@@ -5765,8 +5936,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "4 The Great, Southern, Newbridge, Co. Kildare",
     "eircode": "",
-    "lat": 53.18015,
-    "lng": -6.79741,
+    "lat": 53.18462,
+    "lng": -6.80402,
     "phone": "045435577",
     "email": "",
     "website": "",
@@ -5790,7 +5961,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 50. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "address"
   },
   {
     "id": 173,
@@ -5824,7 +5996,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 90. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 174,
@@ -5858,7 +6031,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 145. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Newbridge"
+    "town": "Newbridge",
+    "coord_source": "town"
   },
   {
     "id": 175,
@@ -5867,8 +6041,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "The Kildare, Maze, Ballinafagh, Prosperous, Co. Kildare",
     "eircode": "",
-    "lat": 53.28789,
-    "lng": -6.75263,
+    "lat": 53.30686,
+    "lng": -6.7653,
     "phone": "0879061473",
     "email": "",
     "website": "",
@@ -5892,7 +6066,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 41. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Prosperous"
+    "town": "Prosperous",
+    "coord_source": "address"
   },
   {
     "id": 176,
@@ -5901,8 +6076,8 @@ window.PROVIDERS = [
     "typeKey": "montessori",
     "address": "88 Barrington, Court, Naas, Prosperous, Co. Kildare",
     "eircode": "",
-    "lat": 53.28871,
-    "lng": -6.75247,
+    "lat": 53.28635,
+    "lng": -6.75667,
     "phone": "045868371",
     "email": "",
     "website": "",
@@ -5926,7 +6101,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 19. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Prosperous"
+    "town": "Prosperous",
+    "coord_source": "address"
   },
   {
     "id": 177,
@@ -5935,8 +6111,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "Downings North, Prosperous, Co. Kildare",
     "eircode": "",
-    "lat": 53.28763,
-    "lng": -6.75255,
+    "lat": 53.28743,
+    "lng": -6.77339,
     "phone": "045840740",
     "email": "",
     "website": "",
@@ -5959,7 +6135,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 72. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Prosperous"
+    "town": "Prosperous",
+    "coord_source": "address"
   },
   {
     "id": 178,
@@ -5993,7 +6170,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 50. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Prosperous"
+    "town": "Prosperous",
+    "coord_source": "town"
   },
   {
     "id": 179,
@@ -6002,8 +6180,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Rathangan Business, ntre, Co. Kildare",
     "eircode": "",
-    "lat": 53.22039,
-    "lng": -6.99251,
+    "lat": 53.2216,
+    "lng": -6.99473,
     "phone": "0863605848",
     "email": "",
     "website": "",
@@ -6027,7 +6205,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 54. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Rathangan"
+    "town": "Rathangan",
+    "coord_source": "address"
   },
   {
     "id": 180,
@@ -6036,8 +6215,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Newtown, Rathangan, Co. Kildare",
     "eircode": "",
-    "lat": 53.22005,
-    "lng": -6.99315,
+    "lat": 53.22915,
+    "lng": -6.98747,
     "phone": "045524403",
     "email": "",
     "website": "",
@@ -6061,7 +6240,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 20. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Rathangan"
+    "town": "Rathangan",
+    "coord_source": "address"
   },
   {
     "id": 181,
@@ -6070,8 +6250,8 @@ window.PROVIDERS = [
     "typeKey": "creche",
     "address": "The Lodge, Bracknagh Road, Rathangan, Co. Kildare",
     "eircode": "",
-    "lat": 53.22056,
-    "lng": -6.99219,
+    "lat": 53.22099,
+    "lng": -7.00389,
     "phone": "0852294640",
     "email": "",
     "website": "",
@@ -6094,7 +6274,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Full Day, Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Rathangan"
+    "town": "Rathangan",
+    "coord_source": "address"
   },
   {
     "id": 182,
@@ -6127,7 +6308,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 41. Service type: Full Day. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Sallins"
+    "town": "Sallins",
+    "coord_source": "town"
   },
   {
     "id": 183,
@@ -6136,8 +6318,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "Millbank, Sallins, Co. Kildare",
     "eircode": "",
-    "lat": 53.24862,
-    "lng": -6.66481,
+    "lat": 53.25038,
+    "lng": -6.66945,
     "phone": "045895550",
     "email": "",
     "website": "",
@@ -6161,7 +6343,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 116. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Sallins"
+    "town": "Sallins",
+    "coord_source": "address"
   },
   {
     "id": 184,
@@ -6170,8 +6353,8 @@ window.PROVIDERS = [
     "typeKey": "playschool",
     "address": "The Waterways, Sallins, Co. Kildare",
     "eircode": "",
-    "lat": 53.24879,
-    "lng": -6.66539,
+    "lat": 53.24741,
+    "lng": -6.66148,
     "phone": "0873975293",
     "email": "",
     "website": "",
@@ -6195,7 +6378,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 80. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Sallins"
+    "town": "Sallins",
+    "coord_source": "address"
   },
   {
     "id": 185,
@@ -6229,7 +6413,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 42. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Sallins"
+    "town": "Sallins",
+    "coord_source": "town"
   },
   {
     "id": 186,
@@ -6263,7 +6448,8 @@ window.PROVIDERS = [
     "last_verified": "2026-05-01",
     "notes": "Tusla register, March 2026. Capacity: 44. Service type: Sessional. Fees and hours are estimates — verify directly.",
     "area": "Kildare",
-    "town": "Sallins"
+    "town": "Sallins",
+    "coord_source": "town"
   },
   {
     "id": 187,
@@ -6294,9 +6480,10 @@ window.PROVIDERS = [
     "chain": "Independent Childminder",
     "opening_status": "unknown",
     "last_verified": "2026-04-29",
-    "notes": "Tusla registered Dec 2025. Max 6 children. NCS subsidies apply. (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
+    "notes": "Tusla registered Dec 2025. Max 6 children. NCS subsidies apply. (Tusla Childminder Register; preserved across the Mar 2026 ingestion). (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 188,
@@ -6327,9 +6514,10 @@ window.PROVIDERS = [
     "chain": "Independent Childminder",
     "opening_status": "unknown",
     "last_verified": "2026-04-29",
-    "notes": "Tusla registered July 2025. Max 6 children. (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
+    "notes": "Tusla registered July 2025. Max 6 children. (Tusla Childminder Register; preserved across the Mar 2026 ingestion). (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   },
   {
     "id": 189,
@@ -6360,8 +6548,9 @@ window.PROVIDERS = [
     "chain": "Independent Childminder",
     "opening_status": "unknown",
     "last_verified": "2026-04-29",
-    "notes": "Tusla registered Aug 2023. Preschool-age focus (2–6). Max 6. (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
+    "notes": "Tusla registered Aug 2023. Preschool-age focus (2–6). Max 6. (Tusla Childminder Register; preserved across the Mar 2026 ingestion). (Tusla Childminder Register; preserved across the Mar 2026 ingestion).",
     "area": "Lucan",
-    "town": "Lucan"
+    "town": "Lucan",
+    "coord_source": "address"
   }
 ];

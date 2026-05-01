@@ -52,6 +52,11 @@ const USER_PROVIDERS_KEY = "lucan-creche-user-providers-v1";
 // pill row above the map filters both the markers and the compare table.
 let currentArea = "all";
 
+// Compare-table pagination. Show this many cards by default; "Show more"
+// adds another batch. Resets to PAGE_SIZE on filter/sort/area change.
+const PAGE_SIZE = 12;
+let visibleCount = PAGE_SIZE;
+
 // NCS Universal hourly rate × max hours/week × ~4.33 weeks/month
 // Used to recompute post_universal when the user edits the monthly fee.
 const NCS_UNIVERSAL_MONTHLY = Math.round(2.14 * 45 * 4.33); // ≈ 417
@@ -721,6 +726,7 @@ function handleAreaPillClick(e){
   if (!btn) return;
   e.preventDefault();
   currentArea = btn.dataset.area;
+  resetPagination();
   renderAreaPills();
   renderProviders();
   applyMapFilters();
@@ -854,7 +860,10 @@ function providerCardHTML(p){
   const mins = walkingMinutes(p);
   const km = walkingKm(p);
   const walkCls = mins <= 20 ? "walk-pill walk-pill--near" : "walk-pill";
-  const distHTML = `<span class="${walkCls}">🚶 ${mins} min · ${km.toFixed(1)} km</span>`;
+  const isApprox = p.coord_source === "town";
+  const approxLabel = isApprox ? " · approx" : "";
+  const approxTitle = isApprox ? `Distance is approximate. Pin sits at the ${p.town} town centre because OpenStreetMap doesn't have this provider's exact street. Click ✎ on the map pin or edit lat/lng to refine.` : "";
+  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${approxTitle}">🚶 ${mins} min · ${km.toFixed(1)} km${approxLabel}</span>`;
   const ecceBadge = p.ecce
     ? `<span class="mini-badge mini-badge--ecce" title="ECCE participating (free preschool hours)">ECCE</span>`
     : "";
@@ -940,7 +949,14 @@ function renderProviders(){
   const waitOrder = { "Low":1, "Medium":2, "High":3, "Very High":4 };
   const openOrder = { "open": 1, "waitlist": 2, "unknown": 3, "full": 4 };
   const sortFns = {
-    "distance":   (a,b) => walkingKm(a) - walkingKm(b),
+    "distance":   (a,b) => {
+      // Show entries with precise (address) coords first, then town-centroid
+      // approx entries, each group sorted by distance.
+      const aApprox = a.coord_source === "town" ? 1 : 0;
+      const bApprox = b.coord_source === "town" ? 1 : 0;
+      if (aApprox !== bApprox) return aApprox - bApprox;
+      return walkingKm(a) - walkingKm(b);
+    },
     "open":       (a,b) => (openOrder[effectiveStatus(a).status]||3) - (openOrder[effectiveStatus(b).status]||3),
     "price":      (a,b) => effectivePrice(a).monthly_fee - effectivePrice(b).monthly_fee,
     "price-desc": (a,b) => effectivePrice(b).monthly_fee - effectivePrice(a).monthly_fee,
@@ -949,8 +965,52 @@ function renderProviders(){
     "name":       (a,b) => a.name.localeCompare(b.name)
   };
   list.sort(sortFns[sort] || sortFns["distance"]);
-  $("#provider-grid").innerHTML = list.map(providerCardHTML).join("");
-  $("#provider-count") && ($("#provider-count").textContent = list.length);
+
+  // Paginate: show only the first `visibleCount` cards; surface a
+  // "Show more" button when there are more.
+  const total = list.length;
+  const shown = list.slice(0, Math.min(visibleCount, total));
+  $("#provider-grid").innerHTML = shown.map(providerCardHTML).join("");
+  $("#provider-count") && ($("#provider-count").textContent = total);
+
+  // Render the "Show more / Showing N of M" footer
+  const more = $("#provider-more");
+  if (more){
+    if (total > shown.length){
+      const remaining = total - shown.length;
+      const next = Math.min(PAGE_SIZE, remaining);
+      more.innerHTML = `
+        <p>Showing <strong>${shown.length}</strong> of ${total}.</p>
+        <button type="button" class="btn btn--ghost" id="provider-more-btn">Show ${next} more</button>
+      `;
+      more.hidden = false;
+      const btn = $("#provider-more-btn");
+      if (btn) btn.addEventListener("click", () => {
+        visibleCount += PAGE_SIZE;
+        renderProviders();
+      });
+    } else if (total > PAGE_SIZE){
+      more.innerHTML = `<p>Showing all <strong>${total}</strong>. <button type="button" class="link-btn" id="provider-collapse-btn">Collapse to first ${PAGE_SIZE}</button></p>`;
+      more.hidden = false;
+      const btn = $("#provider-collapse-btn");
+      if (btn) btn.addEventListener("click", () => {
+        visibleCount = PAGE_SIZE;
+        renderProviders();
+        // Scroll the section heading back into view so the user sees the reset
+        const sec = document.getElementById("providers");
+        if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } else {
+      more.hidden = true;
+      more.innerHTML = "";
+    }
+  }
+}
+
+// Reset pagination whenever a filter or sort changes so the user always
+// sees the first page of the new query.
+function resetPagination(){
+  visibleCount = PAGE_SIZE;
 }
 
 // ---------- RECOMMENDED (Step 2) ----------
@@ -1470,10 +1530,11 @@ function init(){
 
   // Providers compare table
   renderProviders();
-  $("#p-search").addEventListener("input", renderProviders);
-  $("#p-sort").addEventListener("change", renderProviders);
-  $("#p-open") && $("#p-open").addEventListener("change", renderProviders);
-  $("#p-walk") && $("#p-walk").addEventListener("change", renderProviders);
+  const renderProvidersFromTop = () => { resetPagination(); renderProviders(); };
+  $("#p-search").addEventListener("input", renderProvidersFromTop);
+  $("#p-sort").addEventListener("change", renderProvidersFromTop);
+  $("#p-open") && $("#p-open").addEventListener("change", renderProvidersFromTop);
+  $("#p-walk") && $("#p-walk").addEventListener("change", renderProvidersFromTop);
 
   // Shortlist
   renderShortlist();

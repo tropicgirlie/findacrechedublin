@@ -377,11 +377,11 @@ function parseKildareBlock(blockLines){
 }
 
 // ============================================================
-// Geocode each unique town once (Nominatim)
+// Geocoding helpers (Nominatim)
 // ============================================================
-async function geocodeTown(town, county){
+async function nominatim(query){
   const url = "https://nominatim.openstreetmap.org/search?" + new URLSearchParams({
-    q: `${town}, ${county}, Ireland`,
+    q: query,
     format: "json",
     limit: "1",
     countrycodes: "ie"
@@ -391,6 +391,52 @@ async function geocodeTown(town, county){
   const arr = await r.json();
   if (!arr.length) return null;
   return { lat: parseFloat(arr[0].lat), lng: parseFloat(arr[0].lon) };
+}
+async function geocodeTown(town, county){
+  return nominatim(`${town}, ${county}, Ireland`);
+}
+
+function distKm(a, b){
+  const R = 6371;
+  const toRad = (d) => d * Math.PI / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const s = Math.sin(dLat/2)**2 +
+            Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) *
+            Math.sin(dLng/2)**2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// Try to address-geocode a single entry. Returns null if the result is
+// further than 4 km from the town centroid (sanity check) or if Nominatim
+// doesn't find the address. We strip the building number/unit prefix
+// because Nominatim's Irish street coverage is patchy at the building
+// level but reliable for streets.
+async function geocodeAddress(seed, townCentroid){
+  // Tries: (1) full address as-is, (2) without leading building/unit, (3) just street + town
+  const addr = (seed.address || "").trim();
+  if (!addr) return null;
+  const noPrefix = addr.replace(/^(Unit\s+\w+,?\s*|U\d+\s*,?\s*|\d+[A-Za-z]?\s*,?\s*)+/i, "");
+  const queries = [];
+  queries.push(`${addr}, Ireland`);
+  if (noPrefix !== addr) queries.push(`${noPrefix}, Ireland`);
+  // Take the first comma-separated chunk (street name) + town + Ireland
+  const parts = addr.split(",").map(s => s.trim()).filter(Boolean);
+  if (parts.length >= 2){
+    const street = parts[0].replace(/^(Unit\s+\w+|U\d+|\d+[A-Za-z]?)\s*/i, "").trim();
+    if (street && street.length > 3){
+      queries.push(`${street}, ${seed.town}, Ireland`);
+    }
+  }
+  for (const q of queries){
+    const c = await nominatim(q);
+    await sleep(SLEEP_MS);
+    if (!c) continue;
+    const d = distKm(c, townCentroid);
+    if (d > 4) continue; // outside town, probably wrong match
+    return c;
+  }
+  return null;
 }
 
 // Deterministic small jitter so providers in the same town don't pile up.
@@ -451,10 +497,27 @@ async function main(){
     await sleep(SLEEP_MS);
   }
 
-  // Build provider entries
-  const providers = seeds.map((s, i) => {
+  // Build provider entries with address-level geocoding (with town-centroid fallback)
+  console.log(`Address-geocoding ${seeds.length} providers (slow, ~1.1s each)...`);
+  const providers = [];
+  let addressHits = 0, townFallbacks = 0;
+  for (let i = 0; i < seeds.length; i++){
+    const s = seeds[i];
     const t = townCoords[s.town];
     const j = jitter(s.name + s.address);
+
+    let coord = null;
+    let coordSource = "town";
+    // Skip address geocoding for childminders that already have lat/lng from prior dataset
+    coord = await geocodeAddress(s, t);
+    if (coord){
+      coordSource = "address";
+      addressHits++;
+    } else {
+      coord = { lat: t.lat + j.dy, lng: t.lng + j.dx };
+      townFallbacks++;
+    }
+
     const p = makeProvider({
       id: i + 1,
       name: s.name,
@@ -465,10 +528,16 @@ async function main(){
       serviceType: s.serviceType,
       capacity: s.capacity
     });
-    p.lat = parseFloat((t.lat + j.dy).toFixed(5));
-    p.lng = parseFloat((t.lng + j.dx).toFixed(5));
-    return p;
-  });
+    p.lat = parseFloat(coord.lat.toFixed(5));
+    p.lng = parseFloat(coord.lng.toFixed(5));
+    p.coord_source = coordSource;
+    providers.push(p);
+
+    // Progress log every 25 entries
+    if ((i + 1) % 25 === 0 || i === seeds.length - 1){
+      console.log(`  ${i + 1}/${seeds.length}  address: ${addressHits}  town-fallback: ${townFallbacks}`);
+    }
+  }
 
   // Add the existing childminders (they aren't on the Tusla Early Years register
   // in the same way; keep them so the dataset isn't a regression). We hand-port
@@ -485,6 +554,7 @@ async function main(){
       id: providers.length + 1,
       area: "Lucan",
       town: "Lucan",
+      coord_source: cm.coord_source || "address", // childminders' coords were geocoded earlier
       notes: `${cm.notes || ""} (Tusla Childminder Register; preserved across the Mar 2026 ingestion).`.trim()
     });
   }

@@ -1639,6 +1639,46 @@ input[type="range"]::-moz-range-thumb{
   color: var(--surface);
 }
 
+/* Compare-table pagination footer */
+.provider-more{
+  margin: 24px 0 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.provider-more[hidden]{ display: none; }
+.provider-more p{
+  margin: 0;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+.provider-more .btn{ min-width: 200px; }
+.link-btn{
+  background: transparent;
+  border: 0;
+  color: var(--primary);
+  font: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+.link-btn:hover{ color: var(--primary-dark); }
+
+/* "Approx" distance pill (town-centroid fallback) */
+.walk-pill--approx{
+  background: var(--accent-50);
+  color: var(--warning);
+  border-color: var(--accent);
+  cursor: help;
+}
+.walk-pill--approx::before{
+  content: "≈ ";
+  font-weight: 700;
+}
+
 /* Persistent backup-note bar */
 .backup-note{
   background: var(--accent-50);
