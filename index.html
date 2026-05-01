@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-add-provider-fix" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-hero-redesign" />
 </head>
 <body>
 
@@ -42,34 +42,68 @@
 
   <main id="top">
 
-    <!-- ============ HERO ============ -->
-    <section class="hero hero--calm">
-      <div class="container hero__inner">
-        <span class="hero__eyebrow">Lucan &amp; Co. Kildare</span>
-        <h1 class="hero__title">Find childcare near home and<br/>keep track of every enquiry.</h1>
-        <p class="hero__subtitle">A free, community-run tool for parents in Lucan and nearby Co. Kildare. Walking times from your home, open-spot status on every card, and a built-in tracker that remembers who you've emailed and when to follow up.</p>
+    <!-- ============ HERO (two-column) ============ -->
+    <section class="hero hero--split" aria-label="Site introduction">
+      <div class="container hero__grid">
 
-        <div class="hero__cta">
-          <a href="#step3" class="btn btn--primary">Open the map</a>
-          <a href="#shortlist" class="hero__sublink">★ Already contacted some? Jump to your shortlist →</a>
+        <!-- Left: text -->
+        <div class="hero__copy">
+          <span class="hero__eyebrow">Lucan &amp; Co. Kildare · Free</span>
+          <h1 class="hero__title">Free childcare search for Lucan and nearby Kildare.</h1>
+          <p class="hero__subtitle">Find providers near home, compare options, and keep track of every enquiry in one place.</p>
+
+          <div class="hero__cta">
+            <a href="#step3" class="btn btn--primary">Open the map</a>
+            <a href="#shortlist" class="hero__sublink">★ Jump to your shortlist →</a>
+          </div>
+
+          <ul class="hero__trust" aria-label="Trust cues">
+            <li><span aria-hidden="true">✓</span> No account needed.</li>
+            <li><span aria-hidden="true">✓</span> Your shortlist stays in this browser unless you download a backup.</li>
+            <li><span aria-hidden="true">✓</span> Open source, so anyone can fork it for another town.</li>
+          </ul>
         </div>
-      </div>
-      <div class="hero__art" aria-hidden="true">
-        <svg viewBox="0 0 600 400" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <radialGradient id="g1" cx="50%" cy="50%">
-              <stop offset="0%" stop-color="#1F6B63" stop-opacity=".18"/>
-              <stop offset="100%" stop-color="#1F6B63" stop-opacity="0"/>
-            </radialGradient>
-            <radialGradient id="g2" cx="50%" cy="50%">
-              <stop offset="0%" stop-color="#E8B56A" stop-opacity=".35"/>
-              <stop offset="100%" stop-color="#E8B56A" stop-opacity="0"/>
-            </radialGradient>
-          </defs>
-          <circle cx="120" cy="90" r="180" fill="url(#g1)"/>
-          <circle cx="480" cy="320" r="200" fill="url(#g2)"/>
-          <circle cx="430" cy="120" r="140" fill="url(#g1)"/>
-        </svg>
+
+        <!-- Right: real product visual + photo -->
+        <figure class="hero__visual" aria-label="A glance at how the tool works: a map of providers near your home and a tracker for who you've contacted">
+          <div class="hero__photo">
+            <img
+              src="https://images.unsplash.com/photo-1578349035260-9f3d4042f1f7?w=720&amp;q=80&amp;auto=format&amp;fit=crop"
+              alt="Toddlers playing with wooden toys in a bright childcare room"
+              loading="eager"
+              decoding="async"
+              width="720" height="480" />
+          </div>
+
+          <!-- Mock map card overlay -->
+          <div class="hero__mock hero__mock--map" aria-hidden="true">
+            <div class="hero__mock-head">
+              <span class="hero__mock-dot hero__mock-dot--low"></span>
+              <strong>Cocoon Childcare Lucan</strong>
+            </div>
+            <div class="hero__mock-row"><span>From K78 EE02</span><strong>14 min walk</strong></div>
+            <div class="hero__mock-row"><span>Status</span><strong class="hero__mock-pill hero__mock-pill--open">✓ Open spot</strong></div>
+            <button class="hero__mock-cta" type="button" tabindex="-1">★ Add to shortlist</button>
+          </div>
+
+          <!-- Mock shortlist card overlay -->
+          <div class="hero__mock hero__mock--list" aria-hidden="true">
+            <div class="hero__mock-list-head">★ My shortlist <span>3</span></div>
+            <div class="hero__mock-list-row">
+              <span>Giraffe Adamstown</span>
+              <span class="hero__mock-pill hero__mock-pill--sent">Email sent · today</span>
+            </div>
+            <div class="hero__mock-list-row">
+              <span>Keane Minds Montessori</span>
+              <span class="hero__mock-pill hero__mock-pill--reply">Replied · waitlist</span>
+            </div>
+            <div class="hero__mock-list-row hero__mock-list-row--due">
+              <span>Sunflowers Childcare</span>
+              <span class="hero__mock-pill hero__mock-pill--due">Follow up · overdue</span>
+            </div>
+          </div>
+        </figure>
+
       </div>
     </section>
 
@@ -80,27 +114,68 @@
           <li class="howitworks__step">
             <span class="howitworks__num">1</span>
             <div>
-              <strong>Browse the map</strong>
-              <span>21 providers across Lucan and nearby Co. Kildare. Click any pin for details.</span>
+              <strong>Find providers near home</strong>
+              <span>Walking time to every crèche, calculated from your eircode.</span>
             </div>
           </li>
           <li class="howitworks__step">
             <span class="howitworks__num">2</span>
             <div>
-              <strong>Compare side by side</strong>
-              <span>Sort by distance, price, opening status, or stability.</span>
+              <strong>Compare options quickly</strong>
+              <span>Sort by distance, price, open spots, or stability. One screen.</span>
             </div>
           </li>
           <li class="howitworks__step">
             <span class="howitworks__num">3</span>
             <div>
-              <strong>Track your contacts</strong>
-              <span>One-click email and follow-up reminders, all in your browser.</span>
+              <strong>Track enquiries and follow-ups</strong>
+              <span>One-click email, status, and overdue reminders, all saved here.</span>
             </div>
           </li>
         </ol>
       </div>
     </section>
+
+    <!-- ============ HOW IT WORKS UNDER THE HOOD (trust + architecture) ============ -->
+    <section id="how-it-runs" class="section trust" aria-label="How this site works under the hood">
+      <div class="container">
+        <div class="trust__grid">
+          <div class="trust__lede">
+            <h2 class="trust__title">Built so you can use it now, no waiting.</h2>
+            <p>Everything happens in your browser the moment the page loads. No account, no email signup, no tracking.</p>
+          </div>
+          <ul class="trust__list">
+            <li>
+              <strong>Instant.</strong>
+              <span>The map, the cards, and the cost calculator open and work without logging in.</span>
+            </li>
+            <li>
+              <strong>Your shortlist stays here.</strong>
+              <span>Adding a crèche to your shortlist saves it to <em>this</em> browser, on <em>this</em> device. It is private to you.</span>
+            </li>
+            <li>
+              <strong>Keep a backup.</strong>
+              <span>Use the <a href="#shortlist">Download as spreadsheet</a> button now and then, or jot key notes elsewhere, so you don't lose progress if you clear your browser or switch devices.</span>
+            </li>
+            <li>
+              <strong>Open source.</strong>
+              <span>Anyone can <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">fork the code</a> for their own town. Swap the providers list, change the home eircode, deploy.</span>
+            </li>
+          </ul>
+        </div>
+        <details class="trust__maker">
+          <summary>For makers: how the data layer is wired</summary>
+          <p>The site is a static HTML/CSS/JS bundle on Vercel. Provider data lives in <code>data/providers.js</code>. Per-user state (shortlist, price overrides, opening status, your home anchor) is stored in <code>localStorage</code> with versioned keys. There's no backend yet, so additions you make stay local until shared. A community layer using Cloudflare Workers + KV is planned: a small free-tier backend so any visitor can submit a provider and everyone sees it. Until that ships, the in-browser "Add a provider" form lets you maintain your own list.</p>
+        </details>
+      </div>
+    </section>
+
+    <div class="backup-note" role="note">
+      <div class="container backup-note__inner">
+        <span class="backup-note__icon" aria-hidden="true">📌</span>
+        <p><strong>Important:</strong> this tool works best while you're using this browser. Download your shortlist backup or keep key notes elsewhere so you don't lose your progress.</p>
+      </div>
+    </div>
 
     <!-- ============ MAP (main) ============ -->
     <section id="step3" class="section section--alt step">
@@ -528,8 +603,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-add-provider-fix"></script>
-  <script src="app.js?v=2026-05-01-add-provider-fix" defer></script>
+  <script src="data/providers.js?v=2026-05-01-hero-redesign"></script>
+  <script src="app.js?v=2026-05-01-hero-redesign" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
