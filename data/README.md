@@ -84,7 +84,7 @@ The "Show only open spots" filter on the cards section reads `opening_status ===
 
 | Provider | Status | Last verified | Notes |
 |---|---|---|---|
-| Little Harvard Kilcarbery (Clondalkin) | **open** | 2026-04-29 | Confirmed opening. Eircode D22 X0F0. Phone (01) 274 1056. Outside walking distance from K78 EE02 — paid drop-off needed. |
+| Little Harvard Kilcarbery (Clondalkin) | **open** | 2026-04-29 | Confirmed opening. Eircode D22 X0F0. Phone (01) 274 1056. Outside walking distance from K78 V295 — paid drop-off needed. |
 | All other providers | unknown | 2026-04-29 | To be confirmed by direct enquiry. |
 
 ## Field reference
@@ -97,7 +97,7 @@ The "Show only open spots" filter on the cards section reads `opening_status ===
 | `typeKey` | string | `"creche"` | One of `"creche" \| "montessori" \| "childminder" \| "playschool"`. Used by the type filter. |
 | `address` | string | `"Kilcarbery Grange, Dublin 22"` | |
 | `eircode` | string | `"D22 X0F0"` | Used for display only. Distance comes from `lat`/`lng`. |
-| `lat`, `lng` | number | `53.3226`, `-6.4285` | Used for the map and for walking-distance estimates from K78 EE02. |
+| `lat`, `lng` | number | `53.3226`, `-6.4285` | Used for the map and for walking-distance estimates from K78 V295. |
 | `phone` | string | `"(01) 274 1056"` | If the value starts with `"via "` or is `"Tusla register"`, the Call button is hidden (no usable number). |
 | `email` | string | `"info@littleharvard.ie"` | If empty, the Email button is hidden. |
 | `website` | string | `"https://www.littleharvard.ie"` | Empty string means no public site. |

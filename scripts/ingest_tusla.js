@@ -7,7 +7,7 @@
  *   2. inline CLONDALKIN[] - 32 services (same)
  *   3. parsed from /tmp/kildare_tusla.txt (pdftotext -layout output of the
  *      official Tusla Kildare PDF, March 2026), filtered to NEARBY towns
- *      that are commute-relevant for K78 EE02 in Lucan
+ *      that are commute-relevant for K78 V295 in Lucan
  *
  * Each entry is normalised to the provider schema documented in
  * data/README.md. Where the source doesn't give a value, we use a
@@ -112,7 +112,7 @@ const CLONDALKIN = [
 //
 // We only ingest entries whose Town column matches the nearby-towns
 // allow-list. That keeps the dataset focused on commute-relevant
-// providers for K78 EE02 (Lucan). Distant Kildare entries (Athy,
+// providers for K78 V295 (Lucan). Distant Kildare entries (Athy,
 // Ballymore Eustace, Castledermot) are skipped for now and can be
 // added in a phase-2 commit.
 // ============================================================

@@ -5,9 +5,9 @@
    ============================================================ */
 
 // ---------- HOME, USER PROFILE, TRACKER KEY ----------
-// Approximate K78 EE02 reference point (Lucan village). Used for walking-time
+// Approximate K78 V295 reference point (Lucan village). Used for walking-time
 // estimates only. Edit here to refine.
-const HOME = { eircode: "K78 EE02", lat: 53.3548, lng: -6.4485 };
+const HOME = { eircode: "K78 V295", lat: 53.3548, lng: -6.4485 };
 
 // Defaults for the email sign-off. Override via the Settings panel; values
 // persist in localStorage under USER_PROFILE_KEY.
@@ -424,7 +424,7 @@ function updateRecommendedHeader(){
     ledeEl.innerHTML = `Open spots ranked first. The map shows just these matches. Click <em>Add to shortlist</em> on the ones you'd like to contact.`;
   } else {
     titleEl.textContent = `Top matches in Lucan (default).`;
-    ledeEl.innerHTML = `Anchored at K78 EE02 because you haven't told the site where you live yet. Open spots ranked first. <a href="#step1" class="recommended-set-home-link">Set your home</a> to get matches near you.`;
+    ledeEl.innerHTML = `Anchored at K78 V295 because you haven't told the site where you live yet. Open spots ranked first. <a href="#step1" class="recommended-set-home-link">Set your home</a> to get matches near you.`;
   }
 }
 
@@ -1553,6 +1553,19 @@ function init(){
   // Document-level delegation for popup buttons (popups live outside the
   // section grids in the Leaflet pane, so the per-section handlers miss them).
   document.addEventListener("click", handlePopupClick);
+
+  // "How are prices estimated?" inline link toggles the inline <details>
+  // instead of taking the user to a new anchor location.
+  document.querySelectorAll("[data-toggle-why]").forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute("href"));
+      if (target && target.tagName === "DETAILS"){
+        target.open = !target.open;
+        if (target.open) target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
+  });
 
   // Providers compare table
   renderProviders();

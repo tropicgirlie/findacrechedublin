@@ -52,7 +52,7 @@ async function geocode(query) {
 
 function buildQueries(p) {
   const queries = [];
-  // Eircode + name first if eircode is the long form (e.g. K78 EE02)
+  // Eircode + name first if eircode is the long form (e.g. K78 V295)
   const fullEircode = p.eircode && /^[A-Z]\d{1,2}\s+[A-Z0-9]+$/.test(p.eircode);
   if (fullEircode) queries.push(`${p.eircode}, Ireland`);
   // Address as written

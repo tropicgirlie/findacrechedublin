@@ -1,12 +1,12 @@
 # Lucan & Kildare Childcare Navigator
 
-A single-page tool for finding, tracking, and contacting childcare providers in Lucan and nearby Co. Kildare. Anchored at K78 EE02; every provider shows walking time, opening status, and one-click email/call buttons.
+A single-page tool for finding, tracking, and contacting childcare providers in Lucan and nearby Co. Kildare. Anchored at K78 V295; every provider shows walking time, opening status, and one-click email/call buttons.
 
 > **Status:** Personal-use tool. 21 providers covering Lucan + Celbridge, Leixlip, Naas, and other nearby Kildare towns. Data is research-compiled; see [data/README.md](data/README.md) for per-field provenance.
 
 ## What It Does
 
-- **Home anchor (K78 EE02)**: every provider shows a walking-time pill (e.g. "12 min walk · 0.9 km") and an opening-status badge (✅ Open / ⏳ Waitlist / ❌ Full / ❓ Unknown). Filter the map and the cards by "Open spots only" and "Walking ≤ 20 min".
+- **Home anchor (K78 V295)**: every provider shows a walking-time pill (e.g. "12 min walk · 0.9 km") and an opening-status badge (✅ Open / ⏳ Waitlist / ❌ Full / ❓ Unknown). Filter the map and the cards by "Open spots only" and "Walking ≤ 20 min".
 - **My Shortlist tracker**: one-click "Add to shortlist" on any provider, then track status (not contacted → email sent → called → replied → visited → confirmed/declined), last-contact date, next-follow-up reminder (highlights overdue in red), and free-text notes. Persisted in your browser via `localStorage`. Export as CSV for backup.
 - **One-click contact**: 📧 Email button opens a pre-filled `mailto:` (initial enquiry or weekly follow-up depending on status), 📞 Call button opens `tel:` for the provider's number. Templates pull from the Settings panel (your name, child age, eircode, start window).
 - **Interactive map** with 14 providers, colour-coded by waitlist risk, filterable by type, budget, Montessori, ECCE, opening status, and walking distance.

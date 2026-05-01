@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-chips-md" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-info-bar" />
 </head>
 <body>
 
@@ -81,7 +81,7 @@
               <span class="hero__mock-dot hero__mock-dot--low"></span>
               <strong>Cocoon Childcare Lucan</strong>
             </div>
-            <div class="hero__mock-row"><span>From K78 EE02</span><strong>14 min walk</strong></div>
+            <div class="hero__mock-row"><span>From K78 V295</span><strong>14 min walk</strong></div>
             <div class="hero__mock-row"><span>Status</span><strong class="hero__mock-pill hero__mock-pill--open">✓ Open spot</strong></div>
             <button class="hero__mock-cta" type="button" tabindex="-1">★ Add to shortlist</button>
           </div>
@@ -192,7 +192,7 @@
             <span class="loc-prompt__icon" aria-hidden="true">📍</span>
             <div>
               <strong>Where are you?</strong>
-              <span>This site is anchored at K78 EE02 in Lucan by default. To see <em>real</em> walking distances from your home, choose one:</span>
+              <span>This site is anchored at K78 V295 in Lucan by default. To see <em>real</em> walking distances from your home, choose one:</span>
             </div>
           </div>
           <div class="loc-prompt__actions">
@@ -248,24 +248,25 @@
           <p class="section__lede">Search, sort, filter. Cards are minimal by default; click <em>Show details</em> to expand any one for hours, chain, stability, and provenance.</p>
         </header>
 
-        <div class="data-disclaimer" role="note">
-          <p><strong>Source:</strong> Tusla Early Years Register (March 2026). Fees, hours, age range and waitlist info are estimates derived from chain rates and Core Funding caps. <strong>Always verify directly with the provider</strong> before making a decision. The full official register is on <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">tusla.ie</a>.</p>
+        <div class="info-bar" role="note">
+          <p>
+            <span class="info-bar__icon" aria-hidden="true">ℹ</span>
+            Source: <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">Tusla Early Years Register</a> (March 2026). Fees, hours and waitlist length are estimates. <strong>Always verify directly with the provider.</strong>
+            <a class="info-bar__why" href="#prices-why" data-toggle-why>How are prices estimated?</a>
+          </p>
+          <details id="prices-why" class="info-bar__details">
+            <summary class="visually-hidden">Why prices are estimates</summary>
+            <ul>
+              <li><strong>Chain crèches</strong> (Giraffe, Cocoon, Little Harvard, Tigers): chain-wide rate inherited from research. Chain websites don't publish fees.</li>
+              <li><strong>Core-Funding providers</strong>: capped at €295/week by government rule, used as a fallback.</li>
+              <li><strong>Sessional Montessori &amp; playschools</strong>: figures reflect the ECCE capitation rate. Cost to parents during ECCE hours is €0.</li>
+              <li><strong>Childminders</strong>: typical Tusla-registered rate, not published per minder.</li>
+              <li><strong>Independents marked <code>(est.)</code></strong>: pure estimate within the Core-Funding cap range.</li>
+              <li><strong>Waitlist length</strong>: sector-wide guess (40,000+ on national waitlists per SIPTU/ECI), not provider-specific.</li>
+            </ul>
+            <p class="info-bar__cta">Every fee starts as <span class="chip chip--neutral">? Unconfirmed</span>. When a provider tells you the real number, click <span class="info-bar__edit-cue">✎ edit</span> next to their fee. The chip switches to <span class="chip chip--ok">✓ You verified</span> and persists in this browser. <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">Full per-field provenance →</a></p>
+          </details>
         </div>
-
-        <details class="price-source" open>
-          <summary>Heads-up: every price below is an estimate. <span class="price-source__hint">Click to read why</span></summary>
-          <p><strong>Irish childcare chains do not publish their fees publicly.</strong> Giraffe, Cocoon, Little Harvard and Tigers all confirmed today (April 2026) that their websites show no monthly or weekly figures. The numbers on the cards below are <em>estimates</em>, sourced as follows:</p>
-          <ul>
-            <li><strong>Chain crèches</strong> (Giraffe, Cocoon, Little Harvard, Tigers): a chain-wide rate inherited from earlier research. <strong>Not pulled from the chain's website</strong>, because they don't publish.</li>
-            <li><strong>Core-Funding providers</strong>: capped at €295/week by government rule, so we use that range as a fallback when the provider doesn't publish.</li>
-            <li><strong>Sessional Montessori &amp; playschools</strong>: figures reflect the ECCE capitation rate; cost to parents during ECCE hours is €0.</li>
-            <li><strong>Childminders</strong>: typical Tusla-registered childminder rate, not published per minder.</li>
-            <li><strong>Independents marked <code>(est.)</code></strong>: pure estimates within the Core-Funding cap range.</li>
-            <li><strong>Waitlist length</strong>: sector-wide guess (40,000+ on national waitlists per SIPTU/Early Childhood Ireland), not provider-specific.</li>
-          </ul>
-          <p class="price-source__cta"><strong>So: every fee on this page starts as <span class="vfy vfy--est-inline">? Unconfirmed</span>.</strong> When you ring or email a provider and they tell you the real number, click the <span class="ico-cue">✎</span> next to their fee and save it. The card will switch to <span class="vfy vfy--ok-inline">✓ You verified</span> and remember it next time you visit.</p>
-          <p>Full per-field provenance and where each row came from: <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">data/README.md →</a></p>
-        </details>
 
         <div class="area-pills" role="tablist" aria-label="Filter by area"></div>
 
@@ -319,7 +320,7 @@
         <header class="section__head">
           <span class="section__eyebrow step__pill">Personalise</span>
           <h2 class="section__title">Set your home (optional).</h2>
-          <p class="section__lede">By default the site is anchored at K78 EE02 in Lucan. To use it for your own town, enter your eircode and coordinates below. Walking times update everywhere. Saved in your browser only.</p>
+          <p class="section__lede">By default the site is anchored at K78 V295 in Lucan. To use it for your own town, enter your eircode and coordinates below. Walking times update everywhere. Saved in your browser only.</p>
         </header>
 
         <div class="settings-card">
@@ -327,7 +328,7 @@
           <div class="settings-grid">
             <label class="setting">
               <span>Eircode</span>
-              <input type="text" id="home-eircode-input" placeholder="K78 EE02" />
+              <input type="text" id="home-eircode-input" placeholder="K78 V295" />
             </label>
             <label class="setting">
               <span>Latitude</span>
@@ -548,7 +549,7 @@
           <article class="res-card res-card--community">
             <span class="res-card__tag">Free · for the community</span>
             <h3>This site</h3>
-            <p>Find, track, and contact childcare providers near K78 EE02. Always free. No accounts, no tracking, no ads. Open source on <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">GitHub</a>.</p>
+            <p>Find, track, and contact childcare providers near K78 V295. Always free. No accounts, no tracking, no ads. Open source on <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">GitHub</a>.</p>
           </article>
 
           <article class="res-card res-card--other">
@@ -611,8 +612,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-chips-md"></script>
-  <script src="app.js?v=2026-05-01-chips-md" defer></script>
+  <script src="data/providers.js?v=2026-05-01-info-bar"></script>
+  <script src="app.js?v=2026-05-01-info-bar" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
