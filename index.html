@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-paginate-geo-2" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-chips-print" />
 </head>
 <body>
 
@@ -248,6 +248,10 @@
           <p class="section__lede">Search, sort, filter. Cards are minimal by default; click <em>Show details</em> to expand any one for hours, chain, stability, and provenance.</p>
         </header>
 
+        <div class="data-disclaimer" role="note">
+          <p><strong>Source:</strong> Tusla Early Years Register (March 2026). Fees, hours, age range and waitlist info are estimates derived from chain rates and Core Funding caps. <strong>Always verify directly with the provider</strong> before making a decision. The full official register is on <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">tusla.ie</a>.</p>
+        </div>
+
         <details class="price-source" open>
           <summary>Heads-up: every price below is an estimate. <span class="price-source__hint">Click to read why</span></summary>
           <p><strong>Irish childcare chains do not publish their fees publicly.</strong> Giraffe, Cocoon, Little Harvard and Tigers all confirmed today (April 2026) that their websites show no monthly or weekly figures. The numbers on the cards below are <em>estimates</em>, sourced as follows:</p>
@@ -274,10 +278,8 @@
             <label for="p-sort">Sort by</label>
             <select id="p-sort">
               <option value="distance" selected>Closest to my home</option>
-              <option value="open">Open spots first</option>
               <option value="price">Price: low to high</option>
               <option value="price-desc">Price: high to low</option>
-              <option value="stability">Stability: high to low</option>
               <option value="waitlist">Waitlist: shortest first</option>
               <option value="name">Name: A to Z</option>
             </select>
@@ -303,8 +305,9 @@
           <p class="section__lede">Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call. Anything in red is overdue for follow-up.</p>
         </header>
         <div class="shortlist-toolbar">
-          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet (backup)</button>
-          <span class="hint">Your shortlist lives only in this browser. Download a backup now and then so you don't lose it.</span>
+          <button id="shortlist-print" class="btn btn--primary btn--small" title="Print this shortlist or save as PDF (use 'Save as PDF' in the print dialog)">🖨 Print or save as PDF</button>
+          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet</button>
+          <span class="hint">Your shortlist lives only in this browser. Print to PDF or download a CSV backup now and then so you don't lose it.</span>
         </div>
         <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
       </div>
@@ -608,8 +611,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-paginate-geo-2"></script>
-  <script src="app.js?v=2026-05-01-paginate-geo-2" defer></script>
+  <script src="data/providers.js?v=2026-05-01-chips-print"></script>
+  <script src="app.js?v=2026-05-01-chips-print" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;

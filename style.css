@@ -1020,22 +1020,36 @@ input[type="range"]::-moz-range-thumb{
   white-space: nowrap;
 }
 
-/* Opening-status badges */
-.open-badge{
+/* ============================================================
+   Chip system (unified). Used by opening-status, ECCE, distance,
+   "added by you", verify state, age pill, etc.
+   ============================================================ */
+.chip,
+.open-badge,
+.mini-badge,
+.walk-pill,
+.age-pill{
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
+  gap: 4px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: var(--fs-xs);
+  font-size: 12px;
   font-weight: 600;
-  border: 1px solid transparent;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
   white-space: nowrap;
+  border: 1px solid transparent;
 }
-.open-badge--open{      background: var(--ok-50);    color: var(--sage-700); border-color: var(--sage-300); }
-.open-badge--waitlist{  background: var(--amber-50); color: #7a5a14;        border-color: var(--amber); }
-.open-badge--full{      background: var(--rust-50);  color: var(--rust);    border-color: var(--rust); }
-.open-badge--unknown{   background: var(--cream-2);  color: var(--muted);   border-color: var(--line); }
+
+/* Variants: green=ok, amber=warn, red=alert, neutral=info, teal=accent */
+.chip--ok,         .open-badge--open    { background: var(--success-50); color: var(--success);    border-color: var(--success); }
+.chip--warn,       .open-badge--waitlist{ background: var(--accent-50);  color: var(--warning);    border-color: var(--accent); }
+.chip--alert,      .open-badge--full    { background: var(--alert-50);   color: var(--alert);      border-color: var(--alert); }
+.chip--neutral,    .open-badge--unknown,
+.age-pill                              { background: var(--bg);          color: var(--text-muted); border-color: var(--line-soft); }
+.chip--accent,     .mini-badge--user   { background: var(--primary-50);  color: var(--primary-dark); border-color: var(--primary-100); }
+.chip--ecce,       .mini-badge--ecce   { background: var(--success-50);  color: var(--success);    border-color: var(--success); }
 
 .verified{
   font-size: var(--fs-xs);
@@ -1043,22 +1057,13 @@ input[type="range"]::-moz-range-thumb{
   margin-left: 8px;
 }
 
-/* Distance pill */
-.walk-pill{
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  font-size: var(--fs-xs);
-  background: var(--cream-2);
-  color: var(--ink-2);
-  border: 1px solid var(--line);
-}
+/* Distance pill: extends the chip system. Default = neutral (already
+   styled above); --near upgrades to success (green) when within walking
+   distance; --approx adds the warning style (amber). */
 .walk-pill--near{
-  background: var(--ok-50);
-  color: var(--sage-700);
-  border-color: var(--sage-300);
+  background: var(--success-50);
+  color: var(--success);
+  border-color: var(--success);
 }
 
 /* Provider card additions */
@@ -1639,6 +1644,20 @@ input[type="range"]::-moz-range-thumb{
   color: var(--surface);
 }
 
+/* Data disclaimer banner above the compare grid */
+.data-disclaimer{
+  margin: 0 0 16px;
+  padding: 12px 16px;
+  background: var(--accent-50);
+  border: 1px solid var(--accent);
+  border-left: 4px solid var(--warning);
+  border-radius: var(--radius);
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+}
+.data-disclaimer p{ margin: 0; color: var(--text); max-width: 70ch; }
+.data-disclaimer strong{ color: var(--warning); }
+
 /* Compare-table pagination footer */
 .provider-more{
   margin: 24px 0 0;
@@ -1903,37 +1922,8 @@ input[type="range"]::-moz-range-thumb{
   gap: 8px;
   align-items: center;
 }
-.age-pill{
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--bg);
-  color: var(--text);
-  border: 1px solid var(--line-soft);
-  font-size: var(--fs-xs);
-}
-.mini-badge{
-  display: inline-flex;
-  align-items: center;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  margin-left: 6px;
-}
-.mini-badge--ecce{
-  background: var(--success-50);
-  color: var(--success);
-  border: 1px solid var(--success);
-}
-.mini-badge--user{
-  background: var(--accent-50);
-  color: var(--warning);
-  border: 1px solid var(--accent);
-}
+/* age-pill styles unified with the chip system above */
+/* mini-badge styles unified with the chip system above (variants only) */
 
 /* User-added providers list (in the Add a provider section) */
 .userprov-list{
@@ -2061,3 +2051,88 @@ input[type="range"]::-moz-range-thumb{
   background: var(--bg);
 }
 
+
+/* ============================================================
+   Print stylesheet — invoked when the user clicks "Print or save
+   as PDF" in the shortlist section, OR uses the browser's native
+   print. We hide everything except the shortlist and reformat the
+   rows for paper.
+   ============================================================ */
+@media print {
+  body { background: white; color: black; }
+  .nav, .hero, .howitworks, .trust, .backup-note, #step3, #providers,
+  #step1, #add-provider, #simulator, #subsidies, #about, .footer,
+  .shortlist-toolbar, .area-pills, .pcard__actions, .pcard__details,
+  [data-action="price-edit"], [data-action="status-edit"] { display: none !important; }
+  #shortlist {
+    display: block !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+  .container { max-width: 100% !important; padding: 0 !important; }
+  .section__head .step__pill { display: none !important; }
+  .section__title {
+    font-size: 22px !important;
+    margin: 0 0 4px !important;
+  }
+  .section__lede { font-size: 12px !important; color: #444 !important; margin: 0 0 16px !important; }
+  #shortlist-grid { display: block !important; }
+  .srow {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px 16px !important;
+    padding: 12px !important;
+    margin: 0 0 8px !important;
+    background: white !important;
+    border: 1px solid #ccc !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+    page-break-inside: avoid;
+  }
+  .srow__name { font-size: 14px !important; }
+  .srow__meta, .srow__dates, .srow__notes textarea { font-size: 11px !important; color: #333 !important; }
+  .srow__notes textarea {
+    border: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    min-height: auto !important;
+    height: auto !important;
+    resize: none !important;
+  }
+  .srow__actions { display: none !important; }
+  .srow__status select, .srow__datelbl input {
+    border: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    font-weight: 700 !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+  }
+  .chip, .open-badge, .mini-badge, .walk-pill, .age-pill {
+    border: 1px solid #999 !important;
+    background: white !important;
+    color: black !important;
+    padding: 1px 8px !important;
+  }
+  /* Add a print-only header at the top of the page */
+  body::before {
+    content: "Lucan & Kildare Crèche — My shortlist (printed " attr(data-print-date) ")";
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    padding: 0 0 8px;
+    border-bottom: 2px solid black;
+  }
+  /* Add a print-only disclaimer at the bottom */
+  #shortlist::after {
+    content: "Source: Tusla Early Years Register, March 2026. Verify all details directly with the provider before making a decision.";
+    display: block;
+    margin: 24px 0 0;
+    padding: 12px;
+    border-top: 1px solid #999;
+    font-size: 10px;
+    font-style: italic;
+    color: #555;
+  }
+}

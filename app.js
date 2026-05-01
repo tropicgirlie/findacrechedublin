@@ -112,6 +112,32 @@ function walkingKm(p){
   return haversineKm(effectiveHome(), { lat: p.lat, lng: p.lng });
 }
 
+// ---------- ECCE eligibility window ----------
+// Returns the birth-year window for the CURRENT or UPCOMING ECCE programme
+// year. Children are eligible for ECCE in a given school year if they are
+// 2y8m or older on 1 September of that year (and not over 5y6m at the end).
+// Window: 1 Jan of (year - 4) to 31 Dec of (year - 3) approximately.
+function currentEcceWindow(){
+  const now = new Date();
+  // ECCE year runs Sep–Aug. If we're past 1 Sep, "current" year starts this
+  // Sep; otherwise it's the Sep that just passed.
+  const yr = (now.getMonth() >= 8) ? now.getFullYear() : now.getFullYear() - 1;
+  // For ECCE year yr (Sep yr - Aug yr+1):
+  //   - Child must be 2y8m on 1 Sep yr  ->  born by ~Dec (yr - 3)
+  //   - Child must be <= 5y6m at end    ->  born after ~Jan (yr - 4)
+  return { fromYear: yr - 4, toYear: yr - 3, schoolYear: yr };
+}
+function ecceWindowLabel(){
+  const w = currentEcceWindow();
+  const next = { fromYear: w.fromYear + 1, toYear: w.toYear + 1, schoolYear: w.schoolYear + 1 };
+  return {
+    current: `Born ${w.fromYear}–${String(w.toYear).slice(-2)}`,
+    currentLong: `Children born ${w.fromYear}–${w.toYear} are eligible for the ${w.schoolYear}/${String(w.schoolYear + 1).slice(-2)} ECCE year (free preschool, 3 hrs/day, 38 weeks)`,
+    next: `Next: ${next.fromYear}–${String(next.toYear).slice(-2)}`,
+    nextLong: `Children born ${next.fromYear}–${next.toYear} will be eligible from Sep ${next.schoolYear}.`
+  };
+}
+
 // ---------- Opening status badges ----------
 const OPENING_LABELS = {
   open:     { text: "Open spot", icon: "✅", cls: "open" },
@@ -864,11 +890,12 @@ function providerCardHTML(p){
   const approxLabel = isApprox ? " · approx" : "";
   const approxTitle = isApprox ? `Distance is approximate. Pin sits at the ${p.town} town centre because OpenStreetMap doesn't have this provider's exact street. Click ✎ on the map pin or edit lat/lng to refine.` : "";
   const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${approxTitle}">🚶 ${mins} min · ${km.toFixed(1)} km${approxLabel}</span>`;
+  const ecceWin = ecceWindowLabel();
   const ecceBadge = p.ecce
-    ? `<span class="mini-badge mini-badge--ecce" title="ECCE participating (free preschool hours)">ECCE</span>`
+    ? `<span class="chip chip--ecce" title="${ecceWin.currentLong}">ECCE · ${ecceWin.current}</span>`
     : "";
   const userBadge = isUserProvider(p)
-    ? `<span class="mini-badge mini-badge--user" title="Added by you in this browser">★ Added by you</span>`
+    ? `<span class="chip chip--user" title="Added by you in this browser">★ Added by you</span>`
     : "";
 
   const opening = openingBadgeHTML(es.status);
@@ -957,7 +984,6 @@ function renderProviders(){
       if (aApprox !== bApprox) return aApprox - bApprox;
       return walkingKm(a) - walkingKm(b);
     },
-    "open":       (a,b) => (openOrder[effectiveStatus(a).status]||3) - (openOrder[effectiveStatus(b).status]||3),
     "price":      (a,b) => effectivePrice(a).monthly_fee - effectivePrice(b).monthly_fee,
     "price-desc": (a,b) => effectivePrice(b).monthly_fee - effectivePrice(a).monthly_fee,
     "stability":  (a,b) => b.stability - a.stability,
@@ -1543,6 +1569,15 @@ function init(){
   $("#provider-grid") && $("#provider-grid").addEventListener("click", handleShortlistAction);
   $("#provider-grid") && $("#provider-grid").addEventListener("submit", handlePriceFormSubmit);
   $("#shortlist-export") && $("#shortlist-export").addEventListener("click", downloadCSV);
+  $("#shortlist-print") && $("#shortlist-print").addEventListener("click", () => {
+    document.body.setAttribute("data-print-date", todayISO());
+    // Native print dialog. The @media print stylesheet hides everything
+    // except the shortlist and reformats it for paper.
+    setTimeout(() => window.print(), 50);
+  });
+  window.addEventListener("afterprint", () => {
+    document.body.classList.remove("printing-shortlist");
+  });
 
   // Settings
   wireSettings();
