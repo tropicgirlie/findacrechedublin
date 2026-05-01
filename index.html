@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-01-info-bar" />
+  <link rel="stylesheet" href="style.css?v=2026-05-01-privacy" />
 </head>
 <body>
 
@@ -36,6 +36,7 @@
         <a href="#step1">Set home</a>
         <a href="#simulator">Cost</a>
         <a href="#about">About</a>
+        <a href="#privacy">Privacy</a>
       </nav>
     </div>
   </header>
@@ -200,7 +201,7 @@
             <a href="#step1" id="loc-set-eircode" class="btn btn--ghost btn--small">✍️ Type my eircode</a>
             <button type="button" id="loc-dismiss" class="btn btn--ghost btn--small">Stay with Lucan defaults</button>
           </div>
-          <p class="loc-prompt__privacy">"Use my location" asks for browser permission and saves the coords in your browser only. Nothing leaves this page.</p>
+          <p class="loc-prompt__privacy">"Use my location" asks for browser permission. Coordinates are saved in your browser and sent <strong>once</strong> to OpenStreetMap to look up the nearest place name. They are not stored anywhere else. <a href="#privacy">Full privacy note →</a></p>
           <p class="loc-prompt__error" id="loc-prompt-error" hidden></p>
         </div>
 
@@ -569,6 +570,67 @@
       </div>
     </section>
 
+    <!-- ============ PRIVACY ============ -->
+    <section id="privacy" class="section privacy">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">Privacy</span>
+          <h2 class="section__title">What this site does (and doesn't) do with your data.</h2>
+          <p class="section__lede">Plain English. No cookie banner because there's nothing to consent to.</p>
+        </header>
+
+        <div class="privacy__grid">
+          <article class="privacy__card privacy__card--ok">
+            <h3>What we don't do</h3>
+            <ul>
+              <li>No cookies.</li>
+              <li>No analytics, no Google Analytics, no Facebook Pixel.</li>
+              <li>No tracking. No advertising. No newsletter list.</li>
+              <li>No accounts, no login.</li>
+              <li>No server. There's literally no database where your data could live.</li>
+            </ul>
+          </article>
+
+          <article class="privacy__card">
+            <h3>What stays in your browser</h3>
+            <p>Everything you save here is stored in your own browser via <code>localStorage</code> on this device:</p>
+            <ul>
+              <li>Your shortlist (providers + status + dates + notes).</li>
+              <li>Per-provider price overrides and opening-status overrides.</li>
+              <li>Your home anchor (eircode + coords) and walking-time preference.</li>
+              <li>Your name and phone for the email sign-off.</li>
+            </ul>
+            <p>If you clear your browser, this all goes. <a href="#shortlist">Use the Print or CSV export</a> for a backup.</p>
+          </article>
+
+          <article class="privacy__card">
+            <h3>Third-party assets</h3>
+            <p>Loading the page makes browser requests to a few CDNs. Each sees your IP address as a normal side effect of any web request. We don't control their privacy practices.</p>
+            <ul>
+              <li><strong>OpenStreetMap / Carto</strong> — for the map tiles.</li>
+              <li><strong>Leaflet</strong> (unpkg.com) — the map library.</li>
+              <li><strong>Fontshare</strong> — for the Satoshi typeface.</li>
+              <li><strong>Unsplash</strong> — for the hero photo.</li>
+              <li><strong><a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a></strong> — embedded in the Cost section. This is my other project; same operator.</li>
+            </ul>
+          </article>
+
+          <article class="privacy__card">
+            <h3>Browser geolocation</h3>
+            <p>If you click <em>"Use my location"</em>:</p>
+            <ul>
+              <li>Your browser asks <em>you</em> for permission first.</li>
+              <li>The coordinates are saved to your browser only.</li>
+              <li>They are sent <strong>once</strong> to <a href="https://nominatim.openstreetmap.org" target="_blank" rel="noopener">OpenStreetMap Nominatim</a> to translate the coords into a place name (e.g. "Lucan"). Nominatim's <a href="https://operations.osmfoundation.org/policies/nominatim/" target="_blank" rel="noopener">usage policy</a> and the OSMF privacy policy apply to that one request.</li>
+              <li>If you skip the prompt or pick "Stay with Lucan defaults", no geolocation request is made.</li>
+            </ul>
+          </article>
+        </div>
+
+        <p class="privacy__contact">Questions? The site is open source: <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">github.com/tropicgirlie/findacrechedublin</a>. Open an issue and I'll respond.</p>
+      </div>
+    </section>
+
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
       <div class="container footer__inner">
@@ -599,6 +661,7 @@
         <div class="footer__col">
           <h4>Fine print</h4>
           <p class="footer__note">Data gathered April 2026. Fees are estimates for comparison and should be confirmed directly with each provider. Subsidy amounts depend on household circumstances; see the official NCS calculator for a binding figure.</p>
+          <p class="footer__note"><a href="#privacy">Privacy</a> · No cookies · No tracking</p>
         </div>
       </div>
       <div class="footer__base container">
@@ -612,8 +675,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-01-info-bar"></script>
-  <script src="app.js?v=2026-05-01-info-bar" defer></script>
+  <script src="data/providers.js?v=2026-05-01-privacy"></script>
+  <script src="app.js?v=2026-05-01-privacy" defer></script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
