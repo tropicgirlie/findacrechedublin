@@ -1684,6 +1684,23 @@ input[type="range"]::-moz-range-thumb{
   font-size: var(--fs-sm);
   line-height: 1.55;
 }
+.info-bar--bottom{
+  margin: 28px 0 0;
+  border-left-width: 0;
+  border-radius: 0;
+}
+.top-home-cta{
+  margin: 0 0 14px;
+}
+.compare-chip-row{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.compare-chip-row .chip strong{
+  margin-left: 6px;
+}
 .info-bar > p{
   margin: 0;
   color: var(--text-muted);
@@ -1768,12 +1785,14 @@ input[type="range"]::-moz-range-thumb{
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  width: 100%;
 }
 .provider-more[hidden]{ display: none; }
 .provider-more p{
   margin: 0;
   font-size: var(--fs-sm);
   color: var(--text-muted);
+  text-align: center;
 }
 .provider-more .btn{ min-width: 200px; }
 .link-btn{
@@ -2203,6 +2222,125 @@ input[type="range"]::-moz-range-thumb{
   flex-wrap: wrap;
 }
 .pcard__link--muted{ color: var(--text-muted); }
+
+/* ============================================================
+   Card redesign (ckm-design pass)
+   Focus: scanability, stronger hierarchy, cleaner actions
+   ============================================================ */
+.card-grid{
+  gap: 18px;
+}
+.pcard{
+  position: relative;
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  padding: 18px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfbf8 100%);
+  box-shadow: 0 8px 24px -18px rgba(20, 40, 35, .45);
+}
+.section--alt .pcard{
+  background: linear-gradient(180deg, #ffffff 0%, #f9f7f2 100%);
+}
+.pcard::before{
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 4px;
+  border-radius: 18px 18px 0 0;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: .7;
+}
+.pcard:hover{
+  transform: translateY(-1px);
+  border-color: var(--primary-100);
+  box-shadow: 0 16px 30px -22px rgba(20, 40, 35, .55);
+}
+.pcard__statusrow{
+  gap: 6px;
+}
+.pcard__name{
+  font-size: 1.08rem;
+  line-height: 1.25;
+  margin: 0;
+}
+.pcard__minimeta{
+  margin-top: -2px;
+}
+.pcard__feerow{
+  margin: 4px 0 2px;
+  padding: 10px 12px;
+  background: rgba(31, 107, 99, .05);
+  border: 1px solid rgba(31, 107, 99, .12);
+  border-radius: 12px;
+}
+.pcard__fee{
+  border: 0;
+  padding: 0;
+}
+.pcard__fee strong{
+  font-size: 1.28rem;
+  line-height: 1;
+}
+.pcard__primary-cta{
+  margin-top: 2px;
+}
+.pcard__primary-cta .act{
+  min-height: 42px;
+  border-radius: 12px;
+}
+.pcard__details{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line-soft);
+}
+.pcard__details summary{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(31, 107, 99, .06);
+  border: 1px solid rgba(31, 107, 99, .1);
+  font-size: 12px;
+  letter-spacing: .01em;
+}
+.pcard__details-body{
+  margin-top: 2px;
+}
+.pcard__meta{
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.pcard__meta > span{
+  padding: 8px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .72);
+}
+.pcard__stability{
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(232, 241, 239, .75);
+  border: 1px solid var(--primary-100);
+}
+.pcard__features{
+  gap: 8px;
+}
+.pcard__actions{
+  margin-top: 2px;
+}
+.pcard__actions .act{
+  border-radius: 10px;
+}
+@media (max-width: 560px){
+  .pcard{
+    padding: 14px;
+    border-radius: 14px;
+  }
+  .pcard__meta{
+    grid-template-columns: 1fr;
+  }
+}
 
 /* Settings card on Step 1 (it lives directly in a section now) */
 .step .settings-card{

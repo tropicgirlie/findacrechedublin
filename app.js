@@ -1021,6 +1021,7 @@ function renderProviders(){
   const shown = list.slice(0, Math.min(visibleCount, total));
   $("#provider-grid").innerHTML = shown.map(providerCardHTML).join("");
   $("#provider-count") && ($("#provider-count").textContent = total);
+  $("#provider-total-chip") && ($("#provider-total-chip").textContent = DATA.providers.length);
 
   // Render the "Show more / Showing N of M" footer
   const more = $("#provider-more");

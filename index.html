@@ -52,6 +52,12 @@
           <h2 class="section__title">All providers, on one map.</h2>
           <p class="section__lede">Click any pin for details and to add the provider to your shortlist. Pin colours: <span class="dot-inline dot-inline--low"></span> Low waitlist, <span class="dot-inline dot-inline--med"></span> Medium, <span class="dot-inline dot-inline--high"></span> High or Very High.</p>
         </header>
+        <div class="info-bar" role="note">
+          <p><span class="info-bar__icon" aria-hidden="true">ℹ</span><strong>Informational only:</strong> due to childcare shortage, this site cannot guarantee live vacancies. Use this list to compare options and verify availability directly with each provider.</p>
+        </div>
+        <div class="top-home-cta">
+          <a href="#step1" class="btn btn--ghost btn--small">📍 Set your home first</a>
+        </div>
 
         <!-- First-visit location prompt: hidden once the visitor answers or dismisses -->
         <div id="location-prompt" class="loc-prompt" hidden>
@@ -114,31 +120,8 @@
           <h2 class="section__title">All providers, side by side.</h2>
           <p class="section__lede">Search, sort, filter. Cards are minimal by default; click <em>Show details</em> to expand any one for hours, chain, stability, and provenance.</p>
         </header>
-
-        <div class="info-bar" role="note">
-          <p>
-            <span class="info-bar__icon" aria-hidden="true">ℹ</span>
-            Source: <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">Tusla Early Years Register</a> (March 2026). Fees, hours and waitlist length are estimates. <strong>Always verify directly with the provider.</strong>
-            <a class="info-bar__why" href="#prices-why" data-toggle-why>How are prices estimated?</a>
-          </p>
-          <details id="prices-why" class="info-bar__details">
-            <summary class="visually-hidden">Why prices are estimates</summary>
-            <ul>
-              <li><strong>Chain crèches</strong> (Giraffe, Cocoon, Little Harvard, Tigers): chain-wide rate inherited from research. Chain websites don't publish fees.</li>
-              <li><strong>Core-Funding providers</strong>: capped at €295/week by government rule, used as a fallback.</li>
-              <li><strong>Sessional Montessori &amp; playschools</strong>: figures reflect the ECCE capitation rate. Cost to parents during ECCE hours is €0.</li>
-              <li><strong>Childminders</strong>: typical Tusla-registered rate, not published per minder.</li>
-              <li><strong>Independents marked <code>(est.)</code></strong>: pure estimate within the Core-Funding cap range.</li>
-              <li><strong>Waitlist length</strong>: sector-wide guess (40,000+ on national waitlists per SIPTU/ECI), not provider-specific.</li>
-            </ul>
-            <p class="info-bar__cta">Every fee starts as <span class="chip chip--neutral">? Unconfirmed</span>. When a provider tells you the real number, click <span class="info-bar__edit-cue">✎ edit</span> next to their fee. The chip switches to <span class="chip chip--ok">✓ You verified</span> and persists in this browser. <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">Full per-field provenance →</a></p>
-          </details>
-        </div>
-        <div class="info-bar" role="note">
-          <p>
-            <span class="info-bar__icon" aria-hidden="true">✅</span>
-            <strong>MVP meaning:</strong> <em>Status unknown</em> means not yet confirmed. Waitlist labels are sector estimates only. This is an informational tool: call/email to get real availability.
-          </p>
+        <div class="compare-chip-row" aria-label="Provider counts">
+          <span class="chip chip--accent">All providers <strong id="provider-total-chip">189</strong></span>
         </div>
 
         <div class="area-pills" role="tablist" aria-label="Filter by area"></div>
@@ -233,8 +216,8 @@
     <section id="add-provider" class="section section--alt step">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow step__pill">Add a provider</span>
-          <h2 class="section__title">Know a crèche we don't have?</h2>
+          <span class="section__eyebrow step__pill">Not listed?</span>
+          <h2 class="section__title">Your crèche is not listed here? Contact us.</h2>
           <p class="section__lede">Add it here. Saved in <em>your</em> browser only for now. A community-shared option is coming next: a small backend (Cloudflare KV) where one click can share your addition with everyone.</p>
         </header>
 
@@ -541,6 +524,12 @@
         <p class="privacy__contact">Questions? The site is open source: <a href="https://github.com/tropicgirlie/findacrechedublin" target="_blank" rel="noopener">github.com/tropicgirlie/findacrechedublin</a>. Open an issue and I'll respond.</p>
       </div>
     </section>
+
+    <div class="info-bar info-bar--bottom" role="note">
+      <div class="container">
+        <p><span class="info-bar__icon" aria-hidden="true">ℹ</span><strong>Data note:</strong> this website is informational only. <em>Status unknown</em> means not verified yet, and waitlist labels are estimates. Confirm openings, waitlist position, fees and hours directly with providers. Your to-do list is stored in your browser unless you clear browser data.</p>
+      </div>
+    </div>
 
     <!-- ============ FOOTER ============ -->
     <footer class="footer">
