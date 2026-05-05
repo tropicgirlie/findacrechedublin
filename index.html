@@ -91,6 +91,9 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow step__pill">Map</span>
+          <div class="compare-chip-row" aria-label="Community badge">
+            <span class="chip chip--accent">Free for the community · Open source · Forkable</span>
+          </div>
           <h2 class="section__title">All providers, on one map.</h2>
           <p class="section__lede">Click any pin for details and to add the provider to your shortlist. Pin colours: <span class="dot-inline dot-inline--low"></span> Low waitlist, <span class="dot-inline dot-inline--med"></span> Medium, <span class="dot-inline dot-inline--high"></span> High or Very High.</p>
         </header>
@@ -208,89 +211,6 @@
       </div>
     </section>
 
-    <!-- ============ ADD A PROVIDER (browser-only for now) ============ -->
-    <section id="add-provider" class="section section--alt step">
-      <div class="container">
-        <header class="section__head">
-          <span class="section__eyebrow step__pill">Not listed?</span>
-          <h2 class="section__title">Your crèche is not listed here? Contact us.</h2>
-          <p class="section__lede">Add it here. Saved in <em>your</em> browser only for now. A community-shared option is coming next: a small backend (Cloudflare KV) where one click can share your addition with everyone.</p>
-        </header>
-
-        <div class="settings-card">
-          <h3>New provider</h3>
-          <p class="settings-card__lede">Required: name, address, eircode, latitude, longitude. The rest is optional. To get coordinates, search the eircode on Google Maps, right-click the pin, copy the two numbers.</p>
-          <form id="add-provider-form" class="add-provider-form">
-            <div class="settings-grid">
-              <label class="setting setting--wide">
-                <span>Name *</span>
-                <input type="text" name="name" placeholder="Provider name" required />
-              </label>
-              <label class="setting setting--wide">
-                <span>Address *</span>
-                <input type="text" name="address" placeholder="Street, town, county" required />
-              </label>
-              <label class="setting">
-                <span>Eircode *</span>
-                <input type="text" name="eircode" placeholder="D22 Y1C2" required />
-              </label>
-              <label class="setting">
-                <span>Type</span>
-                <select name="typeKey">
-                  <option value="creche">Full Day Crèche</option>
-                  <option value="montessori">Montessori / Sessional</option>
-                  <option value="childminder">Childminder</option>
-                  <option value="playschool">Playschool</option>
-                </select>
-              </label>
-              <label class="setting">
-                <span>Latitude *</span>
-                <input type="number" name="lat" step="0.0001" placeholder="53.3548" required />
-              </label>
-              <label class="setting">
-                <span>Longitude *</span>
-                <input type="number" name="lng" step="0.0001" placeholder="-6.4485" required />
-              </label>
-              <label class="setting">
-                <span>Phone</span>
-                <input type="tel" name="phone" placeholder="(01) 555 1234" />
-              </label>
-              <label class="setting">
-                <span>Email</span>
-                <input type="email" name="email" placeholder="info@example.ie" />
-              </label>
-              <label class="setting setting--wide">
-                <span>Website</span>
-                <input type="url" name="website" placeholder="https://…" />
-              </label>
-              <label class="setting">
-                <span>Age range</span>
-                <input type="text" name="age_range" placeholder="1–5 yrs" />
-              </label>
-              <label class="setting">
-                <span>Hours</span>
-                <input type="text" name="hours" placeholder="7:30–18:00 Mon–Fri" />
-              </label>
-              <label class="setting setting--wide">
-                <span>Notes (optional)</span>
-                <textarea name="notes" rows="2" placeholder="Anything worth remembering"></textarea>
-              </label>
-            </div>
-            <div class="settings-card__btns">
-              <button type="submit" class="btn btn--primary btn--small">★ Add to my list</button>
-            </div>
-            <p id="add-provider-error" class="loc-prompt__error" hidden></p>
-          </form>
-        </div>
-
-        <div class="settings-card">
-          <h3>Your additions <span id="user-providers-count" class="count-pill">0</span></h3>
-          <p class="settings-card__lede">These show up on the map and in the compare table with a "★ Added by you" badge.</p>
-          <div id="user-providers-list" class="userprov-list" aria-live="polite"></div>
-        </div>
-      </div>
-    </section>
-
 
     <!-- ============ ABOUT / MORE RESOURCES ============ -->
     <section id="about" class="section">
@@ -307,16 +227,16 @@
 
         <div class="resources-grid">
           <article class="res-card res-card--community">
-            <span class="res-card__tag">Free · for the community</span>
+            <span class="res-card__tag">Community project</span>
             <h3>This site</h3>
             <p>Find, track, and contact childcare providers near K78 V295. Always free. No accounts, no tracking, no ads.</p>
           </article>
 
           <article class="res-card res-card--other">
             <span class="res-card__tag">My other project</span>
-            <h3>takehome.co</h3>
-            <p>If childcare costs are eating your salary, see what you actually take home after tax, USC, PRSI, and childcare. <a href="https://takehome.co" target="_blank" rel="noopener">takehome.co</a> helps working parents figure out whether returning to work makes financial sense.</p>
-            <a href="https://takehome.co" target="_blank" rel="noopener" class="btn btn--primary btn--small">Visit takehome.co →</a>
+            <h3>Cost calculator</h3>
+            <p>If childcare costs are eating your salary, use my cost calculator to see what you actually take home after tax, USC, PRSI, and childcare.</p>
+            <a href="https://takehome.co" target="_blank" rel="noopener" class="btn btn--primary btn--small">Open cost calculator →</a>
           </article>
 
           <article class="res-card res-card--official">
@@ -335,7 +255,7 @@
         <header class="section__head">
           <span class="section__eyebrow">Contact</span>
           <h2 class="section__title contact-title-singleline">Need help or want to report data? Contact us.</h2>
-          <p class="section__lede">Send a message and I'll get back to you. Your message is sent securely via the site backend.</p>
+          <p class="section__lede">Use this form for: crèche not listed, data issues, suggestions, and general help. Your message is sent securely via the site backend.</p>
         </header>
 
         <div class="settings-card">
@@ -467,17 +387,6 @@
           <h2 class="section__title">Privacy summary</h2>
           <p class="section__lede">No cookies. No analytics. No tracking. Your to-do list is stored in your browser.</p>
         </header>
-        <div class="privacy__grid">
-          <article class="privacy__card privacy__card--ok">
-            <h3>Simple privacy</h3>
-            <ul>
-              <li>No cookies.</li>
-              <li>No analytics.</li>
-              <li>No tracking.</li>
-              <li>No accounts.</li>
-            </ul>
-          </article>
-        </div>
       </div>
     </section>
 
