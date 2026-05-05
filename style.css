@@ -1793,6 +1793,21 @@ input[type="range"]::-moz-range-thumb{
 }
 .provider-more .btn{ min-width: 200px; }
 .provider-more button{ margin: 0 auto; }
+.provider-more #provider-more-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 2px solid var(--primary);
+  color: var(--primary-dark);
+  background: var(--surface);
+  border-radius: 14px;
+  min-height: 52px;
+}
+.provider-more #provider-more-btn:hover{
+  background: var(--primary-50);
+  border-color: var(--primary-dark);
+}
 .link-btn{
   background: transparent;
   border: 0;
