@@ -59,8 +59,14 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    const spam = scoreSpam({ name, email, message });
+    const spamSignals = [];
+    if (spam.score >= 4) spamSignals.push(`spam-score:${spam.score}`);
+    if (spam.matches.length) spamSignals.push(`keywords:${spam.matches.join("|")}`);
+
     const html = `
       <h2>New website contact</h2>
+      ${spamSignals.length ? `<p><strong>Admin signal:</strong> ${escapeHtml(spamSignals.join(" · "))}</p>` : ""}
       <p><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p><strong>Email:</strong> ${escapeHtml(email)}</p>
       <p><strong>Message:</strong></p>
@@ -77,7 +83,7 @@ module.exports = async function handler(req, res) {
         from,
         to: [to],
         reply_to: email,
-        subject: `Navigator contact from ${name}`,
+        subject: `${spam.score >= 4 ? "[Review] " : ""}Navigator contact from ${name}`,
         html
       })
     });
@@ -114,4 +120,36 @@ function getRateLimitState() {
     globalThis.__contactRateLimit = new Map();
   }
   return globalThis.__contactRateLimit;
+}
+
+function scoreSpam({ name, email, message }) {
+  const text = `${name}\n${email}\n${message}`.toLowerCase();
+  const riskyTerms = [
+    "crypto",
+    "bitcoin",
+    "forex",
+    "casino",
+    "loan",
+    "seo service",
+    "backlink",
+    "guest post",
+    "buy now",
+    "whatsapp",
+    "telegram",
+    "http://",
+    "https://"
+  ];
+
+  const matches = [];
+  let score = 0;
+  for (const term of riskyTerms) {
+    if (text.includes(term)) {
+      matches.push(term);
+      score += term === "http://" || term === "https://" ? 1 : 2;
+    }
+  }
+  if (message.length > 1400) score += 1;
+  if ((message.match(/\n/g) || []).length > 20) score += 1;
+
+  return { score, matches };
 }

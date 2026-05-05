@@ -93,6 +93,7 @@ Anti-spam protections included:
 
 - Hidden honeypot field (`website_url`) on the contact form
 - Basic per-IP rate limit in `api/contact.js` (5 submissions per hour)
+- Lightweight keyword spam scoring with admin signal tags in email subject/body
 
 ## Heads-up on accuracy
 
