@@ -1679,7 +1679,7 @@ input[type="range"]::-moz-range-thumb{
   padding: 10px 14px 10px 12px;
   background: var(--surface);
   border: 1px solid var(--line-soft);
-  border-left: 3px solid var(--primary);
+  border-left: 1px solid var(--line-soft);
   border-radius: 8px;
   font-size: var(--fs-sm);
   line-height: 1.55;
@@ -1688,9 +1688,6 @@ input[type="range"]::-moz-range-thumb{
   margin: 28px 0 0;
   border-left-width: 0;
   border-radius: 0;
-}
-.top-home-cta{
-  margin: 0 0 14px;
 }
 .compare-chip-row{
   display: flex;
@@ -1795,6 +1792,7 @@ input[type="range"]::-moz-range-thumb{
   text-align: center;
 }
 .provider-more .btn{ min-width: 200px; }
+.provider-more button{ margin: 0 auto; }
 .link-btn{
   background: transparent;
   border: 0;
@@ -1917,11 +1915,17 @@ input[type="range"]::-moz-range-thumb{
 .loc-prompt{
   background: var(--surface);
   border: 1px solid var(--accent);
-  border-left: 4px solid var(--accent);
   border-radius: var(--radius-lg);
   padding: 18px 22px;
   margin: 0 0 22px;
   box-shadow: var(--shadow-sm);
+}
+
+.contact-title-singleline{
+  white-space: nowrap;
+}
+@media (max-width: 800px){
+  .contact-title-singleline{ white-space: normal; }
 }
 .loc-prompt[hidden]{ display: none; }
 .loc-prompt__head{
