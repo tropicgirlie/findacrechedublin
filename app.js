@@ -140,14 +140,14 @@ function ecceWindowLabel(){
 
 // ---------- Opening status badges ----------
 const OPENING_LABELS = {
-  open:     { text: "Open spot", icon: "✅", cls: "open" },
-  waitlist: { text: "Waitlist",  icon: "⏳", cls: "waitlist" },
-  full:     { text: "Full",      icon: "❌", cls: "full" },
-  unknown:  { text: "Status unknown", icon: "❓", cls: "unknown" }
+  open:     { text: "Open spot", icon: "✅", cls: "open", help: "Confirmed by direct check." },
+  waitlist: { text: "Waitlist",  icon: "⏳", cls: "waitlist", help: "Confirmed by direct check." },
+  full:     { text: "Full",      icon: "❌", cls: "full", help: "Confirmed by direct check." },
+  unknown:  { text: "Status unknown", icon: "❓", cls: "unknown", help: "Not confirmed yet. Call/email to verify current availability." }
 };
 function openingBadgeHTML(status){
   const o = OPENING_LABELS[status] || OPENING_LABELS.unknown;
-  return `<span class="open-badge open-badge--${o.cls}">${o.icon} ${o.text}</span>`;
+  return `<span class="open-badge open-badge--${o.cls}" title="${o.help}">${o.icon} ${o.text}</span>`;
 }
 
 // ---------- PRICE OVERRIDES (localStorage-backed) ----------
@@ -709,7 +709,7 @@ function popupHTML(p){
       <div class="pop__row"><span>Fee</span>${feeLine}</div>
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
-      <div class="pop__row"><span>Waitlist</span><strong>${p.waitlist} (~${p.waitlist_months} mo)</strong></div>
+      <div class="pop__row"><span>Waitlist</span><strong title="Sector-level estimate, not provider-confirmed.">Sector estimate only</strong></div>
       <div class="pop__actions">${cta}${websiteLink}</div>
     </div>`;
 }
@@ -962,7 +962,7 @@ function providerCardHTML(p){
             <span><b>Hours</b><br/>${p.hours}</span>
             <span><b>Area</b><br/>${p.address.split(",")[0]}</span>
             <span><b>Chain</b><br/>${p.chain}</span>
-            <span><b>Waitlist</b><br/><span class="${riskBadgeClass(p.waitlist)}">${p.waitlist} · ~${p.waitlist_months} mo</span></span>
+            <span><b>Waitlist</b><br/><span class="${riskBadgeClass(p.waitlist)}" title="Sector-level estimate only. Verify directly with provider.">${p.waitlist} (estimate)</span></span>
           </div>
           <div class="pcard__stability">
             Stability ${p.stability}/10

@@ -32,7 +32,7 @@
       <nav class="nav__links" aria-label="Section links">
         <a href="#step3">Map</a>
         <a href="#providers">Compare</a>
-        <a href="#shortlist">★ Shortlist</a>
+        <a href="#shortlist">★ To-do list</a>
         <a href="#contact">Contact</a>
         <a href="#step1">Set home</a>
         <a href="#simulator">Cost</a>
@@ -269,6 +269,12 @@
             <p class="info-bar__cta">Every fee starts as <span class="chip chip--neutral">? Unconfirmed</span>. When a provider tells you the real number, click <span class="info-bar__edit-cue">✎ edit</span> next to their fee. The chip switches to <span class="chip chip--ok">✓ You verified</span> and persists in this browser. <a href="https://github.com/tropicgirlie/findacrechedublin/blob/main/data/README.md" target="_blank" rel="noopener">Full per-field provenance →</a></p>
           </details>
         </div>
+        <div class="info-bar" role="note">
+          <p>
+            <span class="info-bar__icon" aria-hidden="true">✅</span>
+            <strong>MVP meaning:</strong> <em>Status unknown</em> means not yet confirmed. Waitlist labels are sector estimates only. This is an informational tool: call/email to get real availability.
+          </p>
+        </div>
 
         <div class="area-pills" role="tablist" aria-label="Filter by area"></div>
 
@@ -303,14 +309,14 @@
     <section id="shortlist" class="section step">
       <div class="container">
         <header class="section__head">
-          <span class="section__eyebrow step__pill">Your shortlist · ★ <span id="shortlist-count" class="count-pill">0</span></span>
+          <span class="section__eyebrow step__pill">Your to-do list · ★ <span id="shortlist-count" class="count-pill">0</span></span>
           <h2 class="section__title">Track who you've contacted.</h2>
-          <p class="section__lede">Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call when direct details are available; otherwise cards are marked directory-only. Anything in red is overdue for follow-up.</p>
+          <p class="section__lede">Use this as your childcare to-do list: who to contact, when to follow up, and notes. Data stays in this browser (and remains after closing the tab) unless you clear browser storage. Download a spreadsheet backup any time.</p>
         </header>
         <div class="shortlist-toolbar">
           <button id="shortlist-print" class="btn btn--primary btn--small" title="Print this shortlist or save as PDF (use 'Save as PDF' in the print dialog)">🖨 Print or save as PDF</button>
-          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet</button>
-          <span class="hint">Your shortlist lives only in this browser. Print to PDF or download a CSV backup now and then so you don't lose it.</span>
+          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download to-do as spreadsheet</button>
+          <span class="hint">This to-do list is stored in this browser. It persists unless browser data is cleared. Download CSV/PDF backups regularly.</span>
         </div>
         <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
       </div>
