@@ -569,6 +569,9 @@ function hasUsablePhone(p){
   const lc = p.phone.toLowerCase();
   return !lc.startsWith("via ") && lc !== "tusla register";
 }
+function hasDirectContact(p){
+  return !!(p.email || hasUsablePhone(p) || p.website);
+}
 function telLink(p){
   return `tel:${p.phone.replace(/[^+0-9]/g, "")}`;
 }
@@ -1059,6 +1062,9 @@ function renderRecommended(){
     const ao = openOrder[effectiveStatus(a).status] ?? 2;
     const bo = openOrder[effectiveStatus(b).status] ?? 2;
     if (ao !== bo) return ao - bo;
+    const aContact = hasDirectContact(a) ? 0 : 1;
+    const bContact = hasDirectContact(b) ? 0 : 1;
+    if (aContact !== bContact) return aContact - bContact;
     return walkingKm(a) - walkingKm(b);
   });
   const top = candidates.slice(0, 6);
