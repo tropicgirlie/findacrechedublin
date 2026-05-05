@@ -33,6 +33,7 @@
         <a href="#step3">Map</a>
         <a href="#providers">Compare</a>
         <a href="#shortlist">★ Shortlist</a>
+        <a href="#contact">Contact</a>
         <a href="#step1">Set home</a>
         <a href="#simulator">Cost</a>
         <a href="#about">About</a>
@@ -566,6 +567,40 @@
             <p>This site lists the Tusla-registered providers in Lucan, Clondalkin and nearby Co. Kildare (Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounding towns). Tusla, the State agency that registers all Irish early-years services, has the full national list. Use it to widen the search or verify a provider is properly registered.</p>
             <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener" class="btn btn--ghost btn--small">Open Tusla register →</a>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact" class="section section--alt">
+      <div class="container">
+        <header class="section__head">
+          <span class="section__eyebrow">Contact</span>
+          <h2 class="section__title">Need help or want to report data updates?</h2>
+          <p class="section__lede">Send a message and I'll get back to you. Your message is sent securely via the site backend.</p>
+        </header>
+
+        <div class="settings-card">
+          <form id="contact-form" class="add-provider-form" novalidate>
+            <div class="settings-grid">
+              <label class="setting">
+                <span>Your name *</span>
+                <input type="text" name="name" required />
+              </label>
+              <label class="setting">
+                <span>Your email *</span>
+                <input type="email" name="email" required />
+              </label>
+              <label class="setting setting--wide">
+                <span>Message *</span>
+                <textarea name="message" rows="5" required placeholder="How can I help?"></textarea>
+              </label>
+            </div>
+            <div class="settings-card__btns">
+              <button type="submit" class="btn btn--primary btn--small" id="contact-submit-btn">Send message</button>
+            </div>
+            <p id="contact-form-status" class="loc-prompt__error" hidden></p>
+          </form>
         </div>
       </div>
     </section>

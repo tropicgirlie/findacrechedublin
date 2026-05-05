@@ -1440,6 +1440,64 @@ function handleUserProviderRemove(e){
   refreshAfterUserProviderChange();
 }
 
+async function handleContactFormSubmit(e){
+  const form = e.target.closest("form#contact-form");
+  if (!form) return;
+  e.preventDefault();
+
+  const statusEl = document.getElementById("contact-form-status");
+  const submitBtn = document.getElementById("contact-submit-btn");
+  const fd = new FormData(form);
+  const payload = {
+    name: String(fd.get("name") || "").trim(),
+    email: String(fd.get("email") || "").trim(),
+    message: String(fd.get("message") || "").trim()
+  };
+
+  if (!payload.name || !payload.email || !payload.message){
+    if (statusEl){
+      statusEl.hidden = false;
+      statusEl.textContent = "Please fill in name, email, and message.";
+    }
+    return;
+  }
+
+  if (submitBtn){
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+  }
+  if (statusEl) statusEl.hidden = true;
+
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || !out.ok){
+      throw new Error(out.error || "Could not send message right now.");
+    }
+    form.reset();
+    if (statusEl){
+      statusEl.hidden = false;
+      statusEl.className = "contact-ok";
+      statusEl.textContent = "Message sent. Thank you.";
+    }
+  } catch (err){
+    if (statusEl){
+      statusEl.hidden = false;
+      statusEl.className = "loc-prompt__error";
+      statusEl.textContent = err.message || "Could not send message right now.";
+    }
+  } finally {
+    if (submitBtn){
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send message";
+    }
+  }
+}
+
 function refreshAfterStatusChange(){
   renderProviders();
   renderRecommended();
@@ -1627,6 +1685,10 @@ function init(){
   const userList = document.getElementById("user-providers-list");
   if (userList) userList.addEventListener("click", handleUserProviderRemove);
   renderUserProviders();
+
+  // Contact form
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) contactForm.addEventListener("submit", handleContactFormSubmit);
 
   // Cost calculator is a link out to takehome.co; no JS wiring.
 }

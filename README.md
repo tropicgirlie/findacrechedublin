@@ -79,6 +79,16 @@ Open `index.html` directly in a browser — no build step, no install. Or for HT
 
 This repo is a Vercel-ready static site. Push to GitHub, import the repo into Vercel, and it deploys with zero configuration. There is no `vercel.json` because there's nothing custom to configure.
 
+### Contact form setup (backend endpoint)
+
+The contact form posts to `POST /api/contact` (Vercel serverless function in `api/contact.js`).
+
+Set these Vercel environment variables before production:
+
+- `RESEND_API_KEY`
+- `CONTACT_TO_EMAIL` (your inbox destination)
+- `CONTACT_FROM_EMAIL` (optional; defaults to `onboarding@resend.dev`)
+
 ## Heads-up on accuracy
 
 **Walking-time estimates are approximate.** Each provider has a `lat` and `lng` in `data/providers.js`. Several were initially placed by eye against the eircode area rather than geocoded from the exact address, so a card might say "3 min walk" when the real walk is closer to 8. If precision matters, click the eircode link on the card to verify on Google Maps, and update the `lat`/`lng` in `data/providers.js` to match the exact pin.

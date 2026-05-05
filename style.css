@@ -1945,6 +1945,16 @@ input[type="range"]::-moz-range-thumb{
   font-size: var(--fs-xs);
 }
 
+.contact-ok{
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  background: var(--success-50);
+  border: 1px solid var(--success);
+  border-radius: var(--radius-sm);
+  color: var(--success);
+  font-size: var(--fs-xs);
+}
+
 /* Cost CTA card linking to takehome.co */
 .cost-cta{
   display: flex;
