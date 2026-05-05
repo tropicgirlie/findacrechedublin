@@ -818,7 +818,7 @@ function priceVerifyBadge(ep){
   if (ep.verified){
     return `<span class="vfy vfy--ok" title="You confirmed this fee with the provider on ${ep.verified_date || "?"}">✓ You verified${ep.verified_date ? " · " + ep.verified_date : ""}</span>`;
   }
-  return `<span class="vfy vfy--est" title="Inherited estimate. Call the provider and click ✎ to update.">? Unconfirmed estimate</span>`;
+  return `<span class="vfy vfy--est" title="Estimated from dataset defaults. Verify directly with provider by phone/email.">? Estimated price · verify by call</span>`;
 }
 
 function priceEditFormHTML(p, ep){
@@ -910,7 +910,8 @@ function providerCardHTML(p){
   const isApprox = p.coord_source === "town";
   const approxLabel = isApprox ? " · approx" : "";
   const approxTitle = isApprox ? `Distance is approximate. Pin sits at the ${p.town} town centre because OpenStreetMap doesn't have this provider's exact street. Click ✎ on the map pin or edit lat/lng to refine.` : "";
-  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${approxTitle}">🚶 ${mins} min · ${km.toFixed(1)} km${approxLabel}</span>`;
+  const distTitle = `Distance is calculated from your current home location setting.${approxTitle ? " " + approxTitle : ""}`;
+  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${distTitle}">🚶 ${mins} min · ${km.toFixed(1)} km${approxLabel}</span>`;
   const ecceWin = ecceWindowLabel();
   const ecceBadge = p.ecce
     ? `<span class="chip chip--ecce" title="${ecceWin.currentLong}">ECCE · ${ecceWin.current}</span>`

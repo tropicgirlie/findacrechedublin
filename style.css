@@ -1300,7 +1300,24 @@ input[type="range"]::-moz-range-thumb{
   font-size: var(--fs-sm);
   color: var(--ink);
 }
+.setting select{
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+  font: inherit;
+  font-size: var(--fs-sm);
+  color: var(--ink);
+  line-height: 1.25;
+}
 .setting input:focus{
+  border-color: var(--sage-500);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--sage-100);
+}
+.setting select:focus{
   border-color: var(--sage-500);
   outline: none;
   box-shadow: 0 0 0 3px var(--sage-100);
@@ -1333,6 +1350,9 @@ input[type="range"]::-moz-range-thumb{
 }
 .vfy--ok{       background: var(--ok-50);   color: var(--sage-700); border: 1px solid var(--sage-300); }
 .vfy--est{      background: var(--cream-2); color: var(--muted);    border: 1px solid var(--line); }
+.vfy--est{
+  font-weight: 700;
+}
 .vfy--ok-inline,
 .vfy--est-inline{
   display: inline-flex;
