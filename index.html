@@ -582,6 +582,11 @@
 
         <div class="settings-card">
           <form id="contact-form" class="add-provider-form" novalidate>
+            <!-- Honeypot anti-spam field: real users should never fill this -->
+            <label class="visually-hidden" aria-hidden="true">
+              Leave this field empty
+              <input type="text" name="website_url" tabindex="-1" autocomplete="off" />
+            </label>
             <div class="settings-grid">
               <label class="setting">
                 <span>Your name *</span>

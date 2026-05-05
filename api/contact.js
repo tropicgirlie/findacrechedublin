@@ -18,6 +18,13 @@ module.exports = async function handler(req, res) {
     const name = String(body.name || "").trim();
     const email = String(body.email || "").trim();
     const message = String(body.message || "").trim();
+    const honeypot = String(body.website_url || "").trim();
+
+    // Honeypot: bots often fill hidden fields. Return success-like response
+    // so bot behavior isn't reinforced with explicit errors.
+    if (honeypot) {
+      return res.status(200).json({ ok: true });
+    }
 
     if (!name || !email || !message) {
       return res.status(400).json({ ok: false, error: "Missing required fields" });
@@ -32,6 +39,24 @@ module.exports = async function handler(req, res) {
 
     if (!apiKey || !to) {
       return res.status(500).json({ ok: false, error: "Email service not configured" });
+    }
+
+    // Basic in-memory rate limiting per client IP.
+    // Good enough for launch-phase spam reduction on low traffic.
+    const ip = getClientIp(req);
+    const now = Date.now();
+    const limit = getRateLimitState();
+    const windowMs = 60 * 60 * 1000; // 1 hour
+    const maxPerWindow = 5;
+    const key = ip || "unknown";
+    const entry = limit.get(key);
+    if (!entry || now > entry.resetAt) {
+      limit.set(key, { count: 1, resetAt: now + windowMs });
+    } else {
+      entry.count += 1;
+      if (entry.count > maxPerWindow) {
+        return res.status(429).json({ ok: false, error: "Too many messages. Please try again later." });
+      }
     }
 
     const html = `
@@ -75,4 +100,18 @@ function escapeHtml(input) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function getClientIp(req) {
+  const xff = req.headers["x-forwarded-for"];
+  if (Array.isArray(xff)) return xff[0];
+  if (typeof xff === "string" && xff.trim()) return xff.split(",")[0].trim();
+  return req.headers["x-real-ip"] || req.socket?.remoteAddress || "";
+}
+
+function getRateLimitState() {
+  if (!globalThis.__contactRateLimit) {
+    globalThis.__contactRateLimit = new Map();
+  }
+  return globalThis.__contactRateLimit;
 }

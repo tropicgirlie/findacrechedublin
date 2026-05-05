@@ -89,6 +89,11 @@ Set these Vercel environment variables before production:
 - `CONTACT_TO_EMAIL` (your inbox destination)
 - `CONTACT_FROM_EMAIL` (optional; defaults to `onboarding@resend.dev`)
 
+Anti-spam protections included:
+
+- Hidden honeypot field (`website_url`) on the contact form
+- Basic per-IP rate limit in `api/contact.js` (5 submissions per hour)
+
 ## Heads-up on accuracy
 
 **Walking-time estimates are approximate.** Each provider has a `lat` and `lng` in `data/providers.js`. Several were initially placed by eye against the eircode area rather than geocoded from the exact address, so a card might say "3 min walk" when the real walk is closer to 8. If precision matters, click the eircode link on the card to verify on Google Maps, and update the `lat`/`lng` in `data/providers.js` to match the exact pin.
