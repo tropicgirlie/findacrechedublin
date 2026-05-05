@@ -1060,6 +1060,8 @@ input[type="range"]::-moz-range-thumb{
 .age-pill                              { background: var(--bg);          color: var(--text-muted); border-color: var(--line-soft); }
 .chip--accent,     .mini-badge--user   { background: var(--primary-50);  color: var(--primary-dark); border-color: var(--primary-100); }
 .chip--ecce,       .mini-badge--ecce   { background: var(--success-50);  color: var(--success);    border-color: var(--success); }
+.mini-badge--contact                    { background: var(--primary-50);  color: var(--primary-dark); border-color: var(--primary-100); }
+.mini-badge--directory                  { background: var(--accent-50);   color: var(--warning);    border-color: var(--accent); }
 
 .verified{
   font-size: var(--fs-xs);

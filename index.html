@@ -51,7 +51,7 @@
         <div class="hero__copy">
           <span class="hero__eyebrow">Lucan &amp; Co. Kildare · Free</span>
           <h1 class="hero__title">Free childcare search for Lucan and nearby Kildare.</h1>
-          <p class="hero__subtitle">Find providers near home, compare options, and keep track of every enquiry in one place.</p>
+          <p class="hero__subtitle">Find providers near home, compare options, and track every enquiry in one place. Availability and pricing stay clearly marked as verified or unconfirmed.</p>
 
           <div class="hero__cta">
             <a href="#step3" class="btn btn--primary">Open the map</a>
@@ -166,7 +166,7 @@
         </div>
         <details class="trust__maker">
           <summary>For makers: how the data layer is wired</summary>
-          <p>The site is a static HTML/CSS/JS bundle on Vercel. Provider data lives in <code>data/providers.js</code>. Per-user state (shortlist, price overrides, opening status, your home anchor) is stored in <code>localStorage</code> with versioned keys. There's no backend yet, so additions you make stay local until shared. A community layer using Cloudflare Workers + KV is planned: a small free-tier backend so any visitor can submit a provider and everyone sees it. Until that ships, the in-browser "Add a provider" form lets you maintain your own list.</p>
+          <p>The site is a static HTML/CSS/JS bundle on Vercel. Provider data lives in <code>data/providers.js</code>. Per-user state (shortlist, price overrides, opening status, your home anchor) is stored in <code>localStorage</code> with versioned keys. There is no backend generating live provider facts yet, so this is an informational + workflow tool and verification happens through your calls/emails. A community layer using Cloudflare Workers + KV is planned: a small free-tier backend so any visitor can submit a provider and everyone sees it. Until that ships, the in-browser "Add a provider" form lets you maintain your own list.</p>
         </details>
       </div>
     </section>
@@ -304,7 +304,7 @@
         <header class="section__head">
           <span class="section__eyebrow step__pill">Your shortlist · ★ <span id="shortlist-count" class="count-pill">0</span></span>
           <h2 class="section__title">Track who you've contacted.</h2>
-          <p class="section__lede">Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call. Anything in red is overdue for follow-up.</p>
+          <p class="section__lede">Status, last contact date, follow-up reminder, and notes, all saved in your browser. One click sends a pre-filled email or phone call when direct details are available; otherwise cards are marked directory-only. Anything in red is overdue for follow-up.</p>
         </header>
         <div class="shortlist-toolbar">
           <button id="shortlist-print" class="btn btn--primary btn--small" title="Print this shortlist or save as PDF (use 'Save as PDF' in the print dialog)">🖨 Print or save as PDF</button>

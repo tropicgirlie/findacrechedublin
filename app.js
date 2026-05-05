@@ -572,6 +572,12 @@ function hasUsablePhone(p){
 function hasDirectContact(p){
   return !!(p.email || hasUsablePhone(p) || p.website);
 }
+function contactBadgeHTML(p){
+  if (hasDirectContact(p)){
+    return `<span class="mini-badge mini-badge--contact" title="At least one direct contact method is available">☎ Direct contact</span>`;
+  }
+  return `<span class="mini-badge mini-badge--directory" title="No direct phone/email/website stored yet. Use Tusla/directory listing to contact.">📒 Directory-only</span>`;
+}
 function telLink(p){
   return `tel:${p.phone.replace(/[^+0-9]/g, "")}`;
 }
@@ -900,6 +906,7 @@ function providerCardHTML(p){
   const userBadge = isUserProvider(p)
     ? `<span class="chip chip--user" title="Added by you in this browser">★ Added by you</span>`
     : "";
+  const contactBadge = contactBadgeHTML(p);
 
   const opening = openingBadgeHTML(es.status);
 
@@ -920,7 +927,7 @@ function providerCardHTML(p){
   return `
     <article class="pcard" data-id="${p.id}">
       <div class="pcard__top">
-        <div class="pcard__statusrow">${opening}${ecceBadge}${userBadge}</div>
+        <div class="pcard__statusrow">${opening}${ecceBadge}${userBadge}${contactBadge}</div>
         <h3 class="pcard__name">${p.name}</h3>
         <div class="pcard__minimeta">
           ${distHTML}
@@ -952,6 +959,7 @@ function providerCardHTML(p){
           ${feats.length ? `<div class="pcard__features">${feats.join("")}</div>` : ""}
           <div class="pcard__statusprov">Opening status: ${editStatusBtn} ${statusProv}</div>
           <div class="pcard__actions">${emailBtn}${callBtn}</div>
+          ${hasDirectContact(p) ? "" : `<div class="pcard__statusprov">No direct phone/email/website yet. Contact via Tusla or childcare directory listing.</div>`}
           ${link}
         </div>
       </details>

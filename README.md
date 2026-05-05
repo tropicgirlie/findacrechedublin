@@ -1,6 +1,6 @@
 # Lucan & Kildare Childcare Navigator
 
-A single-page tool for finding, tracking, and contacting childcare providers in Lucan and nearby Co. Kildare. Anchored at K78 V295; every provider shows walking time, opening status, and one-click email/call buttons.
+A single-page informational tool for finding, tracking, and contacting childcare providers in Lucan and nearby Co. Kildare. Anchored at K78 V295; every provider shows walking time and opening status, and contact actions appear when direct contact details are available.
 
 > **Status:** Personal-use tool. 21 providers covering Lucan + Celbridge, Leixlip, Naas, and other nearby Kildare towns. Data is research-compiled; see [data/README.md](data/README.md) for per-field provenance.
 
@@ -8,7 +8,7 @@ A single-page tool for finding, tracking, and contacting childcare providers in 
 
 - **Home anchor (K78 V295)**: every provider shows a walking-time pill (e.g. "12 min walk · 0.9 km") and an opening-status badge (✅ Open / ⏳ Waitlist / ❌ Full / ❓ Unknown). Filter the map and the cards by "Open spots only" and "Walking ≤ 20 min".
 - **My Shortlist tracker**: one-click "Add to shortlist" on any provider, then track status (not contacted → email sent → called → replied → visited → confirmed/declined), last-contact date, next-follow-up reminder (highlights overdue in red), and free-text notes. Persisted in your browser via `localStorage`. Export as CSV for backup.
-- **One-click contact**: 📧 Email button opens a pre-filled `mailto:` (initial enquiry or weekly follow-up depending on status), 📞 Call button opens `tel:` for the provider's number. Templates pull from the Settings panel (your name, child age, eircode, start window).
+- **One-click contact (when available)**: 📧 Email button opens a pre-filled `mailto:` (initial enquiry or weekly follow-up depending on status), 📞 Call button opens `tel:` for the provider's number. If no direct phone/email/website is available, the card is marked as directory-only.
 - **Interactive map** with 14 providers, colour-coded by waitlist risk, filterable by type, budget, Montessori, ECCE, opening status, and walking distance.
 - **Provider comparison cards** with search, sort (closest first / open spots first / price / stability / waitlist / name), fees, hours, stability scores, and feature badges.
 - **Live cost simulator** with NCS Universal, NCS Income-Assessed, and ECCE subsidies applied in the correct order, plus "what if" scenarios (work change, income drop, Sept 2026 policy shift).
@@ -17,7 +17,19 @@ A single-page tool for finding, tracking, and contacting childcare providers in 
 
 ## Data
 
-Provider data lives in [`data/providers.js`](data/providers.js). See [`data/README.md`](data/README.md) for the schema and the one-line edit pattern for marking an opening (`opening_status: "open"` + bump `last_verified`). 14 providers are mapped, one currently flagged with a confirmed opening.
+Provider data lives in [`data/providers.js`](data/providers.js). See [`data/README.md`](data/README.md) for the schema and the one-line edit pattern for marking an opening (`opening_status: "open"` + bump `last_verified`).
+
+### Fast weekly verification workflow
+
+Use these scripts to run real verification updates without hand-editing JSON:
+
+1. Export high-priority rows to verify this week:
+   - `node scripts/export_priority_verification_list.js 60 > priority.csv`
+2. Fill updates in a CSV (use `scripts/verification_updates.template.csv` as format reference).
+3. Apply updates back into `data/providers.js`:
+   - `node scripts/apply_verification_updates.js updates.csv`
+4. Run launch audit:
+   - `node scripts/launch_audit.js`
 
 ## Colour Scheme
 
