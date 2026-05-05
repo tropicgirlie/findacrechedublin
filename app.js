@@ -569,12 +569,24 @@ function hasUsablePhone(p){
   const lc = p.phone.toLowerCase();
   return !lc.startsWith("via ") && lc !== "tusla register";
 }
+function isDirectoryListingUrl(url){
+  if (!url) return false;
+  const u = String(url).toLowerCase();
+  return u.includes("tusla.ie/services/preschool-services/register-of-early-years-services") ||
+    u.includes("childcare.ie/");
+}
 function hasDirectContact(p){
-  return !!(p.email || hasUsablePhone(p) || p.website);
+  return !!(p.email || hasUsablePhone(p) || (p.website && !isDirectoryListingUrl(p.website)));
+}
+function hasDirectoryListing(p){
+  return !!(p.website && isDirectoryListingUrl(p.website));
 }
 function contactBadgeHTML(p){
   if (hasDirectContact(p)){
     return `<span class="mini-badge mini-badge--contact" title="At least one direct contact method is available">☎ Direct contact</span>`;
+  }
+  if (hasDirectoryListing(p)){
+    return `<span class="mini-badge mini-badge--directory" title="No direct contact detail stored. Use this listing to contact or verify details.">📒 Directory listing</span>`;
   }
   return `<span class="mini-badge mini-badge--directory" title="No direct phone/email/website stored yet. Use Tusla/directory listing to contact.">📒 Directory-only</span>`;
 }
@@ -686,7 +698,7 @@ function popupHTML(p){
     ? `<button class="act act--small act--on" data-action="popup-remove-shortlist" data-id="${p.id}">★ On my shortlist</button>`
     : `<button class="act act--small act--primary" data-action="popup-add-shortlist" data-id="${p.id}">☆ Add to shortlist</button>`;
   const websiteLink = p.website
-    ? `<a class="act act--small" href="${p.website}" target="_blank" rel="noopener">↗ Website</a>`
+    ? `<a class="act act--small" href="${p.website}" target="_blank" rel="noopener">${isDirectoryListingUrl(p.website) ? "📒 Directory listing" : "↗ Website"}</a>`
     : "";
   return `
     <div class="pop">
@@ -889,7 +901,7 @@ function providerCardHTML(p){
   if (p.outdoor)    feats.push(`<span class="feat">${FEAT_ICONS.out} Outdoor</span>`);
 
   const link = p.website
-    ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">Visit website →</a>`
+    ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">${isDirectoryListingUrl(p.website) ? "Open directory listing →" : "Visit website →"}</a>`
     : `<span class="pcard__link pcard__link--muted">Contact via Tusla register</span>`;
 
   const mins = walkingMinutes(p);
@@ -959,7 +971,7 @@ function providerCardHTML(p){
           ${feats.length ? `<div class="pcard__features">${feats.join("")}</div>` : ""}
           <div class="pcard__statusprov">Opening status: ${editStatusBtn} ${statusProv}</div>
           <div class="pcard__actions">${emailBtn}${callBtn}</div>
-          ${hasDirectContact(p) ? "" : `<div class="pcard__statusprov">No direct phone/email/website yet. Contact via Tusla or childcare directory listing.</div>`}
+          ${hasDirectContact(p) ? "" : `<div class="pcard__statusprov">No direct phone/email/website yet. Use directory listing to contact or verify details.</div>`}
           ${link}
         </div>
       </details>

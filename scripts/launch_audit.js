@@ -27,7 +27,18 @@ function isUsablePhone(phone) {
 }
 
 function hasDirectContact(p) {
-  return !!(p.email || isUsablePhone(p.phone) || p.website);
+  return !!(p.email || isUsablePhone(p.phone));
+}
+
+function isDirectoryListing(url) {
+  if (!url) return false;
+  const u = String(url).toLowerCase();
+  return u.includes("tusla.ie/services/preschool-services/register-of-early-years-services") ||
+    u.includes("childcare.ie/");
+}
+
+function hasContactPath(p) {
+  return hasDirectContact(p) || !!p.website;
 }
 
 function groupByArea(providers) {
@@ -43,6 +54,8 @@ function groupByArea(providers) {
 function summarize(list) {
   const opening = { open: 0, waitlist: 0, full: 0, unknown: 0 };
   let contactable = 0;
+  let contactPath = 0;
+  let directoryOnly = 0;
   let addressPrecise = 0;
   let unknownCoord = 0;
   let withEmail = 0;
@@ -53,6 +66,8 @@ function summarize(list) {
     const key = p.opening_status || "unknown";
     opening[key] = (opening[key] || 0) + 1;
     if (hasDirectContact(p)) contactable++;
+    if (hasContactPath(p)) contactPath++;
+    if (!hasDirectContact(p) && isDirectoryListing(p.website)) directoryOnly++;
     if (p.coord_source === "address") addressPrecise++;
     else if (p.coord_source === "town") unknownCoord++;
     if (p.email) withEmail++;
@@ -65,6 +80,9 @@ function summarize(list) {
     opening,
     contactable,
     contactablePct: Math.round((contactable / Math.max(1, list.length)) * 100),
+    contactPath,
+    contactPathPct: Math.round((contactPath / Math.max(1, list.length)) * 100),
+    directoryOnly,
     withEmail,
     withPhone,
     withWebsite,
@@ -82,6 +100,10 @@ function printSummary(label, s) {
   console.log(
     `- direct contact: ${s.contactable}/${s.total} (${s.contactablePct}%)`
   );
+  console.log(
+    `- any contact path (direct or directory): ${s.contactPath}/${s.total} (${s.contactPathPct}%)`
+  );
+  console.log(`- directory-only: ${s.directoryOnly}`);
   console.log(
     `- contact fields: email=${s.withEmail}, phone=${s.withPhone}, website=${s.withWebsite}`
   );

@@ -25,11 +25,15 @@ Use these scripts to run real verification updates without hand-editing JSON:
 
 1. Export high-priority rows to verify this week:
    - `node scripts/export_priority_verification_list.js 60 > priority.csv`
+1b. (Optional) quickly ensure top 60 have at least a directory contact path:
+   - `node scripts/enrich_top60_directory_contacts.js`
 2. Fill updates in a CSV (use `scripts/verification_updates.template.csv` as format reference).
 3. Apply updates back into `data/providers.js`:
    - `node scripts/apply_verification_updates.js updates.csv`
 4. Run launch audit:
    - `node scripts/launch_audit.js`
+5. Check launch readiness score:
+   - `node scripts/launch_success_score.js`
 
 ## Colour Scheme
 
