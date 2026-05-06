@@ -208,9 +208,9 @@ To cover multiple Dublin areas (Clondalkin, Tallaght, Castleknock, etc.), the pr
 
 The current single-page architecture is intentionally simple for showcase purposes.
 
-## Relationship to TakeHome.ie
+## Relationship to mynett.ie
 
-This project was built as a companion to [TakeHome.ie](https://takehome.ie), which shows working parents (especially mothers) what they actually take home after childcare costs. The Navigator provides the supply-side data (where are the providers, what do they charge, what subsidies apply) that feeds into TakeHome's take-home pay calculation.
+This project is a companion to [mynett.ie](https://mynett.ie), which shows working parents what they actually take home after childcare costs. The Navigator provides the supply-side data (where are the providers, what do they charge, what subsidies apply) that feeds into that take-home pay calculation.
 
 The long-term vision is to integrate the Navigator's provider data into TakeHome's calculator, so a user can pick a real provider and see their actual take-home pay in one step.
 
