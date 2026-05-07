@@ -939,6 +939,84 @@ input[type="range"]::-moz-range-thumb{
 }
 
 /* ============================================================
+   Secondary button (visible on light backgrounds)
+   ============================================================ */
+.btn--secondary{
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--line);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+.btn--secondary:hover{
+  background: var(--bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Ghost button outside hero (light bg context) */
+.section .btn--ghost,
+.shortlist-toolbar .btn--ghost{
+  color: var(--ink);
+  border-color: var(--line);
+}
+.section .btn--ghost:hover,
+.shortlist-toolbar .btn--ghost:hover{
+  background: var(--bg);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+/* ============================================================
+   Contact section
+   ============================================================ */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 40px;
+  align-items: start;
+}
+@media (max-width: 860px){
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+.contact-reasons h3{
+  font-size: 1rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 20px;
+}
+.contact-list{
+  list-style: none; padding: 0; margin: 0 0 28px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.contact-list li{
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.contact-icon{
+  font-size: 1.3rem; flex: 0 0 auto; margin-top: 2px;
+}
+.contact-list li div{
+  display: flex; flex-direction: column; gap: 3px;
+}
+.contact-list li strong{
+  font-size: var(--fs-sm); color: var(--ink); font-weight: 700;
+}
+.contact-list li span{
+  font-size: var(--fs-xs); color: var(--muted); line-height: 1.5;
+}
+.fee-note{
+  background: var(--highlight);
+  border: 1px solid rgba(232,82,106,.15);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  font-size: var(--fs-sm);
+}
+.fee-note strong{
+  display: block; color: var(--accent);
+  font-size: var(--fs-xs); text-transform: uppercase;
+  letter-spacing: .08em; font-weight: 700; margin-bottom: 8px;
+}
+.fee-note p{ margin: 0; color: var(--ink-2); line-height: 1.6; }
+
+/* ============================================================
    Footer
    ============================================================ */
 .footer{

@@ -65,8 +65,8 @@
             </div>
           </div>
           <div class="hero__cta">
-            <a href="#map" class="btn btn--primary">Explore the map</a>
-            <a href="#simulator" class="btn btn--ghost">Run the cost simulator</a>
+            <a href="#step3" class="btn btn--primary">Explore the map</a>
+            <a href="#subsidies" class="btn btn--ghost">Subsidy guide</a>
           </div>
         </div>
       </div>
@@ -189,8 +189,8 @@
         </header>
         <div class="shortlist-toolbar">
           <button id="shortlist-print" class="btn btn--primary btn--small" title="Print this shortlist or save as PDF (use 'Save as PDF' in the print dialog)">🖨 Print or save as PDF</button>
-          <button id="shortlist-export" class="btn btn--ghost btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download to-do as spreadsheet</button>
-          <span class="hint">This to-do list is stored in this browser. It persists unless browser data is cleared. Download CSV/PDF backups regularly.</span>
+          <button id="shortlist-export" class="btn btn--secondary btn--small" title="Downloads a spreadsheet (.csv) of your shortlist (open in Excel or Google Sheets)">⬇ Download as spreadsheet</button>
+          <span class="hint">Stored in this browser only. Download CSV/PDF backups regularly.</span>
         </div>
         <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
       </div>
@@ -243,36 +243,62 @@
       <div class="container">
         <header class="section__head">
           <span class="section__eyebrow">Contact</span>
-          <h2 class="section__title contact-title-singleline">Need help or want to report data? Contact us.</h2>
-          <p class="section__lede">Use this form for: crèche not listed, data issues, suggestions, and general help. Your message is sent securely via the site backend.</p>
+          <h2 class="section__title">Get in touch.</h2>
+          <p class="section__lede">Crèche missing? Wrong data? Suggestion? Use this form.</p>
         </header>
 
-        <div class="settings-card">
-          <form id="contact-form" class="add-provider-form" novalidate>
-            <!-- Honeypot anti-spam field: real users should never fill this -->
-            <label class="visually-hidden" aria-hidden="true">
-              Leave this field empty
-              <input type="text" name="website_url" tabindex="-1" autocomplete="off" />
-            </label>
-            <div class="settings-grid">
-              <label class="setting">
-                <span>Your name *</span>
-                <input type="text" name="name" required />
-              </label>
-              <label class="setting">
-                <span>Your email *</span>
-                <input type="email" name="email" required />
-              </label>
-              <label class="setting setting--wide">
-                <span>Message *</span>
-                <textarea name="message" rows="5" required placeholder="How can I help?"></textarea>
-              </label>
+        <div class="contact-grid">
+          <div class="contact-reasons">
+            <h3>What this form is for</h3>
+            <ul class="contact-list">
+              <li><span class="contact-icon">📋</span><div><strong>Missing provider</strong><span>Know a crèche not listed? Send the name and address.</span></div></li>
+              <li><span class="contact-icon">✏️</span><div><strong>Data correction</strong><span>Wrong fee, hours, or phone number? Tell us what's right.</span></div></li>
+              <li><span class="contact-icon">📞</span><div><strong>Phone number</strong><span>Confirmed a direct phone number for a provider? We'll add it.</span></div></li>
+              <li><span class="contact-icon">💡</span><div><strong>Suggestion</strong><span>Feature idea, bug, or general feedback.</span></div></li>
+            </ul>
+            <div class="fee-note">
+              <strong>About fee estimates</strong>
+              <p>Fees shown are market-rate estimates from the Tusla register, childcare.ie, and direct research (April 2026). They are <em>not</em> personalised to your income. Your actual cost depends on NCS subsidy, ECCE eligibility, and Core Funding participation. Use the <a href="#subsidies">subsidy guide</a> or <a href="https://mynett.ie" target="_blank" rel="noopener">mynett.ie</a> to calculate your real cost.</p>
             </div>
-            <div class="settings-card__btns">
-              <button type="submit" class="btn btn--primary btn--small" id="contact-submit-btn">Send message</button>
-            </div>
-            <p id="contact-form-status" class="loc-prompt__error" hidden></p>
-          </form>
+          </div>
+
+          <div class="settings-card">
+            <form id="contact-form" class="add-provider-form" novalidate>
+              <!-- Honeypot anti-spam field -->
+              <label class="visually-hidden" aria-hidden="true">
+                Leave this field empty
+                <input type="text" name="website_url" tabindex="-1" autocomplete="off" />
+              </label>
+              <div class="settings-grid">
+                <label class="setting">
+                  <span>Your name *</span>
+                  <input type="text" name="name" required placeholder="e.g. Sarah" />
+                </label>
+                <label class="setting">
+                  <span>Your email *</span>
+                  <input type="email" name="email" required placeholder="you@example.com" />
+                </label>
+                <label class="setting setting--wide">
+                  <span>What's this about?</span>
+                  <select name="subject">
+                    <option value="missing">Missing provider</option>
+                    <option value="data">Data correction</option>
+                    <option value="phone">Phone number update</option>
+                    <option value="suggestion">Suggestion or feedback</option>
+                    <option value="other">Other</option>
+                  </select>
+                </label>
+                <label class="setting setting--wide">
+                  <span>Message *</span>
+                  <textarea name="message" rows="5" required placeholder="Tell us what needs changing, or paste a phone number, address, or fee to update."></textarea>
+                </label>
+              </div>
+              <div class="settings-card__btns">
+                <button type="submit" class="btn btn--primary btn--small" id="contact-submit-btn">Send message</button>
+              </div>
+              <p id="contact-form-status" class="loc-prompt__error" hidden></p>
+            </form>
+          </div>
         </div>
       </div>
     </section>
