@@ -9,6 +9,8 @@
   <!-- Inter via Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -199,42 +201,53 @@
     <!-- ============ ABOUT / MORE RESOURCES ============ -->
     <section id="about" class="section about-section">
       <div class="container">
-        <header class="section__head">
-          <span class="section__eyebrow">About &amp; more</span>
-          <h2 class="section__title">Why this exists.</h2>
-        </header>
 
-        <div class="why-block">
-          <div class="motherhood-strip" aria-label="Motherhood identity">
-            <span class="motherhood-pill">🤱 Mother-led</span>
-            <span class="motherhood-pill">🧸 Parent reality</span>
-            <span class="motherhood-pill">💚 Community-first</span>
+        <div class="why-hero">
+          <div class="why-hero__text">
+            <span class="section__eyebrow">Why this exists</span>
+            <h2 class="why-hero__title">Built by a parent,<br/>for every parent.</h2>
+            <p class="why-hero__lead">When my daughter was born I had to find childcare quickly, navigate four different subsidy schemes, and still work out whether going back to work even made financial sense. There was no single place that answered all of that.</p>
+            <p class="why-hero__body">I paid more than half my salary in childcare. Finding a place within walking distance felt like a second job. So I built the tool I wished had existed: one page, all the local providers, real subsidy maths, and no nonsense.</p>
+            <p class="why-hero__body">It's free, it has no ads, and it always will be. If you're a parent in another part of Ireland, the source code is open &mdash; fork it for your area.</p>
+            <div class="why-pills">
+              <span class="why-pill"><i data-lucide="heart" class="why-pill__icon"></i>Mother-led</span>
+              <span class="why-pill"><i data-lucide="users" class="why-pill__icon"></i>Community-first</span>
+              <span class="why-pill"><i data-lucide="lock" class="why-pill__icon"></i>No tracking</span>
+              <span class="why-pill"><i data-lucide="code-2" class="why-pill__icon"></i>Open source</span>
+            </div>
           </div>
-          <p>This site is for mothers without a support system.</p>
-          <p>I'm a mother of a wobbler. I had to pay more than half of my salary in childcare, and finding a place near home was its own struggle. So I'm giving back what the system gave me, using the internet to make a free tool that any parent can use, copy, and adapt for their own part of Ireland.</p>
+          <div class="why-hero__cards">
+            <article class="why-card">
+              <div class="why-card__icon"><i data-lucide="map-pin"></i></div>
+              <div>
+                <strong>All Lucan providers on one map</strong>
+                <span>14+ crèches, montessoris and childminders. Pins colour-coded by waitlist.</span>
+              </div>
+            </article>
+            <article class="why-card">
+              <div class="why-card__icon"><i data-lucide="calculator"></i></div>
+              <div>
+                <strong>Live subsidy guide</strong>
+                <span>ECCE, NCS Universal, NCS Income-Assessed, and Core Funding explained in plain English.</span>
+              </div>
+            </article>
+            <article class="why-card">
+              <div class="why-card__icon"><i data-lucide="clipboard-list"></i></div>
+              <div>
+                <strong>Your personal to-do list</strong>
+                <span>Track who you've contacted, when to follow up, and your notes. Stored in this browser only.</span>
+              </div>
+            </article>
+            <article class="why-card">
+              <div class="why-card__icon"><i data-lucide="shield-check"></i></div>
+              <div>
+                <strong>Tusla-registered only</strong>
+                <span>Every provider on this list is registered with Tusla, Ireland's early-years regulator.</span>
+              </div>
+            </article>
+          </div>
         </div>
 
-        <div class="resources-grid">
-          <article class="res-card res-card--community">
-            <span class="res-card__tag">Community project</span>
-            <h3>This site</h3>
-            <p>Find, track, and contact childcare providers near K78 V295. Always free. No accounts, no tracking, no ads.</p>
-          </article>
-
-          <article class="res-card res-card--other">
-            <span class="res-card__tag">My other project</span>
-            <h3>Cost calculator</h3>
-            <p>If childcare costs are eating your salary, use my cost calculator to see what you actually take home after tax, USC, PRSI, and childcare.</p>
-            <a href="https://mynett.ie" target="_blank" rel="noopener" class="btn btn--primary btn--small">Open cost calculator →</a>
-          </article>
-
-          <article class="res-card res-card--official">
-            <span class="res-card__tag">Official register</span>
-            <h3>Tusla Early Years Register</h3>
-            <p>This site lists the Tusla-registered providers in Lucan, Clondalkin and nearby Co. Kildare (Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounding towns). Tusla, the State agency that registers all Irish early-years services, has the full national list. Use it to widen the search or verify a provider is properly registered.</p>
-            <a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener" class="btn btn--ghost btn--small">Open Tusla register →</a>
-          </article>
-        </div>
       </div>
     </section>
 
@@ -251,14 +264,26 @@
           <div class="contact-reasons">
             <h3>What this form is for</h3>
             <ul class="contact-list">
-              <li><span class="contact-icon">📋</span><div><strong>Missing provider</strong><span>Know a crèche not listed? Send the name and address.</span></div></li>
-              <li><span class="contact-icon">✏️</span><div><strong>Data correction</strong><span>Wrong fee, hours, or phone number? Tell us what's right.</span></div></li>
-              <li><span class="contact-icon">📞</span><div><strong>Phone number</strong><span>Confirmed a direct phone number for a provider? We'll add it.</span></div></li>
-              <li><span class="contact-icon">💡</span><div><strong>Suggestion</strong><span>Feature idea, bug, or general feedback.</span></div></li>
+              <li>
+                <span class="contact-icon"><i data-lucide="map-pin-plus"></i></span>
+                <div><strong>Missing provider</strong><span>Know a crèche not listed? Send the name and address.</span></div>
+              </li>
+              <li>
+                <span class="contact-icon"><i data-lucide="pencil"></i></span>
+                <div><strong>Data correction</strong><span>Wrong fee, hours, or phone number? Tell us what's right.</span></div>
+              </li>
+              <li>
+                <span class="contact-icon"><i data-lucide="phone"></i></span>
+                <div><strong>Phone number</strong><span>Confirmed a direct number for a provider? We'll add it.</span></div>
+              </li>
+              <li>
+                <span class="contact-icon"><i data-lucide="lightbulb"></i></span>
+                <div><strong>Suggestion</strong><span>Feature idea, bug, or general feedback.</span></div>
+              </li>
             </ul>
             <div class="fee-note">
               <strong>About fee estimates</strong>
-              <p>Fees shown are market-rate estimates from the Tusla register, childcare.ie, and direct research (April 2026). They are <em>not</em> personalised to your income. Your actual cost depends on NCS subsidy, ECCE eligibility, and Core Funding participation. Use the <a href="#subsidies">subsidy guide</a> or <a href="https://mynett.ie" target="_blank" rel="noopener">mynett.ie</a> to calculate your real cost.</p>
+              <p>Fees shown are market-rate estimates from the Tusla register, childcare.ie, and direct research (April 2026). They are <em>not</em> personalised to your income. Your actual cost depends on NCS subsidy, ECCE eligibility, and Core Funding participation. See the <a href="#subsidies">subsidy guide</a> on this page for a breakdown.</p>
             </div>
           </div>
 
@@ -453,5 +478,8 @@
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script src="data/providers.js?v=2026-05-05-1458"></script>
   <script src="app.js?v=2026-05-05-1458" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){ if(window.lucide) lucide.createIcons(); });
+  </script>
 </body>
 </html>
