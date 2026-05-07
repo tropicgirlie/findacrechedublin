@@ -6,9 +6,9 @@
   <title>Lucan & Kildare Childcare Navigator: Find, Track, Contact</title>
   <meta name="description" content="Find, track and contact childcare providers in Lucan, Clondalkin and nearby Co. Kildare. Tusla register, walking time from your home, live subsidy info, contact tracker." />
 
-  <!-- Fontshare: Satoshi -->
-  <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap" rel="stylesheet" />
+  <!-- Inter via Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -22,12 +22,8 @@
   <header class="nav" aria-label="Site navigation">
     <div class="nav__inner container">
       <a href="#top" class="brand" aria-label="Lucan Childcare Navigator: home">
-        <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-          <path d="M16 3 C10 3 5 8 5 15 c0 6 5 11 11 14 c6-3 11-8 11-14 c0-7-5-12-11-12 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-          <circle cx="16" cy="14" r="3.2" fill="currentColor"/>
-          <path d="M10 21 c2-2 4-3 6-3 s4 1 6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <span class="brand__text">Lucan &amp; Kildare<span class="brand__text--muted"> Childcare Navigator</span></span>
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
       </a>
       <nav class="nav__links" aria-label="Section links">
         <a href="#step3">Map</a>
@@ -42,6 +38,39 @@
   </header>
 
   <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero__inner">
+          <span class="hero__eyebrow">Lucan · Co. Dublin · 2025 / 2026</span>
+          <h1 class="hero__title">Find childcare<br/>in Lucan.</h1>
+          <p class="hero__subtitle">Compare 14 providers, run the live subsidy calculator, and know the right questions to ask before you sign up.</p>
+          <div class="hero__stats" role="list">
+            <div class="stat" role="listitem">
+              <div class="stat__num">14</div>
+              <div class="stat__lbl">Providers mapped</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__num">~€1,050</div>
+              <div class="stat__lbl">Avg monthly fee, pre-subsidy</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__num">40,000+</div>
+              <div class="stat__lbl">On national waitlists</div>
+            </div>
+            <div class="stat" role="listitem">
+              <div class="stat__num">Sept 2026</div>
+              <div class="stat__lbl">NCS thresholds rise</div>
+            </div>
+          </div>
+          <div class="hero__cta">
+            <a href="#map" class="btn btn--primary">Explore the map</a>
+            <a href="#simulator" class="btn btn--ghost">Run the cost simulator</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ============ MAP (main) ============ -->
     <section id="step3" class="section section--alt step">
@@ -166,7 +195,6 @@
         <div id="shortlist-grid" class="shortlist-grid" aria-live="polite"></div>
       </div>
     </section>
-
 
     <!-- ============ ABOUT / MORE RESOURCES ============ -->
     <section id="about" class="section about-section">
@@ -362,11 +390,7 @@
       <div class="container footer__inner">
         <div class="footer__col">
           <div class="brand">
-            <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-              <path d="M16 3 C10 3 5 8 5 15 c0 6 5 11 11 14 c6-3 11-8 11-14 c0-7-5-12-11-12 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              <circle cx="16" cy="14" r="3.2" fill="currentColor"/>
-              <path d="M10 21 c2-2 4-3 6-3 s4 1 6 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+            <span class="brand__mark" aria-hidden="true"></span>
             <span class="brand__text">Lucan Childcare<span class="brand__text--muted"> Navigator</span></span>
           </div>
           <p>Built for parents in Lucan &amp; Co. Kildare. Free for the community.</p>
