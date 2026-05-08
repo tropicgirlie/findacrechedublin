@@ -2530,15 +2530,8 @@ input[type="range"]::-moz-range-thumb{
 .section--alt .pcard{
   background: linear-gradient(180deg, #ffffff 0%, #f9f7f2 100%);
 }
-.pcard::before{
-  content: "";
-  position: absolute;
-  inset: 0 0 auto 0;
-  height: 4px;
-  border-radius: 18px 18px 0 0;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  opacity: .7;
-}
+/* Decorative top gradient bar removed — it overflowed the rounded
+   corners of the card. Cards now have a clean rounded rectangle. */
 .pcard:hover{
   transform: translateY(-1px);
   border-color: var(--primary-100);
