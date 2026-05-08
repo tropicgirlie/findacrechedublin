@@ -930,7 +930,7 @@ function providerCardHTML(p){
   // ---- Minimal default view: name, distance, age, cost, status, ECCE, 1 CTA ----
   // ---- Expandable details: everything else ----
   return `
-    <article class="pcard" data-id="${p.id}">
+    <article class="pcard pcard--${p.typeKey}" data-id="${p.id}">
       <div class="pcard__top">
         <div class="pcard__statusrow">${opening}${ecceBadge}${userBadge}${contactBadge}</div>
         <h3 class="pcard__name">${p.name}</h3>

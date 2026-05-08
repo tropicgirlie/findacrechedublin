@@ -2532,6 +2532,36 @@ input[type="range"]::-moz-range-thumb{
 }
 /* Decorative top gradient bar removed — it overflowed the rounded
    corners of the card. Cards now have a clean rounded rectangle. */
+
+/* Childminder cards: visually differentiated. Childminders are home-based,
+   small-group providers and behave differently from full-day crèches, so
+   they get a marigold tint + accent border to flag them at a glance. */
+.pcard--childminder{
+  background: linear-gradient(180deg, #fff8ec 0%, #fef3dd 100%);
+  border-color: var(--accent);
+}
+.section--alt .pcard--childminder{
+  background: linear-gradient(180deg, #fff8ec 0%, #fbecca 100%);
+}
+.pcard--childminder::after{
+  content: "🏠 Childminder";
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--accent);
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 3px 10px;
+  border-radius: 999px;
+  line-height: 1;
+  pointer-events: none;
+}
+.pcard--childminder:hover{
+  border-color: var(--warning);
+}
+
 .pcard:hover{
   transform: translateY(-1px);
   border-color: var(--primary-100);
