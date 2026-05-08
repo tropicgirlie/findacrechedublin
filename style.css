@@ -98,6 +98,32 @@ button { font: inherit; cursor: pointer; }
 h1,h2,h3,h4 { font-family: var(--ff-body); font-weight: 700; letter-spacing: -0.01em; margin: 0 0 .5em; line-height: 1.15; }
 p { margin: 0 0 1em; }
 
+/* Tiny (i) icon next to a filter label, indicating a tooltip is available. */
+.filter-info{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  vertical-align: middle;
+  cursor: help;
+  border: 1px solid var(--line-soft);
+}
+.info-bar__sub{
+  margin: 6px 0 0;
+  padding-left: 28px;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
 /* ============================================================
    <select> dropdown — global Material Design chevron.
    Suppresses the browser-native arrow and paints a consistent SVG

@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-08-md-selects" />
+  <link rel="stylesheet" href="style.css?v=2026-05-08-honest-data" />
 </head>
 <body>
 
@@ -87,6 +87,7 @@
         </header>
         <div class="info-bar" role="note">
           <p><span class="info-bar__icon" aria-hidden="true">ℹ</span><strong>Informational only:</strong> due to childcare shortage, this site cannot guarantee live vacancies. Use this list to compare options and verify availability directly with each provider.</p>
+          <p class="info-bar__sub">Some providers have <em>"Open directory listing"</em> instead of a website link, which means we don't have a direct phone or email yet — the link goes to the provider's page on <a href="https://www.childcare.ie" target="_blank" rel="noopener">childcare.ie</a> or the <a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla register</a> where you can find their contact details.</p>
         </div>
         <!-- First-visit location prompt: hidden once the visitor answers or dismisses -->
         <div id="location-prompt" class="loc-prompt" hidden>
@@ -123,9 +124,18 @@
             <input type="range" id="f-budget" min="400" max="1400" step="50" value="1400" />
           </div>
           <div class="control control--check">
-            <label><input type="checkbox" id="f-mont" /> Montessori only</label>
-            <label><input type="checkbox" id="f-ecce" /> ECCE participating</label>
-            <label><input type="checkbox" id="f-open" /> ✅ Open spot only</label>
+            <label title="Inferred from provider name (any name containing 'Montessori' or 'Naíonra'). The Tusla register doesn't tag providers as Montessori directly. Verify with the provider.">
+              <input type="checkbox" id="f-mont" /> Montessori only
+              <span class="filter-info" aria-hidden="true">ⓘ</span>
+            </label>
+            <label title="Inferred from provider type. Most full-day and sessional services participate in ECCE; childminders typically don't. Tusla doesn't publish ECCE participation directly. Verify with the provider.">
+              <input type="checkbox" id="f-ecce" /> ECCE participating
+              <span class="filter-info" aria-hidden="true">ⓘ</span>
+            </label>
+            <label title="Status defaults to 'unknown' unless you've personally confirmed it on this browser. Use this filter only after marking some providers as Open via the ✎ on the map pin or card.">
+              <input type="checkbox" id="f-open" /> ✅ Open spot only
+              <span class="filter-info" aria-hidden="true">ⓘ</span>
+            </label>
           </div>
           <div class="control control--legend" aria-label="Legend">
             <span class="legend"><i class="dot dot--low"></i> Low wait</span>
@@ -205,7 +215,7 @@
             <span class="section__eyebrow">Why this exists</span>
             <h2 class="why-hero__title">Built by a parent,<br/>for every parent.</h2>
             <p class="why-hero__lead">When my daughter was born I had to find childcare quickly, navigate four different subsidy schemes, and still work out whether going back to work even made financial sense. There was no single place that answered all of that.</p>
-            <p class="why-hero__body">I paid more than half my salary in childcare. Finding a place within walking distance felt like a second job. So I built the tool I wished had existed: one page, all the local providers, real subsidy maths, and no nonsense.</p>
+            <p class="why-hero__body">I paid more than half my salary in childcare. Finding a place I could actually reach felt like a second job. So I built the tool I wished had existed: one page covering Lucan, Clondalkin and nearby Co. Kildare, with real subsidy maths and no nonsense.</p>
             <p class="why-hero__body">It's free, it has no ads, and it always will be. If you're a parent in another part of Ireland, the source code is open &mdash; fork it for your area.</p>
             <div class="why-pills">
               <span class="why-pill"><i data-lucide="heart" class="why-pill__icon"></i>Mother-led</span>
@@ -441,8 +451,8 @@
         <div class="footer__col">
           <h4>Data &amp; sources</h4>
           <ul>
-            <li><a href="https://www.gov.ie/en/service/60c745-national-childcare-scheme-ncs/" target="_blank" rel="noopener">gov.ie: National Childcare Scheme</a></li>
-            <li><a href="https://www.tusla.ie/services/preschool-services/register-of-early-years-services/" target="_blank" rel="noopener">Tusla: Early Years Register</a></li>
+            <li><a href="https://www.gov.ie/en/campaigns/f8319-national-childcare-scheme/" target="_blank" rel="noopener">gov.ie: National Childcare Scheme</a></li>
+            <li><a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla: Early Years Register</a></li>
             <li><a href="https://www.earlychildhoodireland.ie/" target="_blank" rel="noopener">Early Childhood Ireland</a></li>
             <li><a href="https://www.rte.ie/news/" target="_blank" rel="noopener">RTÉ News</a></li>
             <li><a href="https://www.irishtimes.com/" target="_blank" rel="noopener">The Irish Times</a></li>
@@ -467,8 +477,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-08-md-selects"></script>
-  <script src="app.js?v=2026-05-08-md-selects" defer></script>
+  <script src="data/providers.js?v=2026-05-08-honest-data"></script>
+  <script src="app.js?v=2026-05-08-honest-data" defer></script>
   <script>
     document.addEventListener("DOMContentLoaded", function(){ if(window.lucide) lucide.createIcons(); });
   </script>

@@ -698,7 +698,7 @@ function popupHTML(p){
       <div class="pop__title">${p.name}</div>
       <div class="pop__type">${p.type}</div>
       <div class="pop__row"><span>Status</span>${openingBadgeHTML(es.status)}</div>
-      <div class="pop__row"><span>From ${home.eircode}</span><strong>${mins} min walk · ${walkingKm(p).toFixed(1)} km</strong></div>
+      <div class="pop__row"><span>From ${home.eircode}</span><strong>${walkingKm(p).toFixed(1)} km${p.coord_source === "town" ? " (approx)" : ""}</strong></div>
       <div class="pop__row"><span>Fee</span>${feeLine}</div>
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
@@ -821,7 +821,7 @@ function priceEditFormHTML(p, ep){
         <label>Weekly fee (€)
           <input type="number" name="weekly" min="0" step="5" value="${ep.weekly}" />
         </label>
-        <div class="price-edit__hint">Saving marks this as verified by you (today's date).</div>
+        <div class="price-edit__hint">Saved to <strong>this browser only</strong> with today's date. To keep a permanent log, use <a href="#shortlist">Print or save as PDF</a> in your shortlist.</div>
         <div class="price-edit__btns">
           <button type="submit" class="act act--small">Save</button>
           <button type="button" class="act act--small act--ghost" data-action="price-reset" data-id="${p.id}">Reset to default</button>
@@ -834,7 +834,7 @@ function priceEditFormHTML(p, ep){
       <label>Monthly fee (€)
         <input type="number" name="monthly_fee" min="0" step="10" value="${ep.monthly_fee}" />
       </label>
-      <div class="price-edit__hint">Saving marks this as verified by you (today's date). Post-NCS-Universal figure is recalculated automatically.</div>
+      <div class="price-edit__hint">Saved to <strong>this browser only</strong> with today's date. Post-NCS-Universal figure is recalculated automatically. To keep a permanent log, use <a href="#shortlist">Print or save as PDF</a>.</div>
       <div class="price-edit__btns">
         <button type="submit" class="act act--small">Save</button>
         <button type="button" class="act act--small act--ghost" data-action="price-reset" data-id="${p.id}">Reset to default</button>
@@ -897,14 +897,13 @@ function providerCardHTML(p){
     ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">${isDirectoryListingUrl(p.website) ? "Open directory listing →" : "Visit website →"}</a>`
     : `<span class="pcard__link pcard__link--muted">Contact via Tusla register</span>`;
 
-  const mins = walkingMinutes(p);
   const km = walkingKm(p);
-  const walkCls = mins <= 20 ? "walk-pill walk-pill--near" : "walk-pill";
+  const walkCls = km <= 1.6 ? "walk-pill walk-pill--near" : "walk-pill";
   const isApprox = p.coord_source === "town";
   const approxLabel = isApprox ? " · approx" : "";
   const approxTitle = isApprox ? `Distance is approximate. Pin sits at the ${p.town} town centre because OpenStreetMap doesn't have this provider's exact street. Click ✎ on the map pin or edit lat/lng to refine.` : "";
   const distTitle = `Distance is calculated from your current home location setting.${approxTitle ? " " + approxTitle : ""}`;
-  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${distTitle}">🚶 ${mins} min · ${km.toFixed(1)} km${approxLabel}</span>`;
+  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${distTitle}">📍 ${km.toFixed(1)} km${approxLabel}</span>`;
   const ecceWin = ecceWindowLabel();
   const ecceBadge = p.ecce
     ? `<span class="chip chip--ecce" title="${ecceWin.currentLong}">ECCE · ${ecceWin.current}</span>`
@@ -1092,7 +1091,8 @@ function renderRecommended(){
 // ============================================================
 function shortlistRowHTML(entry, p){
   const opening = openingBadgeHTML(effectiveStatus(p).status);
-  const mins = walkingMinutes(p);
+  const km = walkingKm(p);
+  const isApprox = p.coord_source === "town";
   const statusOpts = TRACKER_STATUSES.map(s =>
     `<option value="${s.key}"${entry.status === s.key ? " selected":""}>${s.label}</option>`
   ).join("");
@@ -1115,7 +1115,7 @@ function shortlistRowHTML(entry, p){
     <div class="srow" data-id="${p.id}">
       <div class="srow__main">
         <div class="srow__name">${p.name}</div>
-        <div class="srow__meta">${opening} · ${mins} min walk · ${p.address.split(",")[0]}</div>
+        <div class="srow__meta">${opening} · ${km.toFixed(1)} km${isApprox ? " (approx)" : ""} · ${p.address.split(",")[0]}</div>
       </div>
       <div class="srow__status">
         <label>Status

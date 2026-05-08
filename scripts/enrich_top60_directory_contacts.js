@@ -12,7 +12,7 @@ const vm = require("vm");
 
 const HOME = { lat: 53.3548, lng: -6.4485 };
 const LIMIT = 60;
-const TUSLA_LISTING_URL = "https://www.tusla.ie/services/preschool-services/register-of-early-years-services/";
+const TUSLA_LISTING_URL = "https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/";
 
 function haversineKm(a, b) {
   const R = 6371;
