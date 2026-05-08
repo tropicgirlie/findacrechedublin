@@ -1,5 +1,5 @@
 /* ============================================================
-   Lucan Childcare Navigator: app.js
+   Childcare Navigator (Lucan / Clondalkin / Kildare): app.js
    All logic: data, map, cards, simulator, checklist, shortlist tracker
    Provider data is loaded from data/providers.js (window.PROVIDERS).
    ============================================================ */
