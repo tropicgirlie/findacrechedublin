@@ -911,6 +911,9 @@ function providerCardHTML(p){
   const userBadge = isUserProvider(p)
     ? `<span class="chip chip--user" title="Added by you in this browser">★ Added by you</span>`
     : "";
+  const typeBadge = p.typeKey === "childminder"
+    ? `<span class="chip chip--childminder" title="Tusla-registered home-based childminder, max 6 children">Childminder</span>`
+    : "";
   const contactBadge = contactBadgeHTML(p);
 
   const opening = openingBadgeHTML(es.status);
@@ -932,7 +935,7 @@ function providerCardHTML(p){
   return `
     <article class="pcard pcard--${p.typeKey}" data-id="${p.id}">
       <div class="pcard__top">
-        <div class="pcard__statusrow">${opening}${ecceBadge}${userBadge}${contactBadge}</div>
+        <div class="pcard__statusrow">${opening}${typeBadge}${ecceBadge}${userBadge}${contactBadge}</div>
         <h3 class="pcard__name">${p.name}</h3>
         <div class="pcard__minimeta">
           ${distHTML}
