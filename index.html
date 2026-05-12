@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-08-trim-noise" />
+  <link rel="stylesheet" href="style.css?v=2026-05-08-compact" />
 </head>
 <body>
 
@@ -48,27 +48,6 @@
           <span class="hero__eyebrow">Lucan · Clondalkin · Kildare · 2025 / 2026</span>
           <h1 class="hero__title">Find childcare in<br/>Lucan, Clondalkin &amp; Kildare.</h1>
           <p class="hero__subtitle">Compare every Tusla-registered provider, run the live subsidy calculator, and keep track of every enquiry in one place.</p>
-          <details class="hero__stats-wrap">
-            <summary class="hero__stats-toggle">At a glance <span class="hero__stats-hint">(click to expand)</span></summary>
-            <div class="hero__stats" role="list">
-              <div class="stat" role="listitem">
-                <div class="stat__num">189</div>
-                <div class="stat__lbl">Providers mapped</div>
-              </div>
-              <div class="stat" role="listitem">
-                <div class="stat__num">~€1,050</div>
-                <div class="stat__lbl">Avg monthly fee, pre-subsidy</div>
-              </div>
-              <div class="stat" role="listitem">
-                <div class="stat__num">40,000+</div>
-                <div class="stat__lbl">On national waitlists</div>
-              </div>
-              <div class="stat" role="listitem">
-                <div class="stat__num">Sept 2026</div>
-                <div class="stat__lbl">NCS thresholds rise</div>
-              </div>
-            </div>
-          </details>
           <div class="hero__cta">
             <a href="#step3" class="btn btn--primary">Explore the map</a>
             <a href="#subsidies" class="btn btn--ghost">Subsidy guide</a>
@@ -88,10 +67,13 @@
           <h2 class="section__title">All providers, on one map.</h2>
           <p class="section__lede">Click any pin for details and to add the provider to your shortlist. Pin colours: <span class="dot-inline dot-inline--low"></span> Low waitlist, <span class="dot-inline dot-inline--med"></span> Medium, <span class="dot-inline dot-inline--high"></span> High or Very High.</p>
         </header>
-        <div class="info-bar" role="note">
-          <p><span class="info-bar__icon" aria-hidden="true">ℹ</span><strong>Informational only:</strong> due to childcare shortage, this site cannot guarantee live vacancies. Use this list to compare options and verify availability directly with each provider.</p>
-          <p class="info-bar__sub">Some providers have <em>"Open directory listing"</em> instead of a website link, which means we don't have a direct phone or email yet. The link goes to the official <a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla register</a> where you can find their contact details.</p>
-        </div>
+        <details class="info-bar info-bar--collapsible" role="note">
+          <summary><span class="info-bar__icon" aria-hidden="true">ℹ</span> About this data <span class="info-bar__hint">(click to read)</span></summary>
+          <div class="info-bar__body">
+            <p><strong>Informational only:</strong> due to childcare shortage, this site cannot guarantee live vacancies. Use this list to compare options and verify availability directly with each provider.</p>
+            <p>Some providers have <em>"Open directory listing"</em> instead of a website link, which means we don't have a direct phone or email yet. The link goes to the official <a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla register</a> where you can find their contact details.</p>
+          </div>
+        </details>
         <!-- First-visit location prompt: hidden once the visitor answers or dismisses -->
         <div id="location-prompt" class="loc-prompt" hidden>
           <div class="loc-prompt__head">
@@ -473,8 +455,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-08-trim-noise"></script>
-  <script src="app.js?v=2026-05-08-trim-noise" defer></script>
+  <script src="data/providers.js?v=2026-05-08-compact"></script>
+  <script src="app.js?v=2026-05-08-compact" defer></script>
   <script>
     document.addEventListener("DOMContentLoaded", function(){ if(window.lucide) lucide.createIcons(); });
   </script>

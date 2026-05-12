@@ -1991,6 +1991,51 @@ input[type="range"]::-moz-range-thumb{
   border-left-width: 0;
   border-radius: 0;
 }
+
+/* Collapsible variant: hidden behind a click. Default = compact pill. */
+.info-bar--collapsible{
+  padding: 0;
+  background: var(--surface);
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  display: inline-block;
+  margin: 0 0 16px;
+}
+.info-bar--collapsible[open]{
+  display: block;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+.info-bar--collapsible > summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 6px 14px;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.info-bar--collapsible > summary::-webkit-details-marker{ display: none; }
+.info-bar--collapsible > summary::after{
+  content: "▸";
+  margin-left: 6px;
+  color: var(--primary);
+  font-size: 0.85em;
+  transition: transform .15s var(--ease);
+  display: inline-block;
+}
+.info-bar--collapsible[open] > summary{ padding: 0 0 8px; }
+.info-bar--collapsible[open] > summary::after{ transform: rotate(90deg); }
+.info-bar__hint{
+  opacity: 0.7;
+  font-size: var(--fs-xs);
+}
+.info-bar__body p{
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  max-width: 80ch;
+}
+.info-bar__body p:first-child{ margin-top: 0; }
+.info-bar__body strong{ color: var(--text); font-weight: 600; }
 .compare-chip-row{
   display: flex;
   align-items: center;
