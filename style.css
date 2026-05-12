@@ -416,6 +416,38 @@ select::-ms-expand{ display: none; }
 
 .hero__inner{ max-width: 700px; display: flex; flex-direction: column; gap: 24px; }
 
+/* Collapsible "At a glance" stats wrapper */
+.hero__stats-wrap{
+  align-self: flex-start;
+}
+.hero__stats-toggle{
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 999px;
+  color: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  list-style: none;
+}
+.hero__stats-toggle::-webkit-details-marker{ display: none; }
+.hero__stats-toggle::before{
+  content: "▸";
+  font-size: 0.8em;
+  transition: transform .15s var(--ease);
+}
+.hero__stats-wrap[open] .hero__stats-toggle::before{ transform: rotate(90deg); }
+.hero__stats-hint{
+  font-weight: 400;
+  opacity: 0.7;
+  font-size: var(--fs-xs);
+}
+.hero__stats-wrap[open] .hero__stats{ margin-top: 12px; }
+
 .hero__stats{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));

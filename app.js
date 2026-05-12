@@ -131,10 +131,10 @@ function ecceWindowLabel(){
   const w = currentEcceWindow();
   const next = { fromYear: w.fromYear + 1, toYear: w.toYear + 1, schoolYear: w.schoolYear + 1 };
   return {
-    current: `Born ${w.fromYear}–${String(w.toYear).slice(-2)}`,
-    currentLong: `Children born ${w.fromYear}–${w.toYear} are eligible for the ${w.schoolYear}/${String(w.schoolYear + 1).slice(-2)} ECCE year (free preschool, 3 hrs/day, 38 weeks)`,
-    next: `Next: ${next.fromYear}–${String(next.toYear).slice(-2)}`,
-    nextLong: `Children born ${next.fromYear}–${next.toYear} will be eligible from Sep ${next.schoolYear}.`
+    current: `Born ${w.fromYear} to ${String(w.toYear).slice(-2)}`,
+    currentLong: `Children born ${w.fromYear} to ${w.toYear} are eligible for the ${w.schoolYear}/${String(w.schoolYear + 1).slice(-2)} ECCE year (free preschool, 3 hrs/day, 38 weeks)`,
+    next: `Next: ${next.fromYear} to ${String(next.toYear).slice(-2)}`,
+    nextLong: `Children born ${next.fromYear} to ${next.toYear} will be eligible from Sep ${next.schoolYear}.`
   };
 }
 
@@ -146,6 +146,11 @@ const OPENING_LABELS = {
   unknown:  { text: "Status unknown", icon: "❓", cls: "unknown", help: "Not confirmed yet. Call/email to verify current availability." }
 };
 function openingBadgeHTML(status){
+  // "unknown" is the default for every provider since we don't verify
+  // availability with the providers directly. Showing it on every card
+  // is noise — return empty so only meaningful states (open/waitlist/full,
+  // which require the visitor's own confirmation) get a chip.
+  if (!status || status === "unknown") return "";
   const o = OPENING_LABELS[status] || OPENING_LABELS.unknown;
   return `<span class="open-badge open-badge--${o.cls}" title="${o.help}">${o.icon} ${o.text}</span>`;
 }
@@ -611,8 +616,13 @@ function buildMap(){
 
   markerLayer = L.layerGroup().addTo(map);
 
-  // Enable scroll-zoom when user clicks into map (nicer scrolling UX)
+  // Scroll-wheel zoom: only when the user explicitly engages the map by
+  // clicking on it. Hovering must NOT engage it, otherwise scrolling
+  // past the map zooms it instead of scrolling the page. Disable again
+  // when the cursor leaves so a casual click and drift doesn't trap
+  // future page scrolls.
   map.on("click", () => map.scrollWheelZoom.enable());
+  map.getContainer().addEventListener("mouseleave", () => map.scrollWheelZoom.disable());
 
   renderMarkers(DATA.providers);
 }

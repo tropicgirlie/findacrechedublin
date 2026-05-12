@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
-  <link rel="stylesheet" href="style.css?v=2026-05-08-childminder-chip" />
+  <link rel="stylesheet" href="style.css?v=2026-05-08-trim-noise" />
 </head>
 <body>
 
@@ -48,24 +48,27 @@
           <span class="hero__eyebrow">Lucan · Clondalkin · Kildare · 2025 / 2026</span>
           <h1 class="hero__title">Find childcare in<br/>Lucan, Clondalkin &amp; Kildare.</h1>
           <p class="hero__subtitle">Compare every Tusla-registered provider, run the live subsidy calculator, and keep track of every enquiry in one place.</p>
-          <div class="hero__stats" role="list">
-            <div class="stat" role="listitem">
-              <div class="stat__num">189</div>
-              <div class="stat__lbl">Providers mapped</div>
+          <details class="hero__stats-wrap">
+            <summary class="hero__stats-toggle">At a glance <span class="hero__stats-hint">(click to expand)</span></summary>
+            <div class="hero__stats" role="list">
+              <div class="stat" role="listitem">
+                <div class="stat__num">189</div>
+                <div class="stat__lbl">Providers mapped</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat__num">~€1,050</div>
+                <div class="stat__lbl">Avg monthly fee, pre-subsidy</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat__num">40,000+</div>
+                <div class="stat__lbl">On national waitlists</div>
+              </div>
+              <div class="stat" role="listitem">
+                <div class="stat__num">Sept 2026</div>
+                <div class="stat__lbl">NCS thresholds rise</div>
+              </div>
             </div>
-            <div class="stat" role="listitem">
-              <div class="stat__num">~€1,050</div>
-              <div class="stat__lbl">Avg monthly fee, pre-subsidy</div>
-            </div>
-            <div class="stat" role="listitem">
-              <div class="stat__num">40,000+</div>
-              <div class="stat__lbl">On national waitlists</div>
-            </div>
-            <div class="stat" role="listitem">
-              <div class="stat__num">Sept 2026</div>
-              <div class="stat__lbl">NCS thresholds rise</div>
-            </div>
-          </div>
+          </details>
           <div class="hero__cta">
             <a href="#step3" class="btn btn--primary">Explore the map</a>
             <a href="#subsidies" class="btn btn--ghost">Subsidy guide</a>
@@ -87,7 +90,7 @@
         </header>
         <div class="info-bar" role="note">
           <p><span class="info-bar__icon" aria-hidden="true">ℹ</span><strong>Informational only:</strong> due to childcare shortage, this site cannot guarantee live vacancies. Use this list to compare options and verify availability directly with each provider.</p>
-          <p class="info-bar__sub">Some providers have <em>"Open directory listing"</em> instead of a website link, which means we don't have a direct phone or email yet — the link goes to the provider's page on <a href="https://www.childcare.ie" target="_blank" rel="noopener">childcare.ie</a> or the <a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla register</a> where you can find their contact details.</p>
+          <p class="info-bar__sub">Some providers have <em>"Open directory listing"</em> instead of a website link, which means we don't have a direct phone or email yet. The link goes to the official <a href="https://www.tusla.ie/services/preschool-services/parents-guardians/register-of-early-years-services/" target="_blank" rel="noopener">Tusla register</a> where you can find their contact details.</p>
         </div>
         <!-- First-visit location prompt: hidden once the visitor answers or dismisses -->
         <div id="location-prompt" class="loc-prompt" hidden>
@@ -132,10 +135,6 @@
               <input type="checkbox" id="f-ecce" /> ECCE participating
               <span class="filter-info" aria-hidden="true">ⓘ</span>
             </label>
-            <label title="Status defaults to 'unknown' unless you've personally confirmed it on this browser. Use this filter only after marking some providers as Open via the ✎ on the map pin or card.">
-              <input type="checkbox" id="f-open" /> ✅ Open spot only
-              <span class="filter-info" aria-hidden="true">ⓘ</span>
-            </label>
           </div>
           <div class="control control--legend" aria-label="Legend">
             <span class="legend"><i class="dot dot--low"></i> Low wait</span>
@@ -177,9 +176,6 @@
               <option value="waitlist">Waitlist: shortest first</option>
               <option value="name">Name: A to Z</option>
             </select>
-          </div>
-          <div class="control control--check">
-            <label><input type="checkbox" id="p-open" /> ✅ Open spots only</label>
           </div>
         </div>
 
@@ -284,7 +280,7 @@
             </ul>
             <div class="fee-note">
               <strong>About fee estimates</strong>
-              <p>Fees shown are market-rate estimates from the Tusla register, childcare.ie, and direct research (April 2026). They are <em>not</em> personalised to your income. Your actual cost depends on NCS subsidy, ECCE eligibility, and Core Funding participation. See the <a href="#subsidies">subsidy guide</a> on this page for a breakdown.</p>
+              <p>Fees shown are market-rate estimates from the Tusla Early Years Register and direct research (April 2026). They are <em>not</em> personalised to your income. Your actual cost depends on NCS subsidy, ECCE eligibility, and Core Funding participation. See the <a href="#subsidies">subsidy guide</a> on this page for a breakdown.</p>
             </div>
           </div>
 
@@ -363,8 +359,8 @@
             <h3>ECCE: Early Childhood Care &amp; Education</h3>
             <p>Two years of <strong>free preschool</strong>, 3 hours/day, 5 days/week, 38 weeks/year.</p>
             <ul>
-              <li>Eligibility: age 2y 8m – 5y 6m</li>
-              <li>Capitation to provider: €69–€82 / wk / child</li>
+              <li>Eligibility: age 2y 8m to 5y 6m</li>
+              <li>Capitation to provider: €69 to €82 / wk / child</li>
               <li>Cost to parent: €0 (for the ECCE hours)</li>
             </ul>
           </article>
@@ -396,7 +392,7 @@
             <h3>Core Funding fee cap</h3>
             <p>Partner providers can't raise fees above government caps.</p>
             <ul>
-              <li>€295/wk max for full day (40–50 hrs)</li>
+              <li>€295/wk max for full day (40 to 50 hrs)</li>
               <li>€198.70/wk after Universal NCS</li>
               <li>Government target: €200/month per child</li>
             </ul>
@@ -410,7 +406,7 @@
               <tr><th>Born</th><th>Status for 2025/26</th><th>Notes</th></tr>
             </thead>
             <tbody>
-              <tr><td>Jan 2022 – Dec 2023</td><td><span class="chip chip--ok">Eligible</span></td><td>Two full ECCE years available</td></tr>
+              <tr><td>Jan 2022 to Dec 2023</td><td><span class="chip chip--ok">Eligible</span></td><td>Two full ECCE years available</td></tr>
               <tr><td>Jan 2024 onwards</td><td><span class="chip chip--warn">Wait</span></td><td>Eligible from 2026/27 onward</td></tr>
               <tr><td>Before Jan 2022</td><td><span class="chip chip--neutral">Past</span></td><td>Likely exited; confirm school start</td></tr>
             </tbody>
@@ -457,7 +453,7 @@
             <li><a href="https://www.rte.ie/news/" target="_blank" rel="noopener">RTÉ News</a></li>
             <li><a href="https://www.irishtimes.com/" target="_blank" rel="noopener">The Irish Times</a></li>
             <li><a href="https://www.siptu.ie/" target="_blank" rel="noopener">SIPTU Early Years Survey 2024</a></li>
-            <li><a href="https://www.childcare.ie/county-dublin/lucan" target="_blank" rel="noopener">childcare.ie: Lucan</a></li>
+            <li><a href="https://www.tusla.ie/services/preschool-services/early-years-providers/register-of-early-years-services-by-county/" target="_blank" rel="noopener">Tusla: County register PDFs</a></li>
           </ul>
         </div>
         <div class="footer__col">
@@ -477,8 +473,8 @@
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data/providers.js?v=2026-05-08-childminder-chip"></script>
-  <script src="app.js?v=2026-05-08-childminder-chip" defer></script>
+  <script src="data/providers.js?v=2026-05-08-trim-noise"></script>
+  <script src="app.js?v=2026-05-08-trim-noise" defer></script>
   <script>
     document.addEventListener("DOMContentLoaded", function(){ if(window.lucide) lucide.createIcons(); });
   </script>
