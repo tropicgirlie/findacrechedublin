@@ -624,6 +624,8 @@ select::-ms-expand{ display: none; }
 .plan-form .btn{
   min-height: 44px;
   align-self: end;
+  white-space: nowrap;
+  min-width: 220px;
 }
 @media (max-width: 900px){
   .plan-card{
@@ -635,6 +637,10 @@ select::-ms-expand{ display: none; }
   .plan-form{
     grid-template-columns: 1fr 1fr;
   }
+  .plan-form .btn{
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
 }
 @media (max-width: 560px){
   .plan-card{
@@ -642,6 +648,10 @@ select::-ms-expand{ display: none; }
   }
   .plan-form{
     grid-template-columns: 1fr;
+  }
+  .plan-form .btn{
+    width: 100%;
+    min-width: 0;
   }
 }
 
@@ -3019,6 +3029,48 @@ input[type="range"]::-moz-range-thumb{
 .pcard__details summary{
   min-height: 40px;
   padding: 0 16px;
+}
+
+/* Final provider-card layout contract.
+   These fixed tracks keep the primary and secondary actions aligned across
+   cards even when badges or names wrap to a second line. */
+.pcard__top{
+  grid-template-rows: 72px 88px 76px 164px 72px 56px;
+}
+.pcard__statusrow{
+  min-height: 72px;
+  align-content: start;
+}
+.pcard__name{
+  min-height: 88px;
+  align-items: start;
+}
+.pcard__minimeta{
+  min-height: 76px;
+}
+.pcard__feerow{
+  min-height: 164px;
+}
+.confidence-row{
+  min-height: 72px;
+  align-content: start;
+}
+.pcard__primary-cta{
+  min-height: 56px;
+  display: flex;
+  align-items: stretch;
+}
+.pcard__primary-cta .act{
+  min-height: 56px;
+}
+.pcard__details{
+  margin-top: 0;
+  padding-top: 18px;
+}
+.pcard__details summary{
+  min-width: 160px;
+  min-height: 44px;
+  justify-content: center;
 }
 @media (max-width: 560px){
   .pcard{
