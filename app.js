@@ -51,6 +51,8 @@ const USER_PROVIDERS_KEY = "lucan-creche-user-providers-v1";
 // Currently-selected area pill (Lucan / Clondalkin / Kildare / "all"). The
 // pill row above the map filters both the markers and the compare table.
 let currentArea = "all";
+let providerPriority = "area";
+let planAgeFilter = "";
 
 // Compare-table pagination. Show this many cards by default; "Show more"
 // adds another batch. Resets to PAGE_SIZE on filter/sort/area change.
@@ -120,6 +122,32 @@ function providerLocationLabel(p){
 }
 function providerAddressShort(p){
   return String(p.address || "").split(",")[0] || p.town || p.area || "Address not listed";
+}
+function providerConfidenceHTML(p, ep){
+  const pin = p.coord_source === "town"
+    ? { text: "Town-level pin", cls: "warn", title: "The pin is approximate. Verify the address before travelling." }
+    : { text: "Address-level pin", cls: "ok", title: "The pin is more specific, but still verify before travelling." };
+  const contact = hasDirectContact(p)
+    ? { text: "Direct contact", cls: "ok", title: "At least one direct contact method is stored." }
+    : { text: "Use Tusla listing", cls: "warn", title: "Contact details may need checking in the Tusla register." };
+  const fee = ep.verified
+    ? { text: "Fee verified by you", cls: "ok", title: "This fee was saved in this browser after you edited it." }
+    : { text: "Fee estimate", cls: "warn", title: "Fee is an estimate. Confirm directly with the provider." };
+  return [pin, contact, fee].map(item =>
+    `<span class="confidence-chip confidence-chip--${item.cls}" title="${item.title}">${item.text}</span>`
+  ).join("");
+}
+function providerMatchesPlanAge(p){
+  if (planAgeFilter === "baby"){
+    return p.typeKey === "creche" || p.typeKey === "childminder";
+  }
+  if (planAgeFilter === "ecce"){
+    return !!p.ecce;
+  }
+  if (planAgeFilter === "school"){
+    return true;
+  }
+  return true;
 }
 
 // ---------- ECCE eligibility window ----------
@@ -602,6 +630,29 @@ function telLink(p){
   return `tel:${p.phone.replace(/[^+0-9]/g, "")}`;
 }
 
+function nextActionFor(entry, p){
+  const followup = entry.next_followup || "";
+  const today = todayISO();
+  if (entry.status === "accepted") return { label: "Place offered", cls: "done" };
+  if (entry.status === "declined") return { label: "No action", cls: "muted" };
+  if (followup && followup < today) return { label: "Follow up now", cls: "due" };
+  if (followup === today) return { label: "Follow up today", cls: "due" };
+  if (entry.status === "not_contacted"){
+    return hasDirectContact(p)
+      ? { label: "Send enquiry", cls: "next" }
+      : { label: "Find contact details", cls: "warn" };
+  }
+  if (entry.status === "email_sent" || entry.status === "called"){
+    return followup
+      ? { label: `Waiting until ${followup}`, cls: "muted" }
+      : { label: "Set follow-up", cls: "next" };
+  }
+  if (entry.status === "replied") return { label: "Decide next step", cls: "next" };
+  if (entry.status === "visited") return { label: "Ask for decision", cls: "next" };
+  if (entry.status === "on_waitlist") return { label: followup ? `Check again ${followup}` : "Set check-in", cls: "muted" };
+  return { label: "Review", cls: "next" };
+}
+
 // ============================================================
 // 1) LEAFLET MAPS (full + recommended mini-map)
 // ============================================================
@@ -810,6 +861,7 @@ function applyMapFilters(){
     if (monthly > budget) return false;
     if (mont && !p.montessori) return false;
     if (ecce && !p.ecce) return false;
+    if (!providerMatchesPlanAge(p)) return false;
     if (openOnly && effectiveStatus(p).status !== "open") return false;
     if (walkOnly && walkingMinutes(p) > 20) return false;
     return true;
@@ -930,6 +982,7 @@ function providerCardHTML(p){
     ? `<span class="chip chip--childminder" title="Tusla-registered home-based childminder, max 6 children">Childminder</span>`
     : "";
   const contactBadge = contactBadgeHTML(p);
+  const confidence = providerConfidenceHTML(p, ep);
 
   const opening = openingBadgeHTML(es.status);
 
@@ -960,6 +1013,7 @@ function providerCardHTML(p){
           <div class="pcard__fee">${feeLabel} ${editPriceBtn}</div>
           ${verifyBadge}
         </div>
+        <div class="confidence-row" aria-label="Data confidence">${confidence}</div>
         <div class="pcard__editwrap" hidden>${editForm}</div>
         <div class="pcard__statusedit" hidden>${statusEditForm}</div>
         <div class="pcard__primary-cta">${shortlistBtn}</div>
@@ -999,6 +1053,7 @@ function renderProviders(){
   if (currentArea !== "all"){
     list = list.filter(p => (p.area || "Lucan") === currentArea);
   }
+  list = list.filter(providerMatchesPlanAge);
   if (q){
     list = list.filter(p =>
       [p.name, p.type, p.address, p.chain, p.notes].join(" ").toLowerCase().includes(q)
@@ -1011,6 +1066,11 @@ function renderProviders(){
   const openOrder = { "open": 1, "waitlist": 2, "unknown": 3, "full": 4 };
   const sortFns = {
     "distance":   (a,b) => {
+      if (providerPriority === "direct"){
+        const aContact = hasDirectContact(a) ? 0 : 1;
+        const bContact = hasDirectContact(b) ? 0 : 1;
+        if (aContact !== bContact) return aContact - bContact;
+      }
       // Show entries with precise (address) coords first, then town-centroid
       // approx entries, each group sorted by distance.
       const aApprox = a.coord_source === "town" ? 1 : 0;
@@ -1068,6 +1128,46 @@ function renderProviders(){
   }
 }
 
+function applyStartingPlan(e){
+  if (e) e.preventDefault();
+  const area = $("#plan-area") ? $("#plan-area").value : "Lucan";
+  const type = $("#plan-type") ? $("#plan-type").value : "all";
+  const transport = $("#plan-transport") ? $("#plan-transport").value : "area";
+  const ecce = $("#plan-ecce") ? $("#plan-ecce").checked : false;
+  const age = $("#plan-age") ? $("#plan-age").value : "2";
+
+  currentArea = area || "all";
+  providerPriority = transport;
+  planAgeFilter = age;
+  const mapType = document.getElementById("f-type");
+  if (mapType) mapType.value = type;
+  const mapEcce = document.getElementById("f-ecce");
+  if (mapEcce) mapEcce.checked = ecce || age === "ecce";
+  const mapMont = document.getElementById("f-mont");
+  if (mapMont) mapMont.checked = type === "montessori";
+
+  const search = document.getElementById("p-search");
+  if (search) search.value = "";
+  const sort = document.getElementById("p-sort");
+  if (sort){
+    sort.value = transport === "cost" ? "price" : "distance";
+  }
+
+  resetPagination();
+  renderAreaPills();
+  applyMapFilters();
+  renderProviders();
+
+  const areaLabel = area === "all" ? "all areas" : area === "Kildare" ? "nearby Kildare" : area;
+  const typeLabel = type === "all" ? "providers" : document.querySelector(`#plan-type option[value="${type}"]`)?.textContent.toLowerCase() || "providers";
+  const result = document.getElementById("plan-result");
+  if (result){
+    result.textContent = `Starting list built for ${typeLabel} in ${areaLabel}. Add promising providers to your to-do list, then track calls, emails and follow-ups.`;
+  }
+  const providers = document.getElementById("providers");
+  if (providers) providers.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 // Reset pagination whenever a filter or sort changes so the user always
 // sees the first page of the new query.
 function resetPagination(){
@@ -1118,6 +1218,7 @@ function shortlistRowHTML(entry, p){
     : "";
   const followupValue = entry.next_followup || "";
   const followupOverdue = followupValue && followupValue < todayISO();
+  const nextAction = nextActionFor(entry, p);
 
   const emailKind = entry.status === "not_contacted" ? "initial" : "followup";
   const emailLabel = emailKind === "initial" ? "📧 Send enquiry" : "📧 Send follow-up";
@@ -1132,6 +1233,7 @@ function shortlistRowHTML(entry, p){
     <div class="srow" data-id="${p.id}">
       <div class="srow__main">
         <div class="srow__name">${p.name}</div>
+        <div class="next-action next-action--${nextAction.cls}">${nextAction.label}</div>
         <div class="srow__meta">${opening} · ${providerLocationLabel(p)} · ${providerAddressShort(p)}</div>
       </div>
       <div class="srow__status">
@@ -1678,9 +1780,14 @@ function init(){
 
   // Providers compare table
   renderProviders();
+  const planForm = document.getElementById("plan-form");
+  if (planForm) planForm.addEventListener("submit", applyStartingPlan);
   const renderProvidersFromTop = () => { resetPagination(); renderProviders(); };
   $("#p-search").addEventListener("input", renderProvidersFromTop);
-  $("#p-sort").addEventListener("change", renderProvidersFromTop);
+  $("#p-sort").addEventListener("change", () => {
+    providerPriority = "area";
+    renderProvidersFromTop();
+  });
   $("#p-open") && $("#p-open").addEventListener("change", renderProvidersFromTop);
   $("#p-walk") && $("#p-walk").addEventListener("change", renderProvidersFromTop);
 

@@ -59,6 +59,62 @@
       </div>
     </section>
 
+    <!-- ============ STARTING PLAN ============ -->
+    <section id="start-plan" class="section section--compact">
+      <div class="container">
+        <div class="plan-card" role="region" aria-labelledby="plan-title">
+          <div class="plan-card__copy">
+            <span class="section__eyebrow">Start here</span>
+            <h2 id="plan-title" class="plan-card__title">Get a practical starting list.</h2>
+            <p>Choose the basics and this will filter the directory into a smaller action list. It does not know live vacancies, so use it to decide who to contact first.</p>
+          </div>
+          <form id="plan-form" class="plan-form">
+            <label>
+              <span>Area</span>
+              <select id="plan-area">
+                <option value="Lucan">Lucan</option>
+                <option value="Clondalkin">Clondalkin</option>
+                <option value="Kildare">Nearby Kildare</option>
+                <option value="all">Show all areas</option>
+              </select>
+            </label>
+            <label>
+              <span>Child age</span>
+              <select id="plan-age">
+                <option value="2">2 years old</option>
+                <option value="baby">Under 2</option>
+                <option value="ecce">ECCE age</option>
+                <option value="school">School age</option>
+              </select>
+            </label>
+            <label>
+              <span>Care type</span>
+              <select id="plan-type">
+                <option value="all">Any suitable care</option>
+                <option value="creche">Full day crèche</option>
+                <option value="montessori">Montessori / sessional</option>
+                <option value="childminder">Childminder</option>
+              </select>
+            </label>
+            <label>
+              <span>Transport</span>
+              <select id="plan-transport">
+                <option value="area">Same area first</option>
+                <option value="direct">Direct contact first</option>
+                <option value="cost">Lower estimate first</option>
+              </select>
+            </label>
+            <label class="plan-form__check">
+              <input type="checkbox" id="plan-ecce" />
+              <span>ECCE likely</span>
+            </label>
+            <button type="submit" class="btn btn--primary">Build my starting list</button>
+          </form>
+          <p id="plan-result" class="plan-card__result" aria-live="polite">Tip: start with one area, then add providers to your to-do list as you contact them.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ MAP (main) ============ -->
     <section id="step3" class="section section--alt step">
       <div class="container">
