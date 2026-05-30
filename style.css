@@ -179,13 +179,19 @@ select::-ms-expand{ display: none; }
   gap: 24px; padding: 14px 0;
 }
 .brand{
-  display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 10px;
   color: var(--text);
   font-weight: 700; letter-spacing: -0.02em;
   text-decoration: none; font-size: 1.05rem;
 }
 .brand:hover { text-decoration: none; color: var(--accent); }
 .brand__mark{ width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; background: var(--accent); display: block; }
+.brand__logo{
+  width: 36px;
+  height: 42px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
 .brand__text{ color: var(--text); font-size: 1.05rem; font-weight: 700; }
 .brand__text--muted{ color: var(--text-muted); font-weight: 400; }
 
@@ -1127,6 +1133,11 @@ input[type="range"]::-moz-range-thumb{
   .footer__inner{ grid-template-columns: 1fr; }
 }
 .footer .brand{ color: var(--sage-300); margin-bottom: 12px; }
+.footer .brand__logo{
+  background: #FFFFFF;
+  border-radius: 8px;
+  padding: 4px;
+}
 .footer .brand__text{ color: white; }
 .footer .brand__text--muted{ color: #C8CBD2; }
 
@@ -2788,7 +2799,7 @@ input[type="range"]::-moz-range-thumb{
   }
   /* Add a print-only header at the top of the page */
   body::before {
-    content: "Childcare Navigator (Lucan, Clondalkin & Kildare) — My shortlist (printed " attr(data-print-date) ")";
+    content: "Childcare Navigator (Lucan, Clondalkin & Kildare) | My shortlist (printed " attr(data-print-date) ")";
     display: block;
     font-size: 16px;
     font-weight: 700;

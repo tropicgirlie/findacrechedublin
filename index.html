@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Childcare Navigator — Lucan, Clondalkin &amp; Kildare</title>
+  <title>Childcare Navigator | Lucan, Clondalkin &amp; Kildare</title>
   <meta name="description" content="Find, track and contact childcare providers in Lucan, Clondalkin and the Kildare towns near Lucan (Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounds). Tusla register, distance from your home, live subsidy info, contact tracker." />
+  <link rel="icon" href="assets/childcare-navigator-logo.svg" type="image/svg+xml" />
+  <meta property="og:title" content="Childcare Navigator" />
+  <meta property="og:description" content="Free childcare search and enquiry tracker for Lucan, Clondalkin and nearby Kildare." />
 
   <!-- Inter via Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -24,7 +27,7 @@
   <header class="nav" aria-label="Site navigation">
     <div class="nav__inner container">
       <a href="#top" class="brand" aria-label="Childcare Navigator: home">
-        <span class="brand__mark" aria-hidden="true"></span>
+        <img class="brand__logo" src="assets/childcare-navigator-logo.svg" alt="" aria-hidden="true" />
         <span class="brand__text">Childcare<span class="brand__text--muted"> Navigator</span></span>
       </a>
       <nav class="nav__links" aria-label="Section links">
@@ -193,8 +196,8 @@
             <span class="section__eyebrow">Why this exists</span>
             <h2 class="why-hero__title">Built by a parent,<br/>for every parent.</h2>
             <p class="why-hero__lead">When my daughter was born I had to find childcare quickly, navigate four different subsidy schemes, and still work out whether going back to work even made financial sense. There was no single place that answered all of that.</p>
-            <p class="why-hero__body">I paid more than half my salary in childcare. Finding a place I could actually reach felt like a second job. So I built the tool I wished had existed: one page covering Lucan, Clondalkin and the Kildare towns near Lucan &mdash; Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounds &mdash; with real subsidy maths and no nonsense.</p>
-            <p class="why-hero__body">It's free, it has no ads, and it always will be. If you're a parent in another part of Ireland, the source code is open &mdash; fork it for your area.</p>
+            <p class="why-hero__body">I paid more than half my salary in childcare. Finding a place I could actually reach felt like a second job. So I built the tool I wished had existed: one page covering Lucan, Clondalkin and the Kildare towns near Lucan, including Maynooth, Celbridge, Leixlip, Kilcock, Naas and surrounds, with real subsidy maths and no nonsense.</p>
+            <p class="why-hero__body">It's free, it has no ads, and it always will be. If you're a parent in another part of Ireland, the source code is open so you can fork it for your area.</p>
             <div class="why-pills">
               <span class="why-pill"><i data-lucide="heart" class="why-pill__icon"></i>Mother-led</span>
               <span class="why-pill"><i data-lucide="users" class="why-pill__icon"></i>Community-first</span>
@@ -404,8 +407,26 @@
         <header class="section__head">
           <span class="section__eyebrow">Privacy</span>
           <h2 class="section__title">Privacy summary</h2>
-          <p class="section__lede">No cookies. No analytics. No tracking. Your to-do list is stored in your browser.</p>
+          <p class="section__lede">No cookie banner is needed for the current site because it does not use tracking cookies, analytics cookies, ads, accounts, or marketing pixels.</p>
         </header>
+        <div class="privacy__grid">
+          <article class="privacy__card privacy__card--ok">
+            <h3>No tracking cookies</h3>
+            <p>The site does not set non-essential cookies and does not run analytics. That means there is no cookie pop-up to accept.</p>
+          </article>
+          <article class="privacy__card">
+            <h3>Saved in this browser</h3>
+            <p>Your shortlist, notes, edited fees, status labels, and home-location preference are saved only in this browser using local storage. Clearing browser data can remove them.</p>
+          </article>
+          <article class="privacy__card">
+            <h3>Only sent when you choose</h3>
+            <p>If you use the contact form, your name, email, and message are sent to the site owner so they can reply or update the directory. If you use browser location, your coordinates are sent once to OpenStreetMap to find the nearest place name.</p>
+          </article>
+          <article class="privacy__card">
+            <h3>Keep your own backup</h3>
+            <p>Use Print or save as PDF, or download the spreadsheet, if you want to keep a permanent copy of your childcare search.</p>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -420,7 +441,7 @@
       <div class="container footer__inner">
         <div class="footer__col">
           <div class="brand">
-            <span class="brand__mark" aria-hidden="true"></span>
+            <img class="brand__logo" src="assets/childcare-navigator-logo.svg" alt="" aria-hidden="true" />
             <span class="brand__text">Childcare<span class="brand__text--muted"> Navigator</span></span>
           </div>
           <p>Built for parents in Lucan, Clondalkin and the Kildare towns near Lucan. Free for the community.</p>

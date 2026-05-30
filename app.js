@@ -246,8 +246,8 @@ function addUserProvider(input){
     phone: String(input.phone || "").trim(),
     email: String(input.email || "").trim(),
     website: String(input.website || "").trim(),
-    age_range: String(input.age_range || "").trim() || "—",
-    hours: String(input.hours || "").trim() || "—",
+    age_range: String(input.age_range || "").trim() || "Not listed",
+    hours: String(input.hours || "").trim() || "Not listed",
     notes: String(input.notes || "").trim() || `Added by you on ${todayISO()}.`,
     // Sensible defaults so the provider renders cleanly
     monthly_fee: parseInt(input.monthly_fee, 10) || 0,
