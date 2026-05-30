@@ -17,6 +17,7 @@ module.exports = async function handler(req, res) {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const name = String(body.name || "").trim();
     const email = String(body.email || "").trim();
+    const subject = String(body.subject || "Contact").trim();
     const message = String(body.message || "").trim();
     const honeypot = String(body.website_url || "").trim();
 
@@ -69,6 +70,7 @@ module.exports = async function handler(req, res) {
       ${spamSignals.length ? `<p><strong>Admin signal:</strong> ${escapeHtml(spamSignals.join(" · "))}</p>` : ""}
       <p><strong>Name:</strong> ${escapeHtml(name)}</p>
       <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+      <p><strong>Subject:</strong> ${escapeHtml(subject)}</p>
       <p><strong>Message:</strong></p>
       <p>${escapeHtml(message).replace(/\n/g, "<br/>")}</p>
     `;
@@ -83,7 +85,7 @@ module.exports = async function handler(req, res) {
         from,
         to: [to],
         reply_to: email,
-        subject: `${spam.score >= 4 ? "[Review] " : ""}Navigator contact from ${name}`,
+        subject: `${spam.score >= 4 ? "[Review] " : ""}Navigator contact: ${subject || "Contact"} from ${name}`,
         html
       })
     });

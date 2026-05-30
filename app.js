@@ -92,7 +92,7 @@ function riskBadgeClass(risk){
   return `badge badge--wait-${riskClass(risk)}`;
 }
 
-// ---------- Distance from HOME (Haversine, walking minutes) ----------
+// ---------- Distance helpers ----------
 function haversineKm(a, b){
   const R = 6371;
   const toRad = (d) => d * Math.PI / 180;
@@ -110,6 +110,16 @@ function walkingMinutes(p){
 }
 function walkingKm(p){
   return haversineKm(effectiveHome(), { lat: p.lat, lng: p.lng });
+}
+function providerLocationLabel(p){
+  const area = p.area || p.town || "Area not listed";
+  const source = p.coord_source === "town"
+    ? "town-level pin"
+    : "address-level pin";
+  return `${area} · ${source}`;
+}
+function providerAddressShort(p){
+  return String(p.address || "").split(",")[0] || p.town || p.area || "Address not listed";
 }
 
 // ---------- ECCE eligibility window ----------
@@ -497,7 +507,7 @@ function ensureEntry(tracker, providerId){
       status: "not_contacted",
       contacted_dates: [],
       last_reply: null,
-      next_followup: todayISO(),
+      next_followup: null,
       notes: "",
       stop_outreach: false
     };
@@ -708,7 +718,7 @@ function popupHTML(p){
       <div class="pop__title">${p.name}</div>
       <div class="pop__type">${p.type}</div>
       <div class="pop__row"><span>Status</span>${openingBadgeHTML(es.status)}</div>
-      <div class="pop__row"><span>From ${home.eircode}</span><strong>${walkingKm(p).toFixed(1)} km${p.coord_source === "town" ? " (approx)" : ""}</strong></div>
+      <div class="pop__row"><span>Area</span><strong>${providerLocationLabel(p)}</strong></div>
       <div class="pop__row"><span>Fee</span>${feeLine}</div>
       <div class="pop__row"><span>Hours</span><strong>${p.hours}</strong></div>
       <div class="pop__row"><span>Ages</span><strong>${p.age_range}</strong></div>
@@ -907,13 +917,8 @@ function providerCardHTML(p){
     ? `<a href="${p.website}" target="_blank" rel="noopener" class="pcard__link">${isDirectoryListingUrl(p.website) ? "Open directory listing →" : "Visit website →"}</a>`
     : `<span class="pcard__link pcard__link--muted">Contact via Tusla register</span>`;
 
-  const km = walkingKm(p);
-  const walkCls = km <= 1.6 ? "walk-pill walk-pill--near" : "walk-pill";
   const isApprox = p.coord_source === "town";
-  const approxLabel = isApprox ? " · approx" : "";
-  const approxTitle = isApprox ? `Distance is approximate. Pin sits at the ${p.town} town centre because OpenStreetMap doesn't have this provider's exact street. Click ✎ on the map pin or edit lat/lng to refine.` : "";
-  const distTitle = `Distance is calculated from your current home location setting.${approxTitle ? " " + approxTitle : ""}`;
-  const distHTML = `<span class="${walkCls}${isApprox ? " walk-pill--approx" : ""}" title="${distTitle}">📍 ${km.toFixed(1)} km${approxLabel}</span>`;
+  const distHTML = `<span class="walk-pill${isApprox ? " walk-pill--approx" : ""}" title="${isApprox ? "Pin is town-level, so exact distance is not shown. Verify the address directly with the provider." : "Address-level pin. Verify directly with the provider before travelling."}">📍 ${providerLocationLabel(p)}</span>`;
   const ecceWin = ecceWindowLabel();
   const ecceBadge = p.ecce
     ? `<span class="chip chip--ecce" title="${ecceWin.currentLong}">ECCE · ${ecceWin.current}</span>`
@@ -1104,7 +1109,6 @@ function renderRecommended(){
 // ============================================================
 function shortlistRowHTML(entry, p){
   const opening = openingBadgeHTML(effectiveStatus(p).status);
-  const km = walkingKm(p);
   const isApprox = p.coord_source === "town";
   const statusOpts = TRACKER_STATUSES.map(s =>
     `<option value="${s.key}"${entry.status === s.key ? " selected":""}>${s.label}</option>`
@@ -1113,7 +1117,7 @@ function shortlistRowHTML(entry, p){
     ? entry.contacted_dates[entry.contacted_dates.length - 1]
     : "";
   const followupValue = entry.next_followup || "";
-  const followupOverdue = followupValue && followupValue <= todayISO();
+  const followupOverdue = followupValue && followupValue < todayISO();
 
   const emailKind = entry.status === "not_contacted" ? "initial" : "followup";
   const emailLabel = emailKind === "initial" ? "📧 Send enquiry" : "📧 Send follow-up";
@@ -1128,13 +1132,13 @@ function shortlistRowHTML(entry, p){
     <div class="srow" data-id="${p.id}">
       <div class="srow__main">
         <div class="srow__name">${p.name}</div>
-        <div class="srow__meta">${opening} · ${km.toFixed(1)} km${isApprox ? " (approx)" : ""} · ${p.address.split(",")[0]}</div>
+        <div class="srow__meta">${opening} · ${providerLocationLabel(p)} · ${providerAddressShort(p)}</div>
       </div>
       <div class="srow__status">
         <label>Status
           <select data-action="status-change" data-id="${p.id}">${statusOpts}</select>
         </label>
-        <label class="srow__datelbl">Email/contact sent on
+        <label class="srow__datelbl">Last contact date
           <input type="date" data-action="last-contact-change" data-id="${p.id}" value="${lastContacted}" max="${todayISO()}" />
         </label>
         <label class="srow__datelbl">Next follow-up${followupOverdue ? ` <span class="due-flag">overdue</span>` : ""}
@@ -1169,8 +1173,8 @@ function renderShortlist(){
     .map(id => ({ entry: tracker[id], p: DATA.providers.find(p => p.id === id) }))
     .filter(x => x.p)
     .sort((a, b) => {
-      const aDue = (a.entry.next_followup || "9999") <= today ? 0 : 1;
-      const bDue = (b.entry.next_followup || "9999") <= today ? 0 : 1;
+      const aDue = (a.entry.next_followup || "9999") < today ? 0 : 1;
+      const bDue = (b.entry.next_followup || "9999") < today ? 0 : 1;
       if (aDue !== bDue) return aDue - bDue;
       const aLast = a.entry.contacted_dates.slice(-1)[0] || "0000";
       const bLast = b.entry.contacted_dates.slice(-1)[0] || "0000";
@@ -1322,11 +1326,15 @@ function handleShortlistChange(e){
   if (action === "status-change"){
     const status = target.value;
     const patch = { status };
+    const existing = loadTracker()[id];
+    const anchorDate = existing && existing.contacted_dates && existing.contacted_dates.length
+      ? existing.contacted_dates[existing.contacted_dates.length - 1]
+      : todayISO();
     if (status === "email_sent" || status === "called"){
-      patch.next_followup = addDaysISO(todayISO(), status === "called" ? 14 : 7);
+      patch.next_followup = addDaysISO(anchorDate, status === "called" ? 14 : 7);
     } else if (status === "replied" || status === "on_waitlist"){
       patch.last_reply = todayISO();
-      patch.next_followup = addDaysISO(todayISO(), status === "on_waitlist" ? 28 : 14);
+      patch.next_followup = addDaysISO(anchorDate, status === "on_waitlist" ? 28 : 14);
     } else if (status === "accepted" || status === "declined"){
       patch.stop_outreach = true;
       patch.next_followup = null;
@@ -1349,6 +1357,8 @@ function handleShortlistChange(e){
       } else {
         entry.contacted_dates = [newDate];
       }
+      if (entry.status === "not_contacted") entry.status = "email_sent";
+      if (!entry.next_followup) entry.next_followup = addDaysISO(newDate, 7);
     }
     saveTracker(t);
     renderShortlist();
@@ -1459,7 +1469,9 @@ async function handleContactFormSubmit(e){
   const payload = {
     name: String(fd.get("name") || "").trim(),
     email: String(fd.get("email") || "").trim(),
-    message: String(fd.get("message") || "").trim()
+    subject: String(fd.get("subject") || "").trim(),
+    message: String(fd.get("message") || "").trim(),
+    website_url: String(fd.get("website_url") || "").trim()
   };
 
   if (!payload.name || !payload.email || !payload.message){
@@ -1496,7 +1508,12 @@ async function handleContactFormSubmit(e){
     if (statusEl){
       statusEl.hidden = false;
       statusEl.className = "loc-prompt__error";
-      statusEl.textContent = err.message || "Could not send message right now.";
+      const msg = err.message || "Could not send message right now.";
+      if (msg.includes("Email service not configured")){
+        statusEl.innerHTML = `Contact form is not wired to email yet. For now, please open an issue on <a href="https://github.com/tropicgirlie/findacrechedublin/issues" target="_blank" rel="noopener">GitHub</a>.`;
+      } else {
+        statusEl.textContent = msg;
+      }
     }
   } finally {
     if (submitBtn){
