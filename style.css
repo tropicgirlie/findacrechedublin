@@ -517,6 +517,22 @@ select::-ms-expand{ display: none; }
   font-size: clamp(1rem, 1.5vw, 1.1rem);
   color: var(--ink-2); max-width: 680px;
 }
+.pin-key{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 12px;
+  color: var(--ink-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+.pin-key__item{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
 
 /* ============================================================
    Map section
@@ -2272,17 +2288,16 @@ input[type="range"]::-moz-range-thumb{
 }
 .dot-inline{
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  vertical-align: middle;
-  margin: 0 2px 0 4px;
-  border: 1px solid var(--surface);
-  box-shadow: 0 0 0 1px rgba(0,0,0,.06);
+  flex: 0 0 12px;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(26,29,46,.16);
 }
-.dot-inline--low{ background: var(--success); }
-.dot-inline--med{ background: var(--accent); }
-.dot-inline--high{ background: var(--alert); }
+.dot-inline--low{ background: var(--ok); }
+.dot-inline--med{ background: var(--amber); }
+.dot-inline--high{ background: var(--rust); }
 
 /* First-visit location prompt */
 .loc-prompt{
