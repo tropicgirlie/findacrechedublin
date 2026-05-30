@@ -2743,6 +2743,109 @@ input[type="range"]::-moz-range-thumb{
   border: 1px solid var(--line-soft);
 }
 
+/* Provider card rhythm and action sizing.
+   Keeps the scan rows steady even when chips wrap differently. */
+.pcard{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+.pcard__top{
+  display: grid;
+  grid-template-rows: auto minmax(56px, auto) minmax(64px, auto) auto auto auto;
+  gap: 16px;
+}
+.pcard__statusrow{
+  min-height: 32px;
+  margin: 0;
+  gap: 8px;
+}
+.pcard__name{
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  margin: 0;
+}
+.pcard__minimeta{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+  min-height: 64px;
+  margin: 0;
+}
+.pcard__feerow{
+  display: grid;
+  grid-template-columns: 1fr;
+  align-content: center;
+  gap: 12px;
+  min-height: 96px;
+  margin: 0;
+  padding: 16px;
+}
+.pcard__fee{
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+.pcard__fee .price-edit-btn{
+  margin-left: auto;
+}
+.vfy{
+  min-height: 28px;
+  padding: 0 12px;
+}
+.act{
+  min-height: 44px;
+  padding: 0 16px;
+  justify-content: center;
+  border-radius: 12px;
+  text-align: center;
+}
+.act--small{
+  min-height: 36px;
+  padding: 0 12px;
+}
+.price-edit-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+}
+.pcard__primary-cta{
+  margin: 0;
+}
+.pcard__primary-cta .act{
+  width: 100%;
+  min-height: 48px;
+}
+.pcard__details{
+  margin-top: auto;
+}
+.pcard__details summary{
+  min-height: 40px;
+  padding: 0 16px;
+}
+@media (max-width: 560px){
+  .pcard{
+    padding: 16px;
+  }
+  .pcard__top{
+    grid-template-rows: none;
+    gap: 14px;
+  }
+  .pcard__name,
+  .pcard__minimeta,
+  .pcard__feerow{
+    min-height: 0;
+  }
+}
+
 /* Section--alt now uses --surface; cards inside it pick up --bg
    for visual differentiation. */
 .section--alt .settings-card{
